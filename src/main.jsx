@@ -3,6 +3,8 @@ import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import { ThemeProvider } from "@material-tailwind/react";
+import AuthProvider from "./providers/AuthProvider.jsx";
+import ProviderContainer from "./providers/ProviderContainer.jsx";
 
 
 const customTheme = {
@@ -32,7 +34,9 @@ const customTheme = {
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThemeProvider value={customTheme}>
-      <App />
+      <ProviderContainer>
+        <App />
+      </ProviderContainer>
     </ThemeProvider>
   </StrictMode>
 );
