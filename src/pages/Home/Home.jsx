@@ -1,3 +1,5 @@
+import ThemeToggle from "../../components/ui/ThemeToggle";
+
 const Home = () => {
     return (
         <div>

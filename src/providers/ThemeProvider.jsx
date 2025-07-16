@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
+import { ThemeContext } from '../context/ThemeContext';
 
-const useDarkMode = () => {
-
+const ThemeProvider = ({ children }) => {
     const [isDark, setIsDark] = useState(() => {
         return localStorage.theme === "dark" ||
             (!("theme" in localStorage) &&
@@ -20,7 +20,17 @@ const useDarkMode = () => {
         }
     }, [isDark])
 
-    return [isDark, setIsDark]
+
+    const themeData = {
+        isDark,
+        setIsDark
+    }
+
+    return (
+        <ThemeContext value={themeData}>
+            {children}
+        </ThemeContext>
+    );
 };
 
-export default useDarkMode;
+export default ThemeProvider;

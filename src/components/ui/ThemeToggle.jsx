@@ -1,10 +1,10 @@
-import React from 'react';
 import { Moon, Sun } from "lucide-react";
-import useDarkMode from '../../hooks/useDarkMode';
+import { useThemeContext } from '../../context/ThemeContext';
 
 const ThemeToggle = () => {
+    const { isDark, setIsDark } = useThemeContext()
 
-    const [isDark, setIsDark] = useDarkMode()
+    
     return (
         <div>
             <div
@@ -12,8 +12,8 @@ const ThemeToggle = () => {
                 onClick={() => setIsDark(e => !e)}>
                 {
                     isDark
-                        ? <Sun size={10} />
-                        : <Moon size={10} />
+                        ? <Sun size={20} />
+                        : <Moon size={20} />
                 }
             </div>
         </div>
