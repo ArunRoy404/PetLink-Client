@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router';
+import { NavbarDefault } from '../components/layout/NavbarDefault';
 
 const MainLayout = () => {
     const { pathname } = useLocation();
@@ -10,6 +11,8 @@ const MainLayout = () => {
     return (
         <>
             {/* <Navbar /> */}
+            <NavbarDefault/>
+
             <div className="">
                 <Outlet />
             </div>
