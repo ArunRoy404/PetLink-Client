@@ -11,11 +11,11 @@ const MainLayout = () => {
     return (
         <>
             {/* <Navbar /> */}
-            <NavbarDefault/>
+            <NavbarDefault />
 
-            <div className="">
+            <main className="">
                 <Outlet />
-            </div>
+            </main>
             {/* <Footer /> */}
             {/* <FooterNew /> */}
         </>

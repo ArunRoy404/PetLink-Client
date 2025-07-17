@@ -64,27 +64,27 @@ export default function Profile() {
                     <ArrowDown size={10}/>
                 </Button>
             </MenuHandler>
-            <MenuList className="p-1">
+            <MenuList className="p-1 bg-transparent backdrop-blur-2xl">
                 {profileMenuItems.map(({ label, icon }, key) => {
                     const isLastItem = key === profileMenuItems.length - 1;
                     return (
                         <MenuItem
                             key={label}
                             onClick={closeMenu}
-                            className={`flex items-center gap-2 rounded ${isLastItem
+                            className={`group flex items-center gap-2 rounded ${isLastItem
                                     ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
                                     : ""
                                 }`}
                         >
                             {createElement(icon, {
-                                className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
+                                className: `h-4 w-4 ${isLastItem ? "text-red-500" : "text-black"}`,
                                 strokeWidth: 2,
                             })}
                             <Typography
                                 as="span"
                                 variant="small"
-                                className="font-normal"
-                                color={isLastItem ? "red" : "inherit"}
+                                className="group-hover:text-black font-medium"
+                                color={isLastItem ? "red" : "black"}
                             >
                                 {label}
                             </Typography>

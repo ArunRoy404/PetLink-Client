@@ -5,25 +5,23 @@
 
 
 :root {
-  --color-primary: #4f46e5;
-  --color-secondary: #9333ea;
-  --color-surface: #ffffff;
-  --color-background: #f9fafb;
-  --color-text: black;
-  --color-muted: #6b7280;
-  --color-border: #e5e7eb;
-  --color-yo: gray;
+  --color-primary: #8068DF;
+  --color-secondary: #F3B664;       /* Soft golden orange - playful and warm */
+  --color-surface: #F5F3FF;         /* Light lavender for cards/surfaces */
+  --color-background: #FFFFFF;      /* Classic white background */
+  --color-text: #1F1F1F;            /* Dark gray for better readability */
+  --color-muted: #6B7280;           /* Tailwind's gray-500 for subtitles */
+  --color-border: #E5E7EB;          /* Tailwind's gray-200 for subtle borders */
 }
 
 .dark {
-  --color-primary: red;
-  --color-secondary: #a855f7;
-  --color-surface: #1e293b;
-  --color-background: #0f172a;
-  --color-text: white;
-  --color-muted: #9ca3af;
-  --color-border: #334155;
-  --color-yo: cyan;
+  --color-primary: #8068DF;
+  --color-secondary: #F3B664;
+  --color-surface: #1F1B2E;         /* Deep purple surface for cards */
+  --color-background: #121212;      /* Standard dark background */
+  --color-text: #F9FAFB;            /* Near-white for main text */
+  --color-muted: #9CA3AF;           /* Tailwind's gray-400 for subtitles */
+  --color-border: #2A2A2A;          /* Subtle border in dark */
 }
 
 *{
@@ -32,5 +30,5 @@
 
 
 nav ul .active{
-  color:#4f46e5; 
+  color:var(--color-primary); 
 }
