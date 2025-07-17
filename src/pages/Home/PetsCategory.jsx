@@ -9,15 +9,15 @@ import {
 } from "lucide-react";
 
 const categories = [
-  { name: "Cats", Icon: Cat, path: "/pets/cats" },
-  { name: "Dogs", Icon: Dog, path: "/pets/dogs" },
-  { name: "Rabbits", Icon: Rabbit, path: "/pets/rabbits" },
-  { name: "Fish", Icon: Fish, path: "/pets/fish" },
-  { name: "Birds", Icon: Bird, path: "/pets/birds" },
-  { name: "Others", Icon: PawPrint, path: "/pets/others" },
+  { name: "Cats", icon: < Cat size={32} className="text-primary" />, path: "/pets/cats" },
+  { name: "Dogs", icon: <Dog size={32} className="text-primary" />, path: "/pets/dogs" },
+  { name: "Rabbits", icon: <Rabbit size={32} className="text-primary" />, path: "/pets/rabbits" },
+  { name: "Fish", icon: <Fish size={32} className="text-primary" />, path: "/pets/fish" },
+  { name: "Birds", icon: <Bird size={32} className="text-primary" />, path: "/pets/birds" },
+  { name: "Others", icon: <PawPrint size={32} className="text-primary" />, path: "/pets/others" },
 ];
 
-const PetsCategorySection = () => {
+const PetsCategory = () => {
   return (
     <section className="py-16 bg-white dark:bg-gray-950 text-black dark:text-white">
       <div className="container mx-auto px-5 ">
@@ -26,13 +26,13 @@ const PetsCategorySection = () => {
         </h2>
 
         <div className="grid gap-2 md:gap-5 xl:gap-20 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-          {categories.map(({ name, Icon, path }) => (
+          {categories.map(({ name, icon, path }) => (
             <Link
               to={path}
               key={name}
               className="w-full sm:w-auto px-4 py-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all flex flex-col items-center gap-3 text-center bg-white dark:bg-gray-900 hover:bg-primary/10"
             >
-              <Icon size={32} className="text-primary" />
+              {icon}
               <span className="text-sm font-medium">{name}</span>
             </Link>
           ))}
@@ -42,4 +42,4 @@ const PetsCategorySection = () => {
   );
 };
 
-export default PetsCategorySection;
+export default PetsCategory;

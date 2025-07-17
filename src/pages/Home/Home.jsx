@@ -1,12 +1,12 @@
 import Banner from "./Banner";
 import ThemeToggle from "../../components/ui/ThemeToggle";
-import PetsCategorySection from "./PetsCategorySection";
+import PetsCategory from "./PetsCategory";
 
 const Home = () => {
     return (
         <>
             <Banner />
-            <PetsCategorySection/>
+            <PetsCategory/>
         </>
     );
 };
