@@ -47,7 +47,7 @@ const stats = [
 const Impacts = () => {
   return (
     <section>
-      <div className="bg-background dark:bg-gray-800 rounded-xl p-8 md:p-12 shadow-xl">
+      <div className="bg-background dark:bg-gray-800 p-8 md:p-12">
         <div className="container mx-auto text-center">
           <Users className="w-12 h-12 mx-auto mb-6 text-primary" />
           <Typography
