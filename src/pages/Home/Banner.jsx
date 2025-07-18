@@ -17,7 +17,7 @@ const Banner = () => {
           </p>
 
           {/* Stats */}
-          <div className="flex gap-4 mt-6 mx-auto md:mx-0 max-w-max">
+          <div className="flex gap-4 mt-6 mx-auto lg:mx-0 max-w-max">
             <div className="text-center">
               <Typography
                 variant="h3"
