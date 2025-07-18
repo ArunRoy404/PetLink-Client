@@ -11,7 +11,7 @@ const Logo = () => {
         <Link to='/'>
             <div className='flex items-center gap-4 cursor-pointer'>
                 <img className='w-8' src={isDark ? logoLight : logoDark} alt="" />
-                <h1 className='text-2xl font-bold'>PetLink</h1>
+                <h1 className='text-2xl font-bold'>Pet<span className='text-primary'>Link</span></h1>
             </div>
         </Link>
     );
