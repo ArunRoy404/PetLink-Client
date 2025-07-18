@@ -17,7 +17,7 @@ const CallToAction = () => {
           <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 max-w-xl">
             Behind every rescued pet is a story of hope. By choosing to adopt, you're not just saving a life—you’re changing yours too. Give love, gain a friend for life.
           </p>
-          <Button className="bg-primary flex items-center" size="lg">
+          <Button className="mx-auto md:mx-0 bg-primary flex items-center" size="lg">
             <Search />
             <Link to="/pets">Find Your New Best Friend</Link>
           </Button>
