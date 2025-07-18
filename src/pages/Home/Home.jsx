@@ -2,6 +2,7 @@ import Banner from "./Banner";
 import ThemeToggle from "../../components/ui/ThemeToggle";
 import PetsCategory from "./PetsCategory";
 import CallToAction from "./CallToAction";
+import AboutUs from "./AboutUs";
 
 const Home = () => {
     return (
@@ -9,6 +10,7 @@ const Home = () => {
             <Banner />
             <PetsCategory/>
             <CallToAction/>
+            <AboutUs/>
         </>
     );
 };
