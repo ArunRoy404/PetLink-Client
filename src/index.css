@@ -3,32 +3,63 @@
 @tailwind utilities;
 
 
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
+
+
 
 :root {
   --color-primary: #8068DF;
-  --color-secondary: #F3B664;       /* Soft golden orange - playful and warm */
-  --color-surface: #F5F3FF;         /* Light lavender for cards/surfaces */
-  --color-background: #F5F3FF;      /* Classic white background */
-  --color-text: #1F1F1F;            /* Dark gray for better readability */
-  --color-muted: #6B7280;           /* Tailwind's gray-500 for subtitles */
-  --color-border: #E5E7EB;          /* Tailwind's gray-200 for subtle borders */
+  --color-secondary: #F3B664;
+  /* Soft golden orange - playful and warm */
+  --color-surface: #F5F3FF;
+  /* Light lavender for cards/surfaces */
+  --color-background: #F5F3FF;
+  /* Classic white background */
+  --color-text: #1F1F1F;
+  /* Dark gray for better readability */
+  --color-muted: #6B7280;
+  /* Tailwind's gray-500 for subtitles */
+  --color-border: #E5E7EB;
+  /* Tailwind's gray-200 for subtle borders */
 }
 
 .dark {
   --color-primary: #8068DF;
   --color-secondary: #F3B664;
-  --color-surface: #1F1B2E;         /* Deep purple surface for cards */
-  --color-background: #CCC2F2;      /* Standard dark background */
-  --color-text: #F9FAFB;            /* Near-white for main text */
-  --color-muted: #9CA3AF;           /* Tailwind's gray-400 for subtitles */
-  --color-border: #2A2A2A;          /* Subtle border in dark */
+  --color-surface: #1F1B2E;
+  /* Deep purple surface for cards */
+  --color-background: #CCC2F2;
+  /* Standard dark background */
+  --color-text: #F9FAFB;
+  /* Near-white for main text */
+  --color-muted: #9CA3AF;
+  /* Tailwind's gray-400 for subtitles */
+  --color-border: #2A2A2A;
+  /* Subtle border in dark */
 }
 
-*{
+* {
   transition: background-color 0.5s ease, border-color 0.5s ease;
 }
 
 
-nav ul .active{
-  color:var(--color-primary); 
+nav ul .active {
+  color: var(--color-primary);
+}
+
+.swiper-pagination-bullet-active {
+  background-color: var(--color-primary) !important; 
+  width: 15px !important;
+  border-radius: 5px !important;
+  transition: all !important;
+  transition-duration: .300s  !important;
+}
+
+.custom-swiper-button-next::after {
+  display: none !important; /* hide default icon */
+}
+.custom-swiper-button-prev::after {
+  display: none !important;
 }
