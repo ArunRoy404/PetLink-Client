@@ -51,7 +51,7 @@ export default function AboutUs() {
               <Typography variant="h5" color="blue-gray" className="mb-2" placeholder="">
                 {item.title}
               </Typography>
-              <Typography className="text-gray-600 dark:text-gray-300" placeholder="">
+              <Typography className="text-gray-600 dark:text-gray-300 text-sm md:text-md" placeholder="">
                 {item.desc}
               </Typography>
             </Card>

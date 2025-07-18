@@ -5,7 +5,7 @@ import { Link } from "react-router";
 
 const CallToAction = () => {
   return (
-    <section className="bg-gradient-to-b from-[#F5F3FF] to-white dark:from-[#1F1A33] dark:to-[#121212] py-24 text-black dark:text-white">
+    <section className="bg-gradient-to-b from-white to-[#F5F3FF] dark:from-[#1F1A33] dark:to-[#121212] py-24 text-black dark:text-white">
       <div className="container mx-auto px-4 flex flex-col-reverse lg:flex-row items-center gap-12">
         {/* Left Text */}
         <div className="flex-1 text-center lg:text-left">
