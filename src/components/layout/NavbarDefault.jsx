@@ -68,7 +68,7 @@ export function NavbarDefault() {
 
 
   return (
-    <Navbar className="fixed top-4 left-[50%] -translate-x-[50%] bg-transparent mx-auto shadow-none px-4 py-2 lg:px-8 lg:py-4">
+    <Navbar className="z-[100] w-[calc(100%-30px)] fixed top-4 left-[50%] -translate-x-[50%] bg-transparent mx-auto shadow-none px-4 py-2 lg:px-8 lg:py-4">
       <div className="container mx-auto flex items-center justify-between text-text">
 
         <div className="flex items-center gap-10">
