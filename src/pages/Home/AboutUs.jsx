@@ -1,5 +1,6 @@
 import { Typography, Button, Card } from "@material-tailwind/react";
 import { Users, HeartHandshake, ShieldCheck, PawPrint } from "lucide-react";
+import CountUp from 'react-countup';
 
 export default function AboutUs() {
 
@@ -59,21 +60,22 @@ export default function AboutUs() {
               Our Impact in Numbers
             </Typography>
             <Typography variant="paragraph" className="mb-8 text-gray-600 dark:text-gray-300" placeholder="">
-              Since launching in 2022, PetLink has facilitated:
+              Since launching in 2025, PetLink has facilitated:
             </Typography>
             
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
               {[
-                { value: "2,500+", label: "Dogs Rehomed" },
-                { value: "1,800+", label: "Cats Adopted" },
-                { value: "300+", label: "Special Needs Pets Placed" },
-                { value: "500+", label: "Senior Pets Adopted" },
-                { value: "92%", label: "Adopter Satisfaction" },
-                { value: "100+", label: "Volunteers" }
+                { value: 2500, label: "Dogs Rehomed" },
+                { value: 1800, label: "Cats Adopted" },
+                { value: 300, label: "Special Needs Pets Placed" },
+                { value: 500, label: "Senior Pets Adopted" },
+                { value: 92 , label: "Adopter Satisfaction", percentage: true },
+                { value: 100 , label: "Volunteers" }
               ].map((stat, index) => (
-                <div key={index} className="bg-white dark:bg-gray-700 p-4 rounded-lg shadow">
+                <div key={index} className="bg-white dark:bg-gray-700 p-4 rounded-lg border-2 border-gray-200">
                   <Typography variant="h4" className="mb-1 text-primary" placeholder="">
-                    {stat.value}
+                    <CountUp end={stat.value} enableScrollSpy={true}/>
+                    {stat.percentage ?'%' :'+'}
                   </Typography>
                   <Typography variant="small" className="text-gray-600 dark:text-gray-300" placeholder="">
                     {stat.label}
