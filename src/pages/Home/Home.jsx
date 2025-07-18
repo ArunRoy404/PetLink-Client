@@ -3,6 +3,7 @@ import ThemeToggle from "../../components/ui/ThemeToggle";
 import PetsCategory from "./PetsCategory";
 import CallToAction from "./CallToAction";
 import AboutUs from "./AboutUs";
+import Impacts from "./Impacts";
 
 const Home = () => {
     return (
@@ -11,6 +12,7 @@ const Home = () => {
             <PetsCategory/>
             <CallToAction/>
             <AboutUs/>
+            <Impacts/>
         </>
     );
 };
