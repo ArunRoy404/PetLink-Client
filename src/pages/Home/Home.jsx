@@ -4,6 +4,7 @@ import PetsCategory from "./PetsCategory";
 import CallToAction from "./CallToAction";
 import AboutUs from "./AboutUs";
 import Impacts from "./Impacts";
+import FAQ from "./FAQ";
 
 const Home = () => {
     return (
@@ -13,6 +14,7 @@ const Home = () => {
             <CallToAction/>
             <AboutUs/>
             <Impacts/>
+            <FAQ/>
         </>
     );
 };

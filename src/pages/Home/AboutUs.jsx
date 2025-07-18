@@ -17,9 +17,9 @@ export default function AboutUs() {
               className="text-3xl md:text-4xl font-bold dark:text-white"
               placeholder=""
             >
-              <h2 className="text-3xl font-bold text-center mb-4">
+              <span className="text-3xl font-bold text-center mb-4">
                 About us
-              </h2>
+              </span>
             </Typography>
           </div>
 
