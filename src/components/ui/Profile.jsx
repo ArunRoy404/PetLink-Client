@@ -17,9 +17,11 @@ import {
   Avatar,
 } from "@material-tailwind/react";
 import { useAuthContext } from "../../context/AuthContext";
+import { notifyError, notifySuccess } from "../../ReactHotToast/ReactHotToast";
 
 
 export default function Profile() {
+  const {userSignOut} = useAuthContext()
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { firebaseUser } = useAuthContext()
 
@@ -72,7 +74,14 @@ export default function Profile() {
           return (
             <MenuItem
               key={label}
-              onClick={closeMenu}
+              onClick={() => {
+                if(label==='Sign Out'){
+                  userSignOut()
+                  .then(()=>notifySuccess('Sign Out Successful'))
+                  .catch(()=>notifyError("Sign Out Failed!"))
+                }
+                closeMenu()
+              }}
               className={`group flex items-center gap-2 rounded ${isLastItem
                 ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
                 : ""

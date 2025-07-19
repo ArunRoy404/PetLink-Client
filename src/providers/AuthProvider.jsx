@@ -45,7 +45,7 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth, githubProvider)
     }
 
-    const logOut = () => {
+    const userSignOut = () => {
         localStorage.removeItem("accessToken");
         setIsUserLoading(true)
         return signOut(auth)
@@ -81,7 +81,7 @@ const AuthProvider = ({ children }) => {
         updateUserProfile,
         // reloadUser,
         signIn,
-        logOut,
+        userSignOut,
         resetPass
     }
 

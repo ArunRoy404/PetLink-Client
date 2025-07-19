@@ -17,7 +17,6 @@ import { useAuthContext } from "../../context/AuthContext";
 
 export function NavbarDefault() {
   const [openNav, setOpenNav] = useState(false);
-
   const { firebaseUser } = useAuthContext()
 
   useEffect(() => {
