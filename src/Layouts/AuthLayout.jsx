@@ -3,7 +3,7 @@ import { Outlet, useLocation } from 'react-router';
 import { NavbarDefault } from '../components/layout/NavbarDefault';
 import Footer from '../components/layout/Footer';
 
-const MainLayout = () => {
+const AuthLayout = () => {
     const { pathname } = useLocation();
 
     useEffect(() => {
@@ -14,14 +14,11 @@ const MainLayout = () => {
             {/* <Navbar /> */}
             <NavbarDefault />
 
-            <main className="min-h-[calc(100vh-465px)]">
+            <main className="min-h-[100vh]">
                 <Outlet />
             </main>
 
-            
-            {/* <Footer /> */}
-            <Footer />
         </>
     );
 }
-export default MainLayout;
+export default AuthLayout;

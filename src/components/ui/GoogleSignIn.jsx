@@ -6,16 +6,22 @@ import { bouncy } from 'ldrs'
 bouncy.register()
 
 
-const GoogleSignIn = () => {
+const GoogleSignIn = ({ setError }) => {
     const [loading, setLoading] = useState(false)
     const { googleSignIn } = useAuthContext()
 
 
     const handleGoogleSignIn = () => {
         setLoading(true)
+        if (setError){
+            setError('')
+        }
         googleSignIn()
             .then(() => notifySuccess("Sign In Successful"))
-            .catch(() => {
+            .catch((err) => {
+                if (setError) {
+                    setError(err)
+                }
                 notifyError("Google Sign In Failed")
             })
             .finally(() => setLoading(false))
@@ -24,6 +30,7 @@ const GoogleSignIn = () => {
         <>
             {/* Google Sign In */}
             <Button
+                disabled={loading}
                 onClick={handleGoogleSignIn}
                 fullWidth
                 variant="outlined"

@@ -7,15 +7,21 @@ import { notifyError, notifySuccess } from '../../ReactHotToast/ReactHotToast';
 bouncy.register()
 
 
-const GithubSignIn = () => {
+const GithubSignIn = ({ setError }) => {
     const [loading, setLoading] = useState(false)
     const { githubSignIn } = useAuthContext()
 
     const handleGithubSignIn = () => {
         setLoading(true)
+        if (setError){
+            setError('')
+        }
         githubSignIn()
             .then(() => notifySuccess("Sign In Successful"))
-            .catch(() => {
+            .catch((err) => {
+                if (setError) {
+                    setError(err)
+                }
                 notifyError("Github Sign In Failed")
             })
             .finally(() => setLoading(false))
@@ -24,6 +30,7 @@ const GithubSignIn = () => {
     return (
         <>
             <Button
+                disabled={loading}
                 onClick={handleGithubSignIn}
                 fullWidth
                 variant="outlined"
