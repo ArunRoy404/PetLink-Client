@@ -51,7 +51,7 @@ export default function SignInPage() {
             <Card className="mt-24 mb-12 mx-2 bg-white/20 shadow-none border-2 w-full max-w-md dark:border-gray-700">
 
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <CardBody className="flex flex-col gap-4">
+                    <CardBody className="pb-0 flex flex-col gap-4">
                         <div className="flex items-center gap-2">
                             <CircleUserRound className="w-6 h-6 text-primary" />
                             <Typography variant="h4" color="blue-gray">
@@ -122,14 +122,13 @@ export default function SignInPage() {
                             )}
                         </div>
 
-                        <p className="text-sm font-bold text-red-400">{error.message}</p>
-
                         <div className="-ml-2 -mt-2">
                             <Checkbox label="Remember Me" />
                         </div>
                     </CardBody>
 
                     <CardFooter className="pt-0 flex flex-col gap-4">
+                        <p className="text-sm font-bold text-red-400">{error.message}</p>
                         {/* Sign In Button */}
                         <Button type="submit" fullWidth disabled={loading} className="text-white " >
                             {
@@ -147,10 +146,10 @@ export default function SignInPage() {
                         </div>
 
                         {/* Google Sign In */}
-                        <GoogleSignIn />
+                        <GoogleSignIn setError={setError} />
 
                         {/* GitHub Sign In */}
-                        <GithubSignIn />
+                        <GithubSignIn setError={setError} />
 
                         {/* Signup Redirect */}
                         <Typography
