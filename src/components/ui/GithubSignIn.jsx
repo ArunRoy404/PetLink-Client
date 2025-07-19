@@ -7,7 +7,7 @@ import { notifyError, notifySuccess } from '../../ReactHotToast/ReactHotToast';
 bouncy.register()
 
 
-const GithubSignIn = ({ setError }) => {
+const GithubSignIn = () => {
     const [loading, setLoading] = useState(false)
     const { githubSignIn } = useAuthContext()
 
@@ -15,9 +15,8 @@ const GithubSignIn = ({ setError }) => {
         setLoading(true)
         githubSignIn()
             .then(() => notifySuccess("Sign In Successful"))
-            .catch(err => {
-                setError(err.message)
-                notifyError("Google Sign In Failed")
+            .catch(() => {
+                notifyError("Github Sign In Failed")
             })
             .finally(() => setLoading(false))
     }

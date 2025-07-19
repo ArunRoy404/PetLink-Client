@@ -6,7 +6,7 @@ import { bouncy } from 'ldrs'
 bouncy.register()
 
 
-const GoogleSignIn = ({ setError }) => {
+const GoogleSignIn = () => {
     const [loading, setLoading] = useState(false)
     const { googleSignIn } = useAuthContext()
 
@@ -15,8 +15,7 @@ const GoogleSignIn = ({ setError }) => {
         setLoading(true)
         googleSignIn()
             .then(() => notifySuccess("Sign In Successful"))
-            .catch(err => {
-                setError(err.message)
+            .catch(() => {
                 notifyError("Google Sign In Failed")
             })
             .finally(() => setLoading(false))
