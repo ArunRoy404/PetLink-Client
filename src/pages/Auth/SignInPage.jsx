@@ -147,7 +147,7 @@ export default function SignInPage() {
                         </div>
 
                         {/* Google Sign In */}
-                        <GoogleSignIn setError={setError} />
+                        <GoogleSignIn />
 
                         {/* GitHub Sign In */}
                         <GithubSignIn />
