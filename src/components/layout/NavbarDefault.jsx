@@ -31,7 +31,7 @@ export function NavbarDefault() {
     return (
       <div className="flex items-center gap-x-1">
         <Button fullWidth variant="gradient" size="sm" className="">
-          <span>Sign in</span>
+          <Link to={'/auth/sign-in'}>Sign In</Link>
         </Button>
       </div>
     )
