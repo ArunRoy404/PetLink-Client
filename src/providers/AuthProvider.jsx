@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { auth } from '../Firebase/firebase.config';
 import { AuthContext } from '../context/AuthContext';
+import axios from 'axios';
 
 
 const AuthProvider = ({ children }) => {
@@ -14,6 +15,13 @@ const AuthProvider = ({ children }) => {
     const createUser = (email, password) => {
         setIsUserLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
+    }
+
+    const saveUserToDB = async (userData) => {
+        const { email, displayName, photoURL } = userData
+        const user = { email, displayName, photoURL }
+        const res = await axios.post('http://localhost:3000/users', user)
+        console.log(res);
     }
 
     const signIn = (email, password) => {
@@ -46,7 +54,6 @@ const AuthProvider = ({ children }) => {
     }
 
     const userSignOut = () => {
-        localStorage.removeItem("accessToken");
         setIsUserLoading(true)
         return signOut(auth)
     }
@@ -59,7 +66,6 @@ const AuthProvider = ({ children }) => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
             if (currentUser) {
                 setFirebaseUser({ ...currentUser })
-                localStorage.setItem("accessToken", currentUser.accessToken);
                 // reloadUser()
             } else {
                 setFirebaseUser(null)
@@ -71,6 +77,15 @@ const AuthProvider = ({ children }) => {
             unSubscribe()
         }
     }, [])
+
+    useEffect(() => {
+        if (firebaseUser) {
+            localStorage.setItem("accessToken", firebaseUser.accessToken);
+            saveUserToDB(firebaseUser)
+        } else {
+            localStorage.removeItem("accessToken");
+        }
+    }, [firebaseUser])
 
     const firebase = {
         firebaseUser,
