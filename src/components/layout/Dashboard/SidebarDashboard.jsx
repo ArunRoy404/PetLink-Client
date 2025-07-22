@@ -5,7 +5,7 @@ import NavLinkDashboard from "./NavLinkDashboard";
 
 const SidebarDashboard = ({navItems}) => {
     return (
-        < div className="hidden h-screen md:flex flex-col w-64 border-r border-gray-200 bg-white dark:bg-gray-800 dark:border-gray-700" >
+        < div className="hidden rounded-md md:flex flex-col w-64 border border-gray-300 bg-white dark:bg-gray-800 dark:border-gray-700" >
             <div className="p-4 flex items-center gap-2">
                 <Logo />
             </div>

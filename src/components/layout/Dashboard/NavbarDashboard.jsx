@@ -14,7 +14,7 @@ import ThemeToggle from "../../ui/ThemeToggle";
 
 const NavbarDashboard = ({ toggleSidebar }) => {
     return (
-        <header className="bg-white dark:bg-gray-800 shadow-sm z-10">
+        <header className="bg-white dark:bg-gray-800 border rounded-md border-gray-300 z-10">
             <div className="flex items-center justify-between p-4">
                 <div className="flex items-center gap-4">
                     <IconButton
