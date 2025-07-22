@@ -5,6 +5,8 @@ import Error from '../pages/Error/Error';
 import SignInPage from '../pages/Auth/SignInPage';
 import AuthLayout from '../Layouts/AuthLayout';
 import SignUpPage from '../pages/Auth/SignUpPage';
+import DashboardLayout from '../Layouts/DashboardLayout';
+import DashBoardHomeUser from '../pages/User Dashboard/DashBoardHomeUser';
 
 
 const router = createBrowserRouter([
@@ -29,6 +31,16 @@ const router = createBrowserRouter([
             {
                 path: 'sign-up',
                 Component: SignUpPage
+            }
+        ]
+    },
+    {
+        path: '/dashboard',
+        Component: DashboardLayout,
+        children: [
+            {
+                index: true,
+                Component: DashBoardHomeUser
             }
         ]
     },

@@ -6,6 +6,7 @@ import {
   LifeBuoy,
   LogOut,
   ArrowDown,
+  LayoutDashboard,
 } from "lucide-react";
 import {
   Typography,
@@ -18,10 +19,11 @@ import {
 } from "@material-tailwind/react";
 import { useAuthContext } from "../../context/AuthContext";
 import { notifyError, notifySuccess } from "../../ReactHotToast/ReactHotToast";
+import { Link } from "react-router";
 
 
 export default function Profile() {
-  const {userSignOut} = useAuthContext()
+  const { userSignOut } = useAuthContext()
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { firebaseUser } = useAuthContext()
 
@@ -31,22 +33,29 @@ export default function Profile() {
     {
       label: "My Profile",
       icon: UserCircle2,
+      link: '/'
+    },
+    {
+      label: "Dashboard",
+      icon: LayoutDashboard,
+      link: '/dashboard'
     },
     {
       label: "Edit Profile",
       icon: Settings,
+      link: '/'
+
     },
     {
       label: "Inbox",
       icon: Inbox,
+      link: '/'
+
     },
     {
       label: "Help",
       icon: LifeBuoy,
-    },
-    {
-      label: "Sign Out",
-      icon: LogOut,
+      link: '/'
     },
   ];
 
@@ -63,45 +72,58 @@ export default function Profile() {
             size="sm"
             alt="tania andrew"
             className="border border-gray-900 p-0.5"
-            src={firebaseUser.photoURL}
+            src={firebaseUser?.photoURL}
           />
           <ArrowDown size={10} />
         </Button>
       </MenuHandler>
       <MenuList className="p-1 bg-transparent backdrop-blur-2xl">
-        {profileMenuItems.map(({ label, icon }, key) => {
-          const isLastItem = key === profileMenuItems.length - 1;
+        {profileMenuItems.map(({ label, icon, link }, key) => {
           return (
-            <MenuItem
-              key={label}
-              onClick={() => {
-                if(label==='Sign Out'){
-                  userSignOut()
-                  .then(()=>notifySuccess('Sign Out Successful'))
-                  .catch(()=>notifyError("Sign Out Failed!"))
-                }
-                closeMenu()
-              }}
-              className={`group flex items-center gap-2 rounded ${isLastItem
-                ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                : ""
-                }`}
-            >
-              {createElement(icon, {
-                className: `h-4 w-4 ${isLastItem ? "text-red-500" : "text-black"}`,
-                strokeWidth: 2,
-              })}
-              <Typography
-                as="span"
-                variant="small"
-                className="group-hover:text-black font-medium"
-                color={isLastItem ? "red" : "black"}
+            <Link to={link} key={key}>
+              <MenuItem
+                className={"group flex items-center gap-2 rounded hover:bg-gray-500/20 focus:bg-gray-500/20 active:bg-gray-500/20"}
               >
-                {label}
-              </Typography>
-            </MenuItem>
+                {createElement(icon, {
+                  className: `h-4 w-4 text-text`,
+                  strokeWidth: 2,
+                })}
+                <Typography
+                  as="span"
+                  variant="small"
+                  className="font-medium text-text"
+                >
+                  {label}
+                </Typography>
+              </MenuItem>
+            </Link>
           );
         })}
+
+        {/* Sign out  */}
+        <MenuItem
+          key={'Sign Out'}
+          onClick={() => {
+            userSignOut()
+              .then(() => notifySuccess('Sign Out Successful'))
+              .catch(() => notifyError("Sign Out Failed!"))
+            closeMenu()
+          }}
+          className={"group flex items-center gap-2 rounded hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"}
+        >
+          {createElement(LogOut, {
+            className: `h-4 w-4 text-red-500`,
+            strokeWidth: 2,
+          })}
+          <Typography
+            as="span"
+            variant="small"
+            className="group-hover:text-black font-medium"
+            color={"red"}
+          >
+            {"Sign Out"}
+          </Typography>
+        </MenuItem>
       </MenuList>
     </Menu>
   );
