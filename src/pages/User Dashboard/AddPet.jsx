@@ -34,7 +34,8 @@ import {
 import { uploadImageToImageBB } from '../../utilities/uploadimage';
 import { notifyError, notifySuccess, notifyWarn } from '../../ReactHotToast/ReactHotToast';
 import Loader from '../../components/ui/Loader';
-import useAddPetApi from '../../azios/useAddPetApi';
+import { useAddPetApi } from '../../axios/petsApi';
+
 
 
 const AddPet = () => {
@@ -43,7 +44,6 @@ const AddPet = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState(null);
     const { addPetPromise } = useAddPetApi()
-
 
     const {
         register,

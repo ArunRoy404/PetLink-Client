@@ -7,4 +7,4 @@ const useAddPetApi = () => {
     return ({ addPetPromise })
 };
 
-export default useAddPetApi;
+export { useAddPetApi }
