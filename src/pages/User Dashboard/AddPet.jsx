@@ -32,8 +32,9 @@ import {
     Loader2
 } from 'lucide-react';
 import { uploadImageToImageBB } from '../../utilities/uploadimage';
-import { notifyError } from '../../ReactHotToast/ReactHotToast';
+import { notifyError, notifySuccess, notifyWarn } from '../../ReactHotToast/ReactHotToast';
 import Loader from '../../components/ui/Loader';
+import useAddPetApi from '../../azios/useAddPetApi';
 
 
 const AddPet = () => {
@@ -41,7 +42,7 @@ const AddPet = () => {
     const [isImageLoading, setIsImageLoading] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState(null);
-
+    const { addPetPromise } = useAddPetApi()
 
 
     const {
@@ -109,17 +110,33 @@ const AddPet = () => {
     };
 
     const onSubmit = async (data) => {
-        // setIsSubmitting(true);
-        // setSubmitStatus(null);
+        setIsSubmitting(true);
+        setSubmitStatus(null);
 
         const petData = data
         delete petData.petImage
-        // delete petData.petCategory
 
         petData.petCategory = data.petCategory.value
         petData.petImage = imagePreview
 
-        console.log(petData);
+        addPetPromise(petData)
+            .then(res => {
+                if (res.data.insertedId) {
+                    notifySuccess("Food added Successfully")
+                    setSubmitStatus('success')
+                } else {
+                    notifyWarn("Food add unsuccessful")
+                    setSubmitStatus('error')
+                }
+            })
+            .catch(err => {
+                setSubmitStatus('error')
+                notifyError(err.message)
+            })
+            .finally(() => {
+                setIsSubmitting(false)
+            })
+
     };
 
     // Custom select component with icons
