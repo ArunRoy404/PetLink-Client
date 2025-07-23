@@ -37,10 +37,10 @@ const DashboardLayout = () => {
             <SidebarDashboardDrawer navItems={navItems} isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
             {/* Main Content */}
-            <div className="flex-1 flex flex-col overflow-hidden">
+            <div className="flex-1 flex flex-col gap-4 overflow-hidden">
                 <NavbarDashboard toggleSidebar={toggleSidebar} />
 
-                <main className="flex-1 overflow-y-auto p-4 md:p-6  dark:bg-gray-900">
+                <main className="flex-1 border border-gray-300 rounded-md overflow-y-auto md:p-4 dark:bg-gray-900">
                     <Outlet />
                 </main>
             </div>

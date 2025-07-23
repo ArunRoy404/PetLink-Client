@@ -7,6 +7,7 @@ import AuthLayout from '../Layouts/AuthLayout';
 import SignUpPage from '../pages/Auth/SignUpPage';
 import DashboardLayout from '../Layouts/DashboardLayout';
 import DashBoardHomeUser from '../pages/User Dashboard/DashBoardHomeUser';
+import AddPet from '../pages/User Dashboard/AddPet';
 
 
 const router = createBrowserRouter([
@@ -39,8 +40,12 @@ const router = createBrowserRouter([
         Component: DashboardLayout,
         children: [
             {
-                index: true,
+                index:true,
                 Component: DashBoardHomeUser
+            },
+            {
+                path: 'add-pet',
+                Component: AddPet
             }
         ]
     },

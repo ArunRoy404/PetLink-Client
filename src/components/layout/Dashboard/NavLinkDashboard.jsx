@@ -5,6 +5,7 @@ const NavLinkDashboard = ({item}) => {
     return (
         <NavLink
             to={item.path}
+            end
             className={({ isActive }) =>
                 `group flex items-center gap-3 p-3 rounded-lg transition-all
                 ${isActive

@@ -225,8 +225,17 @@ export default function SignUpPage() {
 
                             </div>
 
-                            <div className="-ml-2">
-                                <Checkbox required label="I agree to terms & conditions" />
+                            <div>
+                                <div className="-ml-3">
+                                    <Checkbox className={errors.terms ? 'border border-red-400' : ''} {...register('terms', { required: 'Agreement needed' })} label="I agree to terms & conditions" />
+                                </div>
+                                {
+                                    errors.terms && (
+                                        <Typography variant="small" className="mr-10" color="red">
+                                            {errors.terms.message}
+                                        </Typography>
+                                    )
+                                }
                             </div>
                         </CardBody>
 
@@ -265,7 +274,7 @@ export default function SignUpPage() {
                         </Typography>
 
                         <div className="w-full space-y-4 mt-10">
-                            <SocialLogin setError={setError}/>
+                            <SocialLogin setError={setError} />
                         </div>
                     </div>
                 </div>

@@ -11,6 +11,13 @@
   },
   "dependencies": {
     "@material-tailwind/react": "^2.1.9",
+    "@tanstack/react-query": "^5.83.0",
+    "@tiptap/extension-bold": "^3.0.7",
+    "@tiptap/extension-italic": "^3.0.7",
+    "@tiptap/extension-underline": "^3.0.7",
+    "@tiptap/pm": "^3.0.7",
+    "@tiptap/react": "^3.0.7",
+    "@tiptap/starter-kit": "^3.0.7",
     "axios": "^1.10.0",
     "firebase": "^11.10.0",
     "ldrs": "^1.1.7",
@@ -21,8 +28,13 @@
     "react-hook-form": "^7.60.0",
     "react-hot-toast": "^2.5.2",
     "react-router": "^7.6.3",
+    "react-select": "^5.10.2",
     "recharts": "^3.1.0",
-    "swiper": "^11.2.10"
+    "slate": "^0.117.2",
+    "slate-history": "^0.113.1",
+    "slate-react": "^0.117.4",
+    "swiper": "^11.2.10",
+    "tiptap": "^1.32.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
