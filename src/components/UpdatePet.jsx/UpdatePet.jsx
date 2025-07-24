@@ -31,7 +31,7 @@ import {
     CatIcon,
     Loader2
 } from 'lucide-react';
-import { uploadImageToImageBB } from '../../utilities/uploadimage';
+import { uploadImageToImageBB } from '../../utilities/uploadImage';
 import { notifyError, notifySuccess, notifyWarn } from '../../ReactHotToast/ReactHotToast';
 import Loader from '../../components/ui/Loader';
 import { useGetPetInfoApi, useUpdatePetApi } from '../../axios/petsApi';

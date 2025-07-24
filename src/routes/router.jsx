@@ -10,6 +10,7 @@ import DashBoardHomeUser from '../pages/User Dashboard/DashBoardHomeUser';
 import AddPet from '../pages/User Dashboard/AddPet';
 import MyAddedPets from '../pages/User Dashboard/MyAddedPets';
 import UpdatePet from '../components/UpdatePet.jsx/UpdatePet';
+import CreateDonationCampaign from '../pages/User Dashboard/CreateDonationCampaign';
 
 
 const router = createBrowserRouter([
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
             {
                 path: 'update-pet/:id',
                 Component: UpdatePet
+            },
+            {
+                path: 'create-campaign',
+                Component: CreateDonationCampaign
             }
         ]
     },

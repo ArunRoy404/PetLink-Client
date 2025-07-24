@@ -288,7 +288,7 @@ const MyAddedPets = () => {
                             petsLoading && <TableSkeleton />
                         }
                         {
-                            !petsLoading && !petsData.length && <NoDataFoundTable message={"You haven't added any pets yet."} />
+                            !petsLoading && !petsData?.length && <NoDataFoundTable message={"You haven't added any pets yet."} />
                         }
                         {
                             table.getRowModel().rows.map((row) => (

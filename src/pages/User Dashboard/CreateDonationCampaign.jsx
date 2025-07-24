@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import Select from 'react-select';
+import { useForm } from 'react-hook-form';
 import {
     Button,
     Card,
@@ -14,39 +13,30 @@ import {
 } from '@material-tailwind/react';
 import {
     PawPrint,
-    Dog,
-    Cat,
-    Rabbit,
-    Bird,
-    Fish,
-    Turtle,
+    DollarSign,
+    Calendar as CalendarIcon,
+    AlertCircle,
     Check,
     X,
     UploadCloud,
     Image as ImageIcon,
-    User,
-    MapPin,
-    Calendar,
-    AlertCircle,
-    CatIcon,
-    Loader2
+    Loader2,
+    HeartHandshake
 } from 'lucide-react';
 import { uploadImageToImageBB } from '../../utilities/uploadImage';
 import { notifyError, notifySuccess, notifyWarn } from '../../ReactHotToast/ReactHotToast';
 import Loader from '../../components/ui/Loader';
-import { useAddPetApi } from '../../axios/petsApi';
+
 import { useAuthContext } from '../../context/AuthContext';
+import { useAddDonationCampaignApi } from '../../axios/donationApi';
 
-
-
-const AddPet = () => {
+const CreateDonationCampaign = () => {
     const [imagePreview, setImagePreview] = useState(null);
     const [isImageLoading, setIsImageLoading] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState(null);
-    const { addPetPromise } = useAddPetApi()
-    const { firebaseUser } = useAuthContext()
-
+    const { addDonationCampaignPromise } = useAddDonationCampaignApi();
+    const { firebaseUser } = useAuthContext();
 
     const {
         register,
@@ -54,117 +44,95 @@ const AddPet = () => {
         formState: { errors },
         reset,
         setValue,
-        control,
         trigger
     } = useForm({
         defaultValues: {
             petName: '',
-            petAge: '',
-            petCategory: null,
-            petLocation: '',
+            petImage: null,
+            maxDonationAmount: '',
+            lastDonationDate: '',
             shortDescription: '',
-            longDescription: '',
-            petImage: null
+            longDescription: ''
         }
     });
 
-    // Pet categories with icons
-    const petCategories = [
-        { value: 'dog', label: 'Dog', icon: <Dog className="w-4 h-4 mr-2" /> },
-        { value: 'cat', label: 'Cat', icon: <Cat className="w-4 h-4 mr-2" /> },
-        { value: 'rabbit', label: 'Rabbit', icon: <Rabbit className="w-4 h-4 mr-2" /> },
-        { value: 'bird', label: 'Bird', icon: <Bird className="w-4 h-4 mr-2" /> },
-        { value: 'fish', label: 'Fish', icon: <Fish className="w-4 h-4 mr-2" /> },
-        { value: 'reptile', label: 'Reptile', icon: <Turtle className="w-4 h-4 mr-2" /> },
-        { value: 'other', label: 'Other', icon: <PawPrint className="w-4 h-4 mr-2" /> }
-    ];
-
     const handleImageChange = async (e) => {
-        removeImage()
-        setIsImageLoading(true)
+        removeImage();
+        setIsImageLoading(true);
         const file = e.target.files[0];
-
 
         if (file) {
             try {
-                const res = await uploadImageToImageBB(file)
+                const res = await uploadImageToImageBB(file);
                 if (res.status === 200) {
-                    setImagePreview(res.data.data.display_url)
+                    setImagePreview(res.data.data.display_url);
                     setValue('petImage', file, { shouldValidate: true });
-                    trigger('petImage')
+                    trigger('petImage');
                 } else {
-                    notifyError("Something Went Wrong")
+                    notifyError("Something Went Wrong");
                 }
-            }
-            catch (err) {
-                notifyError(err.message)
+            } catch (err) {
+                notifyError(err.message);
             } finally {
-                setIsImageLoading(false)
+                setIsImageLoading(false);
             }
-
         }
-        setIsImageLoading(false)
+        setIsImageLoading(false);
     };
 
     const removeImage = () => {
-        setImagePreview(null)
-        setValue('petImage', null, { shouldValidate: true })
-        trigger('petImage')
+        setImagePreview(null);
+        setValue('petImage', null, { shouldValidate: true });
+        trigger('petImage');
     };
 
     const onSubmit = async (data) => {
         setIsSubmitting(true);
         setSubmitStatus(null);
 
-        const petData = data
-        delete petData.petImage
+        const campaignData = {
+            ...data,
+            addedBy: firebaseUser?.email,
+            petImage: imagePreview,
+            createdAt: new Date().toLocaleString()
+        };
 
-        petData.addedBy = firebaseUser?.email
-        petData.petCategory = data.petCategory.value
-        petData.petImage = imagePreview
 
-        addPetPromise(petData)
+        console.log(campaignData);
+
+        addDonationCampaignPromise(campaignData)
             .then(res => {
                 if (res.data.insertedId) {
-                    notifySuccess("Pet added Successfully")
-                    setSubmitStatus('success')
+                    notifySuccess("Donation campaign created successfully!");
+                    setSubmitStatus('success');
                 } else {
-                    notifyWarn("Pet add unsuccessful")
-                    setSubmitStatus('error')
+                    notifyWarn("Failed to create donation campaign");
+                    setSubmitStatus('error');
                 }
             })
             .catch(err => {
-                setSubmitStatus('error')
-                notifyError(err.message)
+                setSubmitStatus('error');
+                notifyError(err.message);
             })
             .finally(() => {
-                setIsSubmitting(false)
-            })
-
+                setIsSubmitting(false);
+            });
     };
-
-    // Custom select component with icons
-    const formatOptionLabel = ({ label, icon }) => (
-        <div className="flex items-center">
-            {icon}
-            <span>{label}</span>
-        </div>
-    );
 
     return (
         <Card className="shadow-none">
             <CardHeader floated={false} shadow={false} className="rounded-none">
                 <Typography variant="h4" color="blue-gray" className="flex items-center gap-2">
-                    <PawPrint className="h-6 w-6 text-primary" />
-                    Add a New Pet
+                    <HeartHandshake className="h-6 w-6 text-primary" />
+                    Create Donation Campaign
                 </Typography>
                 <Typography color="gray" className="mt-1 font-normal">
-                    Help your pet find a loving forever home
+                    Help pets in need by creating a donation campaign
                 </Typography>
             </CardHeader>
             <CardBody>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                    {/* Image Upload and Basic Info Row */}
+                    {/* Image Upload and Campaign Details Row */}
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         {/* Image Upload */}
                         <div className="lg:col-span-1">
@@ -183,15 +151,13 @@ const AddPet = () => {
                                         >
                                             {imagePreview || isImageLoading ? (
                                                 <>
-                                                    {
-                                                        imagePreview && (
-                                                            <img
-                                                                src={imagePreview}
-                                                                alt="Preview"
-                                                                className="w-full h-64 object-cover"
-                                                            />
-                                                        )
-                                                    }
+                                                    {imagePreview && (
+                                                        <img
+                                                            src={imagePreview}
+                                                            alt="Preview"
+                                                            className="w-full h-64 object-cover"
+                                                        />
+                                                    )}
                                                     {isImageLoading && (
                                                         <div className="flex flex-col gap-2 items-center justify-center">
                                                             <Loader size={32} />
@@ -231,9 +197,7 @@ const AddPet = () => {
                                                 <X className="h-4 w-4" />
                                             </IconButton>
                                         )}
-
                                     </div>
-
                                 </div>
                                 {errors.petImage && (
                                     <Typography variant="small" color="red" className="flex items-center gap-1 mt-2">
@@ -244,17 +208,17 @@ const AddPet = () => {
                             </div>
                         </div>
 
-                        {/* Basic Info Fields */}
+                        {/* Campaign Details */}
                         <div className="lg:col-span-2 space-y-6">
                             {/* Pet Name */}
                             <div className="space-y-2">
                                 <Typography variant="h6" color="blue-gray" className="flex items-center gap-2">
-                                    <CatIcon className="h-5 w-5" />
+                                    <PawPrint className="h-5 w-5" />
                                     Pet Name
                                 </Typography>
                                 <Input
                                     size="lg"
-                                    placeholder="e.g. Max, Bella, Luna"
+                                    placeholder="Enter the pet's name"
                                     {...register('petName', {
                                         required: 'Pet name is required',
                                         maxLength: {
@@ -273,91 +237,74 @@ const AddPet = () => {
                                 )}
                             </div>
 
-                            {/* Pet Age and Category */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="space-y-2">
-                                    <Typography variant="h6" color="blue-gray" className="flex items-center gap-2">
-                                        <Calendar className="h-5 w-5" />
-                                        Age
-                                    </Typography>
-                                    <Input
-                                        size="lg"
-                                        placeholder="e.g. 2 years, 6 months"
-                                        {...register('petAge', {
-                                            required: 'Age is required',
-                                            pattern: {
-                                                value: /^[0-9]+(\s?(years?|months?))?$/i,
-                                                message: 'Enter valid age (e.g. "2 years" or "6 months")'
-                                            }
-                                        })}
-                                        error={!!errors.petAge}
-                                    />
-                                    {errors.petAge && (
-                                        <Typography variant="small" color="red" className="flex items-center gap-1">
-                                            <AlertCircle className="h-4 w-4" />
-                                            {errors.petAge.message}
-                                        </Typography>
-                                    )}
-                                </div>
-
-                                <div className="space-y-2">
-                                    <Typography variant="h6" color="blue-gray" className="flex items-center gap-2">
-                                        <PawPrint className="h-5 w-5" />
-                                        Category
-                                    </Typography>
-                                    <Controller
-                                        name='petCategory'
-                                        control={control}
-                                        rules={{ required: 'Pet Category is needed' }}
-                                        render={({ field }) => (
-                                            <Select
-                                                {...field}
-                                                options={petCategories}
-                                                formatOptionLabel={formatOptionLabel}
-                                                onChange={selectedOption => field.onChange(selectedOption)}
-                                                isClearable={true}
-                                            />
-                                        )}
-                                    />
-                                    {errors.petCategory && (
-                                        <Typography variant="small" color="red" className="flex items-center gap-1">
-                                            <AlertCircle className="h-4 w-4" />
-                                            Please select a category
-                                        </Typography>
-                                    )}
-                                </div>
-                            </div>
-
-                            {/* Pet Location */}
+                            {/* Maximum Donation Amount */}
                             <div className="space-y-2">
                                 <Typography variant="h6" color="blue-gray" className="flex items-center gap-2">
-                                    <MapPin className="h-5 w-5" />
-                                    Location
+                                    <DollarSign className="h-5 w-5" />
+                                    Maximum Donation Amount
                                 </Typography>
                                 <Input
                                     size="lg"
-                                    placeholder="City or address where pet can be adopted"
-                                    {...register('petLocation', {
-                                        required: 'Location is required',
-                                        maxLength: {
-                                            value: 100,
-                                            message: 'Location should not exceed 100 characters'
-                                        }
+                                    placeholder="Enter the maximum donation amount"
+                                    type="number"
+                                    min="1"
+                                    {...register('maxDonationAmount', {
+                                        required: 'Maximum donation amount is required',
+                                        min: {
+                                            value: 1,
+                                            message: 'Amount must be at least $1'
+                                        },
+                                        valueAsNumber: true
                                     })}
-                                    error={!!errors.petLocation}
+                                    error={!!errors.maxDonationAmount}
+                                    icon={<DollarSign className="h-5 w-5" />}
                                 />
-                                {errors.petLocation && (
+                                {errors.maxDonationAmount && (
                                     <Typography variant="small" color="red" className="flex items-center gap-1">
                                         <AlertCircle className="h-4 w-4" />
-                                        {errors.petLocation.message}
+                                        {errors.maxDonationAmount.message}
                                     </Typography>
                                 )}
                             </div>
 
+                            {/* Last Donation Date */}
+                            <div className="space-y-2">
+                                <Typography variant="h6" color="blue-gray" className="flex items-center gap-2">
+                                    <CalendarIcon className="h-5 w-5" />
+                                    Last Donation Date
+                                </Typography>
+                                <div className="relative" >
+                                    <Input
+                                        type="date"
+                                        size="lg"
+                                        {...register('lastDonationDate', {
+                                            required: 'Last donation date is required',
+                                            validate: {
+                                                futureDate: (value) => {
+                                                    const selectedDate = new Date(value);
+                                                    const today = new Date();
+                                                    today.setHours(0, 0, 0, 0);
+                                                    return selectedDate >= today || 'Date must be in the future';
+                                                }
+                                            }
+                                        })}
+                                        error={!!errors.lastDonationDate}
+                                        icon={<CalendarIcon className="h-5 w-5" />}
+                                        min={new Date().toISOString().split('T')[0]}
+                                        className="cursor-pointer"
+                                        containerProps={{ className: "min-w-0" }}
+                                        onFocus={(e) => e.target.showPicker()}
+                                    />
+                                </div>
+                                {errors.lastDonationDate && (
+                                    <Typography variant="small" color="red" className="flex items-center gap-1">
+                                        <AlertCircle className="h-4 w-4" />
+                                        {errors.lastDonationDate.message}
+                                    </Typography>
+                                )}
+                            </div>
                         </div>
                     </div>
-
-
 
                     {/* Short Description */}
                     <div className="space-y-2">
@@ -370,7 +317,7 @@ const AddPet = () => {
                         </Typography>
                         <Input
                             size="lg"
-                            placeholder="Briefly describe your pet's personality"
+                            placeholder="Briefly describe the purpose of this donation campaign"
                             {...register('shortDescription', {
                                 required: 'Short description is required',
                                 maxLength: {
@@ -396,12 +343,11 @@ const AddPet = () => {
                         </Typography>
                         <Textarea
                             size="lg"
-                            placeholder="Tell potential adopters about:
-    - Personality traits
-    - Health conditions
-    - Special care needs
-    - Behavior with other pets/children
-    - Any training received"
+                            placeholder="Provide more details about:
+    - The pet's condition or situation
+    - How the donations will be used
+    - Any specific needs or treatments required
+    - The impact donations will make"
                             {...register('longDescription', {
                                 required: 'Detailed information is required',
                                 minLength: {
@@ -450,12 +396,12 @@ const AddPet = () => {
                             {isSubmitting ? (
                                 <>
                                     <Loader2 className="h-5 w-5 animate-spin" />
-                                    Submitting...
+                                    Creating Campaign...
                                 </>
                             ) : (
                                 <>
-                                    <Check className="h-5 w-5" />
-                                    Submit Pet
+                                    <HeartHandshake className="h-5 w-5" />
+                                    Create Campaign
                                 </>
                             )}
                         </Button>
@@ -468,7 +414,7 @@ const AddPet = () => {
                             value={
                                 <div className="flex items-center gap-2">
                                     <X className="h-5 w-5" />
-                                    Error submitting form. Please try again.
+                                    Error creating campaign. Please try again.
                                 </div>
                             }
                             className="rounded-full mt-6"
@@ -480,7 +426,7 @@ const AddPet = () => {
                             value={
                                 <div className="flex items-center gap-2">
                                     <Check className="h-5 w-5" />
-                                    Pet added successfully!
+                                    Campaign created successfully!
                                 </div>
                             }
                             className="rounded-full mt-6"
@@ -492,4 +438,4 @@ const AddPet = () => {
     );
 };
 
-export default AddPet;
+export default CreateDonationCampaign;
