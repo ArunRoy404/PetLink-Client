@@ -9,6 +9,7 @@ import DashboardLayout from '../Layouts/DashboardLayout';
 import DashBoardHomeUser from '../pages/User Dashboard/DashBoardHomeUser';
 import AddPet from '../pages/User Dashboard/AddPet';
 import MyAddedPets from '../pages/User Dashboard/MyAddedPets';
+import UpdatePet from '../components/UpdatePet.jsx/UpdatePet';
 
 
 const router = createBrowserRouter([
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
         Component: DashboardLayout,
         children: [
             {
-                index:true,
+                index: true,
                 Component: DashBoardHomeUser
             },
             {
@@ -50,7 +51,11 @@ const router = createBrowserRouter([
             },
             {
                 path: 'my-added-pets',
-                Component: MyAddedPets
+                Component: MyAddedPets,
+            },
+            {
+                path: 'update-pet/:id',
+                Component: UpdatePet
             }
         ]
     },

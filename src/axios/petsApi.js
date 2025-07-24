@@ -48,5 +48,15 @@ const useDeletePetApi = () => {
     return { deletePetPromise }
 }
 
+const useGetPetInfoApi = () => {
+    const axiosSecure = useAxiosSecure()
+    const getPetInfoPromise = (petId) => {
+        return axiosSecure.get(`/pet/${petId}`,)
+    }
+    return { getPetInfoPromise }
+}
 
-export { useDeletePetApi, useUpdatePetApi, useAddPetApi, useGetPetsApi, useGetMyAddedPetsCountApi, useGetMyAddedPetsApi }
+
+
+
+export { useGetPetInfoApi, useDeletePetApi, useUpdatePetApi, useAddPetApi, useGetPetsApi, useGetMyAddedPetsCountApi, useGetMyAddedPetsApi }

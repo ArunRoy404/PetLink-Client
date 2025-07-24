@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
 import {
@@ -34,18 +34,35 @@ import {
 import { uploadImageToImageBB } from '../../utilities/uploadimage';
 import { notifyError, notifySuccess, notifyWarn } from '../../ReactHotToast/ReactHotToast';
 import Loader from '../../components/ui/Loader';
-import { useAddPetApi } from '../../axios/petsApi';
+import { useGetPetInfoApi, useUpdatePetApi } from '../../axios/petsApi';
 import { useAuthContext } from '../../context/AuthContext';
+import { useParams } from 'react-router';
+import NoDataFound from '../ui/NoDataFound';
 
 
 
-const AddPet = () => {
+const UpdatePet = () => {
+    const [petData, setPetData] = useState(null)
     const [imagePreview, setImagePreview] = useState(null);
     const [isImageLoading, setIsImageLoading] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState(null);
-    const { addPetPromise } = useAddPetApi()
     const { firebaseUser } = useAuthContext()
+    const { getPetInfoPromise } = useGetPetInfoApi()
+    const { updatePetPromise } = useUpdatePetApi()
+    const { id } = useParams()
+
+    // Pet categories with icons
+    const petCategories = [
+        { value: 'dog', label: 'Dog', icon: <Dog className="w-4 h-4 mr-2" /> },
+        { value: 'cat', label: 'Cat', icon: <Cat className="w-4 h-4 mr-2" /> },
+        { value: 'rabbit', label: 'Rabbit', icon: <Rabbit className="w-4 h-4 mr-2" /> },
+        { value: 'bird', label: 'Bird', icon: <Bird className="w-4 h-4 mr-2" /> },
+        { value: 'fish', label: 'Fish', icon: <Fish className="w-4 h-4 mr-2" /> },
+        { value: 'reptile', label: 'Reptile', icon: <Turtle className="w-4 h-4 mr-2" /> },
+        { value: 'other', label: 'Other', icon: <PawPrint className="w-4 h-4 mr-2" /> }
+    ];
+
 
 
     const {
@@ -68,16 +85,27 @@ const AddPet = () => {
         }
     });
 
-    // Pet categories with icons
-    const petCategories = [
-        { value: 'dog', label: 'Dog', icon: <Dog className="w-4 h-4 mr-2" /> },
-        { value: 'cat', label: 'Cat', icon: <Cat className="w-4 h-4 mr-2" /> },
-        { value: 'rabbit', label: 'Rabbit', icon: <Rabbit className="w-4 h-4 mr-2" /> },
-        { value: 'bird', label: 'Bird', icon: <Bird className="w-4 h-4 mr-2" /> },
-        { value: 'fish', label: 'Fish', icon: <Fish className="w-4 h-4 mr-2" /> },
-        { value: 'reptile', label: 'Reptile', icon: <Turtle className="w-4 h-4 mr-2" /> },
-        { value: 'other', label: 'Other', icon: <PawPrint className="w-4 h-4 mr-2" /> }
-    ];
+
+    useEffect(() => {
+        getPetInfoPromise(id)
+            .then(res => {
+                setPetData(res.data)
+            })
+    }, [])
+
+
+    useEffect(() => {
+        if (petData) {
+            reset({ ...petData })
+            setImagePreview(petData.petImage)
+            const selectedCategory = petCategories.find(category => category.value == petData.petCategory)
+            setValue('petCategory', selectedCategory, {
+                shouldValidate: true
+            })
+        }
+    }, [petData, reset])
+
+
 
     const handleImageChange = async (e) => {
         removeImage()
@@ -116,20 +144,20 @@ const AddPet = () => {
         setIsSubmitting(true);
         setSubmitStatus(null);
 
-        const petData = data
-        delete petData.petImage
+        const updatePetData = data
+        delete updatePetData.petImage
 
-        petData.addedBy = firebaseUser?.email
-        petData.petCategory = data.petCategory.value
-        petData.petImage = imagePreview
+        updatePetData.addedBy = firebaseUser?.email
+        updatePetData.petCategory = data.petCategory.value
+        updatePetData.petImage = imagePreview
 
-        addPetPromise(petData)
+        updatePetPromise(updatePetData)
             .then(res => {
-                if (res.data.insertedId) {
-                    notifySuccess("Pet added Successfully")
+                if (res.data.modifiedCount) {
+                    notifySuccess("Pet Updated Successfully")
                     setSubmitStatus('success')
                 } else {
-                    notifyWarn("Pet add unsuccessful")
+                    notifyWarn("No information Changed")
                     setSubmitStatus('error')
                 }
             })
@@ -151,15 +179,16 @@ const AddPet = () => {
         </div>
     );
 
+    if (!petData) {
+        return <NoDataFound message={'Pet dose not exist'} />
+    }
+
     return (
         <Card className="shadow-none">
             <CardHeader floated={false} shadow={false} className="rounded-none">
                 <Typography variant="h4" color="blue-gray" className="flex items-center gap-2">
                     <PawPrint className="h-6 w-6 text-primary" />
-                    Add a New Pet
-                </Typography>
-                <Typography color="gray" className="mt-1 font-normal">
-                    Help your pet find a loving forever home
+                    Update Pet Information
                 </Typography>
             </CardHeader>
             <CardBody>
@@ -450,12 +479,12 @@ const AddPet = () => {
                             {isSubmitting ? (
                                 <>
                                     <Loader2 className="h-5 w-5 animate-spin" />
-                                    Submitting...
+                                    Updating...
                                 </>
                             ) : (
                                 <>
                                     <Check className="h-5 w-5" />
-                                    Submit Pet
+                                    update Pet
                                 </>
                             )}
                         </Button>
@@ -492,4 +521,4 @@ const AddPet = () => {
     );
 };
 
-export default AddPet;
+export default UpdatePet;
