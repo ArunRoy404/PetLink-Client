@@ -38,11 +38,14 @@ import { useGetPetInfoApi, useUpdatePetApi } from '../../axios/petsApi';
 import { useAuthContext } from '../../context/AuthContext';
 import { useParams } from 'react-router';
 import NoDataFound from '../ui/NoDataFound';
+import PetFormSkeleton from './PetFormSkeleton';
+
 
 
 
 const UpdatePet = () => {
     const [petData, setPetData] = useState(null)
+    const [petDataLoading, setPetDataLoading] = useState(true)
     const [imagePreview, setImagePreview] = useState(null);
     const [isImageLoading, setIsImageLoading] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -90,6 +93,7 @@ const UpdatePet = () => {
         getPetInfoPromise(id)
             .then(res => {
                 setPetData(res.data)
+                setPetDataLoading(false)
             })
     }, [])
 
@@ -179,9 +183,14 @@ const UpdatePet = () => {
         </div>
     );
 
+    if (petDataLoading) {
+        return <PetFormSkeleton/>
+    }
+
     if (!petData) {
         return <NoDataFound message={'Pet dose not exist'} />
     }
+
 
     return (
         <Card className="shadow-none">
