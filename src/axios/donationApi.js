@@ -8,4 +8,39 @@ const useAddDonationCampaignApi = () => {
     return { addDonationCampaignPromise }
 }
 
-export { useAddDonationCampaignApi }
+
+const useGetMyCampaignsCountApi = () => {
+    const axiosSecure = useAxiosSecure()
+    const getMyCampaignsCountPromise = () => axiosSecure.get(`/my-campaigns-count`)
+    return ({ getMyCampaignsCountPromise })
+}
+
+
+const useGetMyCampaignsApi = () => {
+    const axiosSecure = useAxiosSecure()
+    const getMyCampaignsPromise = (page, size) => {
+        return axiosSecure.get(`/my-campaigns?page=${page}&size=${size}`)
+    }
+    return { getMyCampaignsPromise }
+}
+
+const useUpdateCampaignApi = () => {
+    const axiosSecure = useAxiosSecure()
+    const updateCampaignPromise = (campaignData) => {
+        return axiosSecure.put('/campaigns', { data: { campaignData } })
+    }
+    return { updateCampaignPromise }
+}
+
+
+const useGetCampaignInfoApi = () => {
+    const axiosSecure = useAxiosSecure()
+    const getCampaignInfoPromise = (campaignId) => {
+        return axiosSecure.get(`/campaign/${campaignId}`,)
+    }
+    return { getCampaignInfoPromise }
+}
+
+
+
+export { useAddDonationCampaignApi, useGetCampaignInfoApi, useGetMyCampaignsApi, useGetMyCampaignsCountApi, useUpdateCampaignApi }

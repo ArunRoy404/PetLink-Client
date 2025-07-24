@@ -97,9 +97,6 @@ const CreateDonationCampaign = () => {
             createdAt: new Date().toLocaleString()
         };
 
-
-        console.log(campaignData);
-
         addDonationCampaignPromise(campaignData)
             .then(res => {
                 if (res.data.insertedId) {
