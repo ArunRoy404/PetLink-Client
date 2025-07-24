@@ -35,6 +35,7 @@ import { uploadImageToImageBB } from '../../utilities/uploadimage';
 import { notifyError, notifySuccess, notifyWarn } from '../../ReactHotToast/ReactHotToast';
 import Loader from '../../components/ui/Loader';
 import { useAddPetApi } from '../../axios/petsApi';
+import { useAuthContext } from '../../context/AuthContext';
 
 
 
@@ -44,6 +45,8 @@ const AddPet = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState(null);
     const { addPetPromise } = useAddPetApi()
+    const { firebaseUser } = useAuthContext()
+
 
     const {
         register,
@@ -116,6 +119,7 @@ const AddPet = () => {
         const petData = data
         delete petData.petImage
 
+        petData.addedBy = firebaseUser?.email
         petData.petCategory = data.petCategory.value
         petData.petImage = imagePreview
 

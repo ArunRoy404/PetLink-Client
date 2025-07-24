@@ -17,5 +17,13 @@ const notifyWarn = (message) => {
     });
 };
 
+const toastPromise = (apiPromise, loading, success, error) => {
+    return toast.promise(apiPromise, {
+        loading: loading,
+        success: success,
+        error: error
+    })
+}
 
-export { notifySuccess, notifyError, notifyWarn } 
+
+export { notifySuccess, notifyError, notifyWarn, toastPromise } 

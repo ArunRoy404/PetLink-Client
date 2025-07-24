@@ -8,6 +8,7 @@ import SignUpPage from '../pages/Auth/SignUpPage';
 import DashboardLayout from '../Layouts/DashboardLayout';
 import DashBoardHomeUser from '../pages/User Dashboard/DashBoardHomeUser';
 import AddPet from '../pages/User Dashboard/AddPet';
+import MyAddedPets from '../pages/User Dashboard/MyAddedPets';
 
 
 const router = createBrowserRouter([
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
             {
                 path: 'add-pet',
                 Component: AddPet
+            },
+            {
+                path: 'my-added-pets',
+                Component: MyAddedPets
             }
         ]
     },

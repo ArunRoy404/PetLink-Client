@@ -24,7 +24,7 @@ const DashboardLayout = () => {
         { name: "Home", icon: <Home size={20} />, path: "/" },
         { name: "Dashboard", icon: <LayoutDashboard size={20} />, path: "/dashboard" },
         { name: "Add a Pet", icon: <PlusCircle size={20} />, path: "/dashboard/add-pet" },
-        { name: "My added Pets", icon: <Layers size={20} />, path: "/dashboard/my-pets" },
+        { name: "My added Pets", icon: <Layers size={20} />, path: "/dashboard/my-added-pets" },
         { name: "Adoption Requests", icon: <Inbox size={20} />, path: "/dashboard/adoption-requests" },
         { name: "Create Campaign", icon: <Gift size={20} />, path: "/dashboard/create-campaign" },
         { name: "My Campaigns", icon: <BarChart2 size={20} />, path: "/dashboard/my-campaigns" },
