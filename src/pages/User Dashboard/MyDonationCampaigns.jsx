@@ -215,7 +215,7 @@ const MyDonationCampaigns = () => {
                             size="sm"
                             color=""
                             variant="outlined"
-                            onClick={() => navigate(`/dashboard/edit-donation/${campaign._id}`)}
+                            onClick={() => navigate(`/dashboard/update-campaign/${campaign._id}`)}
                             className="flex items-center gap-1 border-primary text-primary"
                         >
                             <Edit size={16} /> Edit

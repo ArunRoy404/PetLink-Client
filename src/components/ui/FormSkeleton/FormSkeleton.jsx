@@ -1,7 +1,7 @@
 import { Card, CardHeader, CardBody, Typography, Button } from '@material-tailwind/react';
 import { PawPrint, ImageIcon, CatIcon, Calendar, MapPin } from 'lucide-react';
 
-const PetFormSkeleton = () => {
+const FormSkeleton = () => {
   return (
     <Card className="shadow-none animate-pulse">
       <CardHeader floated={false} shadow={false} className="rounded-none">
@@ -112,4 +112,4 @@ const PetFormSkeleton = () => {
   );
 };
 
-export default PetFormSkeleton;
+export default FormSkeleton;
