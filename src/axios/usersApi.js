@@ -2,14 +2,20 @@ import useAxiosSecure from "./useAxiosSecure";
 
 const useGetUsersApi = () => {
     const axiosSecure = useAxiosSecure()
-    const getUsersPromise = () => axiosSecure.get('/users')
+    const getUsersPromise = (page, size) => axiosSecure.get(`/users?page=${page}&size=${size}`)
     return { getUsersPromise }
+}
+
+const useGetUserCountApi = () => {
+    const axiosSecure = useAxiosSecure()
+    const getUsersCountPromise = () => axiosSecure.get('/users-count')
+    return { getUsersCountPromise }
 }
 
 const useUpdateUserApi = () => {
     const axiosSecure = useAxiosSecure()
-    const getUpdateUserPromise = (updateData) => axiosSecure.put('/users', { data: { updateData } })
+    const getUpdateUserPromise = (userData) => axiosSecure.put('/users', { data: { userData } })
     return { getUpdateUserPromise }
 }
 
-export { useGetUsersApi, useUpdateUserApi }
+export { useGetUsersApi, useUpdateUserApi, useGetUserCountApi }

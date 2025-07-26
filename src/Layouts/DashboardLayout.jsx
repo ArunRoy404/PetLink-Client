@@ -7,6 +7,7 @@ import {
     BarChart2,
     Heart,
     LayoutDashboard,
+    Users,
 } from 'lucide-react';
 import { NavLink } from "react-router";
 import { useState } from 'react';
@@ -29,6 +30,7 @@ const DashboardLayout = () => {
         { name: "Create Campaign", icon: <Gift size={20} />, path: "/dashboard/create-campaign" },
         { name: "My Campaigns", icon: <BarChart2 size={20} />, path: "/dashboard/my-campaigns" },
         { name: "My Donations", icon: <Heart size={20} />, path: "/dashboard/my-donations" },
+        { name: "Users", icon: <Users size={20} />, path: "/dashboard/users" },
     ];
 
     return (
