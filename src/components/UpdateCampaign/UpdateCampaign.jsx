@@ -71,7 +71,7 @@ const UpdateCampaign = () => {
             .catch(()=>{
                 notifyError('Error loading campaign data')
             })
-            .finally(setIsDataLoading(false))
+            .finally(()=>setIsDataLoading(false))
     }, [])
 
     useEffect(()=>{

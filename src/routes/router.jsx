@@ -13,6 +13,7 @@ import UpdatePet from '../components/UpdatePet.jsx/UpdatePet';
 import CreateDonationCampaign from '../pages/User Dashboard/CreateDonationCampaign';
 import MyDonationCampaigns from '../pages/User Dashboard/MyDonationCampaigns';
 import UpdateCampaign from '../components/UpdateCampaign/UpdateCampaign';
+import MyDonations from '../pages/User Dashboard/MyDonations';
 
 
 const router = createBrowserRouter([
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
             {
                 path: 'update-campaign/:id',
                 Component: UpdateCampaign
+            },
+            {
+                path: 'my-donations',
+                Component: MyDonations
             }
         ]
     },
