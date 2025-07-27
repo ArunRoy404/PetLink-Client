@@ -9,8 +9,9 @@ import {
     LayoutDashboard,
     Users,
     PawPrintIcon,
+    LucidePiggyBank,
+    HandCoins,
 } from 'lucide-react';
-import { NavLink } from "react-router";
 import { useState } from 'react';
 import { Outlet } from 'react-router';
 import SidebarDashboard from '../components/layout/Dashboard/SidebarDashboard';
@@ -33,6 +34,7 @@ const DashboardLayout = () => {
         { name: "My Donations", icon: <Heart size={20} />, path: "/dashboard/my-donations" },
         { name: "Users", icon: <Users size={20} />, path: "/dashboard/users" },
         { name: "All Pets", icon: <PawPrintIcon size={20} />, path: "/dashboard/all-pets" },
+        { name: "All Campaigns", icon: <HandCoins size={20} />, path: "/dashboard/all-campaigns" },
     ];
 
     return (
