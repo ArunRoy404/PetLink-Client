@@ -16,7 +16,7 @@ const NavLinkDashboard = ({item}) => {
             <span className={`opacity-60`}>
                 {item.icon}
             </span>
-            <Typography variant="paragraph" className="">
+            <Typography variant="paragraph" className="text-sm ">
                 {item.name}
             </Typography>
         </NavLink>
