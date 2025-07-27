@@ -18,4 +18,10 @@ const useUpdateUserApi = () => {
     return { getUpdateUserPromise }
 }
 
-export { useGetUsersApi, useUpdateUserApi, useGetUserCountApi }
+const useGetUserApi = () => {
+    const axiosSecure = useAxiosSecure()
+    const getUserPromise = (email) => axiosSecure.get(`/users/${email}`,)
+    return { getUserPromise }
+}
+
+export { useGetUserApi, useGetUsersApi, useUpdateUserApi, useGetUserCountApi }

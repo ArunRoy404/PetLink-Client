@@ -8,6 +8,7 @@ import {
     Heart,
     LayoutDashboard,
     Users,
+    PawPrintIcon,
 } from 'lucide-react';
 import { NavLink } from "react-router";
 import { useState } from 'react';
@@ -31,6 +32,7 @@ const DashboardLayout = () => {
         { name: "My Campaigns", icon: <BarChart2 size={20} />, path: "/dashboard/my-campaigns" },
         { name: "My Donations", icon: <Heart size={20} />, path: "/dashboard/my-donations" },
         { name: "Users", icon: <Users size={20} />, path: "/dashboard/users" },
+        { name: "All Pets", icon: <PawPrintIcon size={20} />, path: "/dashboard/all-pets" },
     ];
 
     return (

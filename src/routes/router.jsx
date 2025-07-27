@@ -16,6 +16,7 @@ import UpdateCampaign from '../components/UpdateCampaign/UpdateCampaign';
 import MyDonations from '../pages/User Dashboard/MyDonations';
 import AdoptionRequests from '../pages/User Dashboard/AdoptionRequests';
 import Users from '../pages/AdminDashboard.jsx/Users';
+import AllPets from '../pages/AdminDashboard.jsx/AllPets';
 
 
 const router = createBrowserRouter([
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
             {
                 path: 'users',
                 Component: Users
+            },
+            {
+                path: 'all-pets',
+                Component: AllPets
             }
         ]
     },
