@@ -39,7 +39,7 @@ import { useNavigate } from "react-router";
 import TableSkeleton from "../../components/ui/TableSkeleton";
 import NoDataFoundTable from "../../components/ui/NoDatafoundTable";
 import { notifyError, notifySuccess } from "../../ReactHotToast/ReactHotToast";
-import { useGetMyCampaignsApi, useGetMyCampaignsCountApi, useUpdateCampaignApi } from "../../axios/donationApi";
+import { useGetCampaignsApi, useGetCampaignsCountApi, useUpdateCampaignApi } from "../../axios/donationApi";
 import DonatorsDialog from "../../components/ui/DonatorsDialog";
 
 const columnHelper = createColumnHelper();
@@ -55,9 +55,10 @@ const AllCampaigns = () => {
     const [donatorsDialog, setDonatorsDialog] = useState(false);
     const [selectedCampaign, setSelectedCampaign] = useState(null);
 
-    const { getMyCampaignsPromise } = useGetMyCampaignsApi();
-    const { getMyCampaignsCountPromise } = useGetMyCampaignsCountApi();
+    const { getCampaignsPromise } = useGetCampaignsApi();
+    const { getCampaignsCountPromise } = useGetCampaignsCountApi()
     const { updateCampaignPromise } = useUpdateCampaignApi();
+
 
     // Dummy donators data (to be replaced with API call later)
     const dummyDonators = [
@@ -104,14 +105,14 @@ const AllCampaigns = () => {
         data: campaignsData,
         isLoading: campaignsLoading,
     } = useQuery({
-        queryKey: ["my-donation-campaigns", pagination],
-        queryFn: () => getMyCampaignsPromise(pagination.pageIndex, pagination.pageSize).then((res) => res.data),
+        queryKey: ["donation-campaigns", pagination],
+        queryFn: () => getCampaignsPromise(pagination.pageIndex, pagination.pageSize).then((res) => res.data),
         keepPreviousData: true,
     });
 
     const { data: countData } = useQuery({
-        queryKey: ["my-donation-campaigns-count"],
-        queryFn: () => getMyCampaignsCountPromise().then((res) => res.data),
+        queryKey: ["donation-campaigns-count"],
+        queryFn: () => getCampaignsCountPromise().then((res) => res.data),
     });
 
     const handlePageSizeChange = (value) => {
