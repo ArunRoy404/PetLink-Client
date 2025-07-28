@@ -37,7 +37,6 @@ const PetListing = () => {
         select: (res) => res.data.filter(pet => !pet.adopted)
     });
 
-    console.log(petsData);
 
     // Fetch categories
     const { data: categories } = useQuery({
@@ -121,7 +120,7 @@ const PetListing = () => {
 
             <div ref={ref} className='py-10 w-full flex items-center justify-center container mx-auto'>
                 {
-                    inView && !searchTerm && !selectedCategory && !!isLoading && (
+                    inView && !searchTerm && !selectedCategory && !isLoading && (
                         <div className='flex flex-col items-center justify-center gap-4 font-bold '>
                             <Loader size={50} />
                             Loading...

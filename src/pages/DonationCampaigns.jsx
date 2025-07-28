@@ -1,0 +1,97 @@
+import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import {
+    Typography,
+} from '@material-tailwind/react';
+import { Search } from 'lucide-react';
+import Select from 'react-select';
+
+
+import { useInView } from "react-intersection-observer";
+
+import NoDataFound from '../components/ui/NoDataFound';
+import Loader from '../components/ui/Loader';
+import CardSkeleton from '../components/ui/CardSkeleton/CardSkeleton';
+import PetCard from '../components/ui/PetCard';
+import { useGetCampaignsApi } from '../axios/donationApi';
+import DonationCard from '../components/ui/DonationCard.jsx/DonationCard';
+
+
+
+const PetListing = () => {
+
+    const [campaignsData, setPetsData] = useState([])
+
+
+
+    const { getCampaignsPromise } = useGetCampaignsApi()
+
+    const { ref, inView } = useInView({ threshold: 1 })
+
+
+
+    // Fetch pets data
+    const { data, isLoading } = useQuery({
+        queryKey: ['campaigns',],
+        queryFn: () => getCampaignsPromise(),
+        select: (res) => res.data.filter(pet => !pet.adopted)
+    });
+
+
+
+    useEffect(() => {
+        if (inView || data) {
+            setPetsData(prevData => [...prevData, ...data])
+        }
+    }, [inView, data])
+
+    return (
+        <div className=" pb-8 ">
+            <div className='px-4 pt-40 bg-gradient-to-b from-surface '>
+                {/* Page Header */}
+                <div className="container mx-auto text-center mb-10">
+                    <Typography variant="h2" className="font-bold text-gray-900 mb-2">
+                        Give Hope to Pets in Need
+                    </Typography>
+                    <Typography variant="lead" className="text-gray-600">
+                        Your donation can change a life. Browse campaigns below to support pets awaiting medical care, shelter, and loving homes.
+                    </Typography>
+                </div>
+            </div>
+
+            {/* Loading State */}
+            {isLoading && (
+                <div className="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                    {[...Array(6)].map((_, i) => <CardSkeleton key={i} />)}
+                </div>
+            )}
+
+            {/* Pets Grid */}
+            {!isLoading && (
+                <div className=" px-4  container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                    {campaignsData?.length > 0 ? (
+                        campaignsData.map((campaignData, index) => <DonationCard key={index} campaignData={campaignData} />)
+                    ) : (
+                        <div className='col-span-full'>
+                            <NoDataFound message={'Try adjusting the category and search text'} />
+                        </div>
+                    )}
+                </div>
+            )}
+
+            <div ref={ref} className='py-10 w-full flex items-center justify-center container mx-auto'>
+                {
+                    inView && !isLoading && (
+                        <div className='flex flex-col items-center justify-center gap-4 font-bold '>
+                            <Loader size={50} />
+                            Loading...
+                        </div>
+                    )
+                }
+            </div>
+
+        </div>
+    );
+};
+
+export default PetListing;
