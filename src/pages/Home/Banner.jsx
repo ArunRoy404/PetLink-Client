@@ -48,7 +48,7 @@ const Banner = () => {
           <div className="mt-6 flex justify-center lg:justify-start gap-4">
             <Button className="bg-primary flex items-center" size="lg">
               <PawPrint />
-              <Link to="/pets">Browse Pets</Link>
+              <Link to="/pet-listing">Browse Pets</Link>
             </Button>
             <Button variant="outlined" className="flex items-center" color="gray" size="lg">
               <Wallet2 />

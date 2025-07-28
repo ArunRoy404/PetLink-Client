@@ -113,7 +113,7 @@ const PetListing = () => {
                 </div>
             )}
 
-            <div ref={ref} className='w-full flex items-center justify-center container mx-auto'>
+            <div ref={ref} className='py-10 w-full flex items-center justify-center container mx-auto'>
                 {
                     inView && (
                         <div className='flex flex-col items-center justify-center gap-4 font-bold '>
