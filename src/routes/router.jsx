@@ -18,6 +18,7 @@ import AdoptionRequests from '../pages/User Dashboard/AdoptionRequests';
 import Users from '../pages/AdminDashboard.jsx/Users';
 import AllPets from '../pages/AdminDashboard.jsx/AllPets';
 import AllCampaigns from '../pages/AdminDashboard.jsx/AllCampaigns';
+import PetListing from '../pages/PetListing/PetListing';
 
 
 const router = createBrowserRouter([
@@ -28,7 +29,11 @@ const router = createBrowserRouter([
             {
                 index: true,
                 Component: Home
-            }
+            },
+            {
+                path: '/pet-listing',
+                Component: PetListing
+            },
         ]
     },
     {

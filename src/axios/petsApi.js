@@ -13,15 +13,23 @@ const useGetPetsCountApi = () => {
     return ({ getPetsCountPromise })
 }
 
-const useGetPetsApi = () => {
+
+const useGetPetCategoriesApi = () => {
     const axiosSecure = useAxiosSecure()
-    const getPetsPromise = (page, size) => {
-        return axiosSecure.get(`/pets?page=${page}&size=${size}`)
+    const getPetCategoriesPromise = () => {
+        return axiosSecure.get('/pet-categories')
     }
-    return { getPetsPromise }
+    return { getPetCategoriesPromise }
 }
 
 
+const useGetPetsApi = () => {
+    const axiosSecure = useAxiosSecure()
+    const getPetsPromise = (page, size, searchTerm = '', category = '', adopted) => {
+        return axiosSecure.get(`/pets?page=${page}&size=${size}&search=${searchTerm}&category=${category}&adopted=${adopted}`)
+    }
+    return { getPetsPromise }
+}
 
 
 
@@ -68,4 +76,4 @@ const useGetPetInfoApi = () => {
 
 
 
-export { useGetPetsCountApi, useGetPetInfoApi, useDeletePetApi, useUpdatePetApi, useAddPetApi, useGetPetsApi, useGetMyAddedPetsCountApi, useGetMyAddedPetsApi }
+export { useGetPetCategoriesApi, useGetPetsCountApi, useGetPetInfoApi, useDeletePetApi, useUpdatePetApi, useAddPetApi, useGetPetsApi, useGetMyAddedPetsCountApi, useGetMyAddedPetsApi }
