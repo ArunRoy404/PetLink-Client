@@ -55,7 +55,7 @@ export function NavbarDefault() {
         </NavLink>
       </li>
       <li>
-        <NavLink to={'/donation'} className="flex items-center gap-1 hover:text-primary transition-colors">
+        <NavLink to={'/campaigns'} className="flex items-center gap-1 hover:text-primary transition-colors">
           <div className="flex items-center gap-1 hover:text-primary transition-colors">
             <HeartHandshake size={16} />
             <span className="text-sm font-medium">Donation Campaigns</span>
