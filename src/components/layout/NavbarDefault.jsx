@@ -47,7 +47,7 @@ export function NavbarDefault() {
         </NavLink>
       </li>
       <li>
-        <NavLink to={'/pets'} className="flex items-center gap-1 hover:text-primary transition-colors">
+        <NavLink to={'/pet-listing'} className="flex items-center gap-1 hover:text-primary transition-colors">
           <div className="flex items-center gap-1 hover:text-primary transition-colors">
             <PawPrint size={16} />
             <span className="text-sm font-medium">Pet Listing</span>
@@ -67,29 +67,12 @@ export function NavbarDefault() {
 
 
   return (
-    <Navbar className="z-[100] w-[calc(100%-30px)] fixed top-4 left-[50%] -translate-x-[50%] bg-transparent mx-auto shadow-none px-4 py-2 lg:px-8 lg:py-4">
+    <Navbar className="z-[100] w-[calc(100%-30px)] fixed top-4 left-[50%] -translate-x-[50%] bg-white/40 mx-auto shadow-none px-4 py-2 lg:px-8 lg:py-4">
       <div className="container mx-auto flex items-center justify-between text-text">
 
-        <div className="flex items-center gap-10">
-          {/* logo  */}
-          <Logo />
-
-          {/* navLinks  */}
-          <div className="hidden lg:block">{navList}</div>
-        </div>
 
 
-        <div className="flex items-center gap-2">
-
-          <ThemeToggle />
-
-          {
-            firebaseUser
-            ? <Profile/>
-            : <SignInButton/>
-          }
-
-
+        <div className="flex items-center gap-4">
           <IconButton
             variant="text"
             className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -127,6 +110,23 @@ export function NavbarDefault() {
               </svg>
             )}
           </IconButton>
+          {/* logo  */}
+          <Logo />
+
+          {/* navLinks  */}
+          <div className="hidden lg:block">{navList}</div>
+        </div>
+
+
+        <div className="flex items-center gap-2">
+
+          <ThemeToggle />
+
+          {
+            firebaseUser
+              ? <Profile />
+              : <SignInButton />
+          }
         </div>
       </div>
 
