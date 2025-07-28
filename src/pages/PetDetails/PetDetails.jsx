@@ -6,38 +6,18 @@ import {
     CardBody,
     Typography,
     Button,
-    Dialog,
-    DialogHeader,
-    DialogBody,
-    DialogFooter,
-    Input,
-    Avatar,
     Chip,
 } from '@material-tailwind/react';
 import {
-    PawPrint,
     MapPin,
     CalendarDays,
     Heart,
-    User,
-    Phone,
-    Home,
-    Mail,
-    Shield,
-    Activity,
     Droplet,
-    Smile,
-    Scale,
     ShieldCheck,
     Handshake,
     Bell,
     Gift,
-    Clock,
-    CheckCircle,
-    HelpCircle,
-    MessageSquare,
-    Star,
-    ChevronRight
+
 } from 'lucide-react';
 import { useParams } from 'react-router';
 import { useGetPetInfoApi } from '../../axios/petsApi';
@@ -45,7 +25,7 @@ import AdoptBenefits from '../../components/ui/AdoptPage/AdoptBenefits';
 import AdoptTerms from '../../components/ui/AdoptPage/AdoptTerms';
 import PetCareTip from '../../components/ui/AdoptPage/PetCareTip';
 import AdoptHelp from '../../components/ui/AdoptPage/AdoptHelp';
-// import AdoptDialog from '../../components/ui/AdoptPage/AdoptDialog';
+import AdoptDialog from '../../components/ui/AdoptPage/AdoptDialog';
 
 // Pet traits with icons and colors
 const PET_TRAITS = [
@@ -196,7 +176,7 @@ const PetDetails = () => {
             <AdoptHelp petData={petData} />
 
             {/* Adoption Form Modal */}
-            {/* <AdoptDialog petData={petData} openAdoptModal={openAdoptModal} setOpenAdoptModal={setOpenAdoptModal} /> */}
+            <AdoptDialog petData={petData} openAdoptModal={openAdoptModal} setOpenAdoptModal={setOpenAdoptModal} />
         </div>
     );
 };
