@@ -21,6 +21,7 @@ import AllCampaigns from '../pages/AdminDashboard.jsx/AllCampaigns';
 import PetListing from '../pages/PetListing/PetListing';
 import PetDetails from '../pages/PetDetails/PetDetails';
 import DonationCampaigns from '../pages/DonationCampaigns';
+import DonationDetails from '../pages/DonationDetails/DonationDetails';
 
 
 const router = createBrowserRouter([
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
             {
                 path: '/campaigns',
                 Component: DonationCampaigns
+            },
+            {
+                path: '/campaign/:campaignId',
+                Component: DonationDetails
             }
         ]
     },

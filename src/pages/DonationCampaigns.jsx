@@ -68,7 +68,7 @@ const PetListing = () => {
 
             {/* Pets Grid */}
             {!isLoading && (
-                <div className=" px-4  container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div className=" px-4 container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     {campaignsData?.length > 0 ? (
                         campaignsData.map((campaignData, index) => <DonationCard key={index} campaignData={campaignData} />)
                     ) : (

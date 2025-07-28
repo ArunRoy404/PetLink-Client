@@ -1,8 +1,12 @@
 import React from 'react';
 import { Progress, Button, Typography, Avatar, Card, CardBody, CardFooter } from '@material-tailwind/react';
 import { Heart, Eye } from 'lucide-react';
+import { useNavigate } from 'react-router';
 
 const DonationCard = ({ campaignData }) => {
+
+    const navigate = useNavigate()
+
     const {
         petName,
         petImage,
@@ -26,7 +30,7 @@ const DonationCard = ({ campaignData }) => {
     };
 
     return (
-        <Card className="w-full max-w-sm rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+        <Card className="w-full  rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
             {/* Pet Image with Paused Badge */}
             <div className="relative h-48 overflow-hidden">
                 <img
@@ -101,9 +105,10 @@ const DonationCard = ({ campaignData }) => {
 
                     <Button
                         className="flex items-center gap-2 bg-primary"
+                        onClick={()=>navigate(`/campaign/${campaignData._id}`)}
                     >
                         <Eye size={18} />
-                        View Details
+                        Details
                     </Button>
                 </div>
             </CardFooter>
