@@ -19,13 +19,14 @@ import {
     Gift,
 
 } from 'lucide-react';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useGetPetInfoApi } from '../../axios/petsApi';
 import AdoptBenefits from '../../components/ui/AdoptPage/AdoptBenefits';
 import AdoptTerms from '../../components/ui/AdoptPage/AdoptTerms';
 import PetCareTip from '../../components/ui/AdoptPage/PetCareTip';
 import AdoptHelp from '../../components/ui/AdoptPage/AdoptHelp';
 import AdoptDialog from '../../components/ui/AdoptPage/AdoptDialog';
+import { useAuthContext } from '../../context/AuthContext';
 
 // Pet traits with icons and colors
 const PET_TRAITS = [
@@ -41,9 +42,9 @@ const PET_TRAITS = [
 const PetDetails = () => {
     const { petId } = useParams();
     const [openAdoptModal, setOpenAdoptModal] = useState(false);
-
     const { getPetInfoPromise } = useGetPetInfoApi();
-
+    const navigate = useNavigate()
+    const { firebaseUser } = useAuthContext()
 
     // Fetch pet details
     const { data: petData, isLoading } = useQuery({
@@ -51,7 +52,7 @@ const PetDetails = () => {
         queryFn: () => getPetInfoPromise(petId).then(res => res.data),
     });
 
-
+    console.log(petData);
 
 
 
@@ -148,14 +149,29 @@ const PetDetails = () => {
                                 </div>
                             </div>
 
-                            <Button
-                                size="lg"
-                                className="flex bg-primary w-full items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all mt-4"
-                                onClick={() => setOpenAdoptModal(true)}
-                            >
-                                <Heart size={20} className="fill-current" />
-                                Adopt {petData.petName}
-                            </Button>
+                            {
+                                petData.addedBy === firebaseUser?.email
+                                    ? <Button
+                                        size="lg"
+                                        className="flex bg-primary w-full items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all mt-4"
+                                        disabled={petData.adopted}
+                                        onClick={() => setOpenAdoptModal(true)}
+                                    >
+                                        <Heart size={20} className="fill-current" />
+                                        {
+                                            petData.adopted
+                                                ? 'Adopted'
+                                                : `Adopt ${petData.petName}`
+                                        }
+                                    </Button>
+                                    : <Button
+                                        size="lg"
+                                        className="flex bg-primary w-full items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all mt-4"
+                                        onClick={() => navigate('/dashboard/my-added-pets')}
+                                    >
+                                        See your added pets
+                                    </Button>
+                            }
                         </CardBody>
                     </div>
                 </Card>
