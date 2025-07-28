@@ -52,9 +52,6 @@ const PetDetails = () => {
         queryFn: () => getPetInfoPromise(petId).then(res => res.data),
     });
 
-    console.log(petData);
-
-
 
     if (isLoading) return (
         <div className="flex justify-center items-center h-screen">
@@ -150,7 +147,7 @@ const PetDetails = () => {
                             </div>
 
                             {
-                                petData.addedBy === firebaseUser?.email
+                                petData.addedBy !== firebaseUser?.email
                                     ? <Button
                                         size="lg"
                                         className="flex bg-primary w-full items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all mt-4"

@@ -27,6 +27,7 @@ const PetListing = () => {
 
 
     const { ref, inView } = useInView({ threshold: 1 })
+    console.log(searchTerm, selectedCategory);
 
 
     // Fetch pets data
@@ -35,6 +36,8 @@ const PetListing = () => {
         queryFn: () => getPetsPromise(0, 100, searchTerm, selectedCategory?.value),
         select: (res) => res.data.filter(pet => !pet.adopted)
     });
+
+    console.log(petsData);
 
     // Fetch categories
     const { data: categories } = useQuery({
@@ -47,10 +50,13 @@ const PetListing = () => {
     });
 
     useEffect(() => {
-        if (inView || data) {
+        if(searchTerm || selectedCategory){
+            setPetsData(data)
+        }
+        else if (inView || data) {
             setPetsData(prevData => [...prevData, ...data])
         }
-    }, [inView, data])
+    }, [inView, searchTerm, selectedCategory, data])
 
     return (
         <div className=" pb-8 ">
@@ -115,7 +121,7 @@ const PetListing = () => {
 
             <div ref={ref} className='py-10 w-full flex items-center justify-center container mx-auto'>
                 {
-                    inView && (
+                    inView && !searchTerm && !selectedCategory && !!isLoading && (
                         <div className='flex flex-col items-center justify-center gap-4 font-bold '>
                             <Loader size={50} />
                             Loading...
