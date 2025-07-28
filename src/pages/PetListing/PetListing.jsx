@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import {
     Typography,
@@ -10,9 +10,15 @@ import './PetListing.css'
 import CardSkeleton from '../../components/ui/CardSkeleton/CardSkeleton';
 import NoDataFound from '../../components/ui/NoDataFound';
 import PetCard from '../../components/ui/PetCard';
+import { useInView } from "react-intersection-observer";
+import Loader from '../../components/ui/Loader';
+
 
 
 const PetListing = () => {
+
+    const [petsData, setPetsData] = useState([])
+
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState(null);
 
@@ -20,8 +26,11 @@ const PetListing = () => {
     const { getPetCategoriesPromise } = useGetPetCategoriesApi();
 
 
+    const { ref, inView } = useInView({ threshold: 1 })
+
+
     // Fetch pets data
-    const { data: petsData, isLoading } = useQuery({
+    const { data, isLoading } = useQuery({
         queryKey: ['pets', searchTerm, selectedCategory?.value],
         queryFn: () => getPetsPromise(0, 100, searchTerm, selectedCategory?.value),
         select: (res) => res.data.filter(pet => !pet.adopted)
@@ -36,6 +45,12 @@ const PetListing = () => {
             ...data.data.map(category => ({ value: category, label: category }))
         ]
     });
+
+    useEffect(() => {
+        if (inView || data) {
+            setPetsData(prevData => [...prevData, ...data])
+        }
+    }, [inView, data])
 
     return (
         <div className=" pb-8 ">
@@ -89,7 +104,7 @@ const PetListing = () => {
             {!isLoading && (
                 <div className=" px-4  container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
                     {petsData?.length > 0 ? (
-                        petsData.map((pet) => <PetCard key={pet._id} pet={pet} />)
+                        petsData.map((pet, index) => <PetCard key={index} pet={pet} />)
                     ) : (
                         <div className='col-span-full'>
                             <NoDataFound message={'Try adjusting the category and search text'} />
@@ -97,6 +112,17 @@ const PetListing = () => {
                     )}
                 </div>
             )}
+
+            <div ref={ref} className='w-full flex items-center justify-center container mx-auto'>
+                {
+                    inView && (
+                        <div className='flex flex-col items-center justify-center gap-4 font-bold '>
+                            <Loader size={50} />
+                            Loading...
+                        </div>
+                    )
+                }
+            </div>
 
         </div>
     );
