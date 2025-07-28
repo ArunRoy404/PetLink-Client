@@ -19,6 +19,7 @@ import Users from '../pages/AdminDashboard.jsx/Users';
 import AllPets from '../pages/AdminDashboard.jsx/AllPets';
 import AllCampaigns from '../pages/AdminDashboard.jsx/AllCampaigns';
 import PetListing from '../pages/PetListing/PetListing';
+import PetDetails from '../pages/PetDetails/PetDetails';
 
 
 const router = createBrowserRouter([
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
                 path: '/pet-listing',
                 Component: PetListing
             },
+            {
+                path: 'pets/:petId',
+                Component: PetDetails
+            }
         ]
     },
     {

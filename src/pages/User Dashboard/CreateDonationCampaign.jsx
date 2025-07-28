@@ -94,7 +94,7 @@ const CreateDonationCampaign = () => {
             ...data,
             addedBy: firebaseUser?.email,
             petImage: imagePreview,
-            createdAt: new Date().toLocaleString()
+            createdAt: new Date()
         };
 
         addDonationCampaignPromise(campaignData)
