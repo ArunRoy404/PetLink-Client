@@ -78,7 +78,7 @@ const DashBoardHomeUser = () => {
             value: "$1,240",
             change: "+18%",
             link: "/dashboard/donations",
-            icon: <BarChart2 className="text-emerald-500" />,
+            icon: <BarChart2 className="text-emerald-500 dark:text-white" />,
             trend: 'up'
         },
     ];
@@ -118,7 +118,7 @@ const DashBoardHomeUser = () => {
                 {stats.map((stat, index) => (
                     <Card
                         key={index}
-                        className="hover:shadow-lg transition-shadow hover:border-blue-100 dark:hover:border-gray-600 border border-transparent"
+                        className="hover:shadow-lg transition-shadow hover:border-blue-100 dark:bg-[#3b3162] dark:hover:border-gray-600 border border-transparent"
                     >
                         <CardBody className="p-5">
                             <div className="flex items-center justify-between mb-4">
@@ -184,7 +184,7 @@ const DashBoardHomeUser = () => {
             {/* Charts Section */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Adoptions Chart */}
-                <Card className="dark:bg-gray-800 overflow-hidden">
+                <Card className="dark:bg-[#3b3162] overflow-hidden">
                     <CardBody className="p-6">
                         <div className="flex items-center justify-between mb-6">
                             <Typography variant="h6" color="blue-gray" className="dark:text-white">
@@ -234,7 +234,7 @@ const DashBoardHomeUser = () => {
                 </Card>
 
                 {/* Donations Chart */}
-                <Card className="dark:bg-gray-800 overflow-hidden">
+                <Card className="dark:bg-[#3b3162] overflow-hidden">
                     <CardBody className="p-6">
                         <div className="flex items-center justify-between mb-6">
                             <Typography variant="h6" color="blue-gray" className="dark:text-white">
@@ -288,7 +288,7 @@ const DashBoardHomeUser = () => {
             </div>
 
             {/* Recent Activity */}
-            <Card className="dark:bg-gray-800">
+            <Card className="dark:bg-[#3b3162]">
                 <CardBody className="p-6">
                     <Typography variant="h6" color="blue-gray" className="mb-6 dark:text-white">
                         <Clock className="inline-block h-5 w-5 mr-2 text-amber-500" />

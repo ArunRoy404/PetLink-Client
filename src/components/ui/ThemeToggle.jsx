@@ -12,7 +12,7 @@ const ThemeToggle = () => {
                 onClick={() => setIsDark(e => !e)}>
                 {
                     isDark
-                        ? <Sun size={23} />
+                        ? <Sun size={23} color="white" />
                         : <Moon size={23} />
                 }
             </div>

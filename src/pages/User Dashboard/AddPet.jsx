@@ -70,7 +70,7 @@ const AddPet = () => {
 
     // Pet categories with icons
     const petCategories = [
-        { value: 'dog', label: 'Dog', icon: <Dog className="w-4 h-4 mr-2" /> },
+        { value: 'dog', label: 'Dog', icon: <Dog className="w-4 h-4 mr-2 " /> },
         { value: 'cat', label: 'Cat', icon: <Cat className="w-4 h-4 mr-2" /> },
         { value: 'rabbit', label: 'Rabbit', icon: <Rabbit className="w-4 h-4 mr-2" /> },
         { value: 'bird', label: 'Bird', icon: <Bird className="w-4 h-4 mr-2" /> },
@@ -152,13 +152,13 @@ const AddPet = () => {
     );
 
     return (
-        <Card className="shadow-none">
-            <CardHeader floated={false} shadow={false} className="rounded-none">
-                <Typography variant="h4" color="blue-gray" className="flex items-center gap-2">
-                    <PawPrint className="h-6 w-6 text-primary" />
+        <Card className="shadow-none dark:bg-[#2b2542] dark:!text-white">
+            <CardHeader floated={false} shadow={false} className="rounded-none dark:bg-transparent">
+                <Typography variant="h4" color="blue-gray" className="flex items-center gap-2 dark:text-white ">
+                    <PawPrint className="h-6 w-6 text-primary dark:text-white" />
                     Add a New Pet
                 </Typography>
-                <Typography color="gray" className="mt-1 font-normal">
+                <Typography color="gray" className="mt-1 font-normal dark:!text-white">
                     Help your pet find a loving forever home
                 </Typography>
             </CardHeader>
@@ -169,7 +169,7 @@ const AddPet = () => {
                         {/* Image Upload */}
                         <div className="lg:col-span-1">
                             <div className="space-y-2">
-                                <Typography variant="h6" color="blue-gray" className="flex items-center gap-2">
+                                <Typography variant="h6" color="blue-gray" className="flex items-center gap-2 dark:!text-white">
                                     <ImageIcon className="h-5 w-5" />
                                     Pet Photo
                                 </Typography>
@@ -179,7 +179,7 @@ const AddPet = () => {
                                             htmlFor="petImage"
                                             className={`min-h-40 md:min-h-64 flex flex-col items-center justify-center border-2 border-dashed rounded-xl cursor-pointer overflow-hidden
                                                         ${errors.petImage ? 'border-red-500' : 'border-gray-300 hover:border-blue-500'} 
-                                                        transition-colors bg-gray-50 dark:bg-gray-800`}
+                                                        transition-colors bg-gray-50 dark:bg-[#3b3162]`}
                                         >
                                             {imagePreview || isImageLoading ? (
                                                 <>
@@ -195,7 +195,7 @@ const AddPet = () => {
                                                     {isImageLoading && (
                                                         <div className="flex flex-col gap-2 items-center justify-center">
                                                             <Loader size={32} />
-                                                            <Typography variant="small" color="gray">
+                                                            <Typography variant="small" className='dark:!text-white' color="gray">
                                                                 Uploading...
                                                             </Typography>
                                                         </div>
@@ -204,7 +204,7 @@ const AddPet = () => {
                                             ) : (
                                                 <div className="flex flex-col items-center justify-center p-6 text-center">
                                                     <UploadCloud className="w-8 h-8 mb-2 text-gray-400" />
-                                                    <Typography variant="small" color="gray">
+                                                    <Typography variant="small" className='dark:!text-white' color="gray">
                                                         Click to upload
                                                     </Typography>
                                                 </div>
@@ -236,7 +236,7 @@ const AddPet = () => {
 
                                 </div>
                                 {errors.petImage && (
-                                    <Typography variant="small" color="red" className="flex items-center gap-1 mt-2">
+                                    <Typography variant="small" color="red" className="flex items-center gap-1 mt-2 dark:!text-white">
                                         <AlertCircle className="h-4 w-4" />
                                         {errors.petImage.message}
                                     </Typography>
@@ -248,11 +248,12 @@ const AddPet = () => {
                         <div className="lg:col-span-2 space-y-6">
                             {/* Pet Name */}
                             <div className="space-y-2">
-                                <Typography variant="h6" color="blue-gray" className="flex items-center gap-2">
+                                <Typography variant="h6" color="blue-gray" className="flex items-center gap-2 dark:!text-white">
                                     <CatIcon className="h-5 w-5" />
                                     Pet Name
                                 </Typography>
                                 <Input
+                                    className='dark:text-white'
                                     size="lg"
                                     placeholder="e.g. Max, Bella, Luna"
                                     {...register('petName', {
@@ -266,7 +267,7 @@ const AddPet = () => {
                                     icon={<PawPrint className="h-5 w-5" />}
                                 />
                                 {errors.petName && (
-                                    <Typography variant="small" color="red" className="flex items-center gap-1">
+                                    <Typography variant="small" color="red" className="flex items-center gap-1 dark:!text-white">
                                         <AlertCircle className="h-4 w-4" />
                                         {errors.petName.message}
                                     </Typography>
@@ -276,11 +277,12 @@ const AddPet = () => {
                             {/* Pet Age and Category */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
-                                    <Typography variant="h6" color="blue-gray" className="flex items-center gap-2">
+                                    <Typography variant="h6" color="blue-gray" className="flex items-center gap-2 dark:!text-white">
                                         <Calendar className="h-5 w-5" />
                                         Age
                                     </Typography>
                                     <Input
+                                        className='dark:text-white'
                                         size="lg"
                                         placeholder="e.g. 2 years, 6 months"
                                         {...register('petAge', {
@@ -293,7 +295,7 @@ const AddPet = () => {
                                         error={!!errors.petAge}
                                     />
                                     {errors.petAge && (
-                                        <Typography variant="small" color="red" className="flex items-center gap-1">
+                                        <Typography variant="small" color="red" className="flex items-center gap-1 dark:!text-white">
                                             <AlertCircle className="h-4 w-4" />
                                             {errors.petAge.message}
                                         </Typography>
@@ -301,7 +303,7 @@ const AddPet = () => {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Typography variant="h6" color="blue-gray" className="flex items-center gap-2">
+                                    <Typography variant="h6" color="blue-gray" className="flex items-center gap-2 dark:!text-white">
                                         <PawPrint className="h-5 w-5" />
                                         Category
                                     </Typography>
@@ -313,6 +315,7 @@ const AddPet = () => {
                                             <Select
                                                 {...field}
                                                 options={petCategories}
+                                                className='text-black'
                                                 formatOptionLabel={formatOptionLabel}
                                                 onChange={selectedOption => field.onChange(selectedOption)}
                                                 isClearable={true}
@@ -320,7 +323,7 @@ const AddPet = () => {
                                         )}
                                     />
                                     {errors.petCategory && (
-                                        <Typography variant="small" color="red" className="flex items-center gap-1">
+                                        <Typography variant="small" color="red" className="flex items-center gap-1 dark:!text-white">
                                             <AlertCircle className="h-4 w-4" />
                                             Please select a category
                                         </Typography>
@@ -330,11 +333,12 @@ const AddPet = () => {
 
                             {/* Pet Location */}
                             <div className="space-y-2">
-                                <Typography variant="h6" color="blue-gray" className="flex items-center gap-2">
+                                <Typography variant="h6" color="blue-gray" className="flex items-center gap-2 dark:!text-white">
                                     <MapPin className="h-5 w-5" />
                                     Location
                                 </Typography>
                                 <Input
+                                    className='dark:text-white'
                                     size="lg"
                                     placeholder="City or address where pet can be adopted"
                                     {...register('petLocation', {
@@ -347,7 +351,7 @@ const AddPet = () => {
                                     error={!!errors.petLocation}
                                 />
                                 {errors.petLocation && (
-                                    <Typography variant="small" color="red" className="flex items-center gap-1">
+                                    <Typography variant="small" color="red" className="flex items-center gap-1 dark:!text-white">
                                         <AlertCircle className="h-4 w-4" />
                                         {errors.petLocation.message}
                                     </Typography>
@@ -361,14 +365,15 @@ const AddPet = () => {
 
                     {/* Short Description */}
                     <div className="space-y-2">
-                        <Typography variant="h6" color="blue-gray" className="flex items-center gap-2">
+                        <Typography variant="h6" color="blue-gray" className="flex items-center gap-2 dark:!text-white">
                             <PawPrint className="h-5 w-5" />
                             Short Description
-                            <Typography variant="small" color="gray" className="inline ml-2">
+                            <Typography variant="small" color="gray" className="inline ml-2 dark:!text-white">
                                 (Max 150 characters)
                             </Typography>
                         </Typography>
                         <Input
+                            className='dark:text-white'
                             size="lg"
                             placeholder="Briefly describe your pet's personality"
                             {...register('shortDescription', {
@@ -381,7 +386,7 @@ const AddPet = () => {
                             error={!!errors.shortDescription}
                         />
                         {errors.shortDescription && (
-                            <Typography variant="small" color="red" className="flex items-center gap-1">
+                            <Typography variant="small" color="red" className="flex items-center gap-1 dark:!text-white">
                                 <AlertCircle className="h-4 w-4" />
                                 {errors.shortDescription.message}
                             </Typography>
@@ -390,11 +395,12 @@ const AddPet = () => {
 
                     {/* Long Description */}
                     <div className="space-y-2">
-                        <Typography variant="h6" color="blue-gray" className="flex items-center gap-2">
+                        <Typography variant="h6" color="blue-gray" className="flex items-center gap-2 dark:!text-white">
                             <PawPrint className="h-5 w-5" />
                             Detailed Information
                         </Typography>
                         <Textarea
+                            className='dark:text-white'
                             size="lg"
                             placeholder="Tell potential adopters about:
     - Personality traits
@@ -417,7 +423,7 @@ const AddPet = () => {
                             rows={6}
                         />
                         {errors.longDescription && (
-                            <Typography variant="small" color="red" className="flex items-center gap-1">
+                            <Typography variant="small" color="red" className="flex items-center gap-1 dark:!text-white">
                                 <AlertCircle className="h-4 w-4" />
                                 {errors.longDescription.message}
                             </Typography>
@@ -435,7 +441,7 @@ const AddPet = () => {
                                 setImagePreview(null);
                             }}
                             disabled={isSubmitting}
-                            className="flex items-center gap-2"
+                            className="flex items-center gap-2 dark:!text-white dark:border-white"
                         >
                             <X className="h-5 w-5" />
                             Cancel
@@ -466,7 +472,7 @@ const AddPet = () => {
                         <Chip
                             color="red"
                             value={
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-2 ">
                                     <X className="h-5 w-5" />
                                     Error submitting form. Please try again.
                                 </div>

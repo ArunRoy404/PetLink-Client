@@ -108,7 +108,7 @@ const MyDonations = () => {
         columnHelper.accessor((row, index) => index + 1 + pagination.pageIndex * pagination.pageSize, {
             id: "serial",
             header: () => "#",
-            cell: (info) => <span className="font-medium">{info.getValue()}</span>,
+            cell: (info) => <span className="font-medium dark:text-white flex">{info.getValue()}</span>,
         }),
         columnHelper.accessor("petImage", {
             header: () => "Pet Image",
@@ -124,19 +124,19 @@ const MyDonations = () => {
         columnHelper.accessor("petName", {
             header: () => (
                 <div className="flex items-center gap-1 cursor-pointer">
-                    Pet Name <ArrowUpDown size={14} className="text-gray-500" />
+                    Pet Name <ArrowUpDown size={14} className="dark:text-white text-gray-500" />
                 </div>
             ),
-            cell: (info) => <span className="font-medium">{info.getValue()}</span>,
+            cell: (info) => <span className="font-medium dark:text-white flex">{info.getValue()}</span>,
         }),
         columnHelper.accessor("amount", {
             header: () => (
                 <div className="flex items-center gap-1 cursor-pointer">
-                    Donated Amount <ArrowUpDown size={14} className="text-gray-500" />
+                    Donated Amount <ArrowUpDown size={14} className="dark:text-white text-gray-500" />
                 </div>
             ),
             cell: (info) => (
-                <span className="font-medium text-green-600">
+                <span className="font-medium text-green-600 dark:text-white flex">
                     ${info.getValue().toLocaleString()}
                 </span>
             ),
@@ -144,11 +144,11 @@ const MyDonations = () => {
         columnHelper.accessor("createdAt", {
             header: () => (
                 <div className="flex items-center gap-1 cursor-pointer">
-                    Date <ArrowUpDown size={14} className="text-gray-500" />
+                    Date <ArrowUpDown size={14} className="dark:text-white text-gray-500" />
                 </div>
             ),
             cell: (info) => (
-                <span className="text-gray-700">
+                <span className="dark:text-white text-gray-700">
                     {new Date(info.getValue()).toLocaleDateString()}
                 </span>
             ),
@@ -194,17 +194,17 @@ const MyDonations = () => {
     return (
         <div className="p-3 lg:p-6 w-full">
             <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-                <Typography variant="h4" className="font-bold text-gray-900 flex items-center gap-2">
+                <Typography variant="h4" className="font-bold dark:text-white text-gray-900 flex items-center gap-2">
                     <HeartHandshake className="h-6 w-6 text-primary" />
                     My Donations
                 </Typography>
                 <div className="flex items-center gap-4">
                     <div className="flex items-center gap-2">
-                        <Typography variant="small" className="text-gray-600">Show:</Typography>
+                        <Typography variant="small" className="dark:text-white text-gray-600">Show:</Typography>
                         <Select
                             value={pagination.pageSize.toString()}
                             onChange={handlePageSizeChange}
-                            className="!min-w-20"
+                            className="!min-w-20 dark:text-white flex"
                         >
                             <Option value="5">5</Option>
                             <Option value="10">10</Option>
@@ -212,20 +212,20 @@ const MyDonations = () => {
                             <Option value="20">20</Option>
                             <Option value="25">25</Option>
                         </Select>
-                        <Typography variant="small" className="text-gray-600">entries</Typography>
+                        <Typography variant="small" className="dark:text-white text-gray-600">entries</Typography>
                     </div>
                 </div>
             </div>
 
             <div className="overflow-x-auto rounded-xl border border-gray-200">
                 <table className="w-full">
-                    <thead className="bg-gray-50">
+                    <thead className="bg-gray-50 dark:bg-gray-700">
                         {table.getHeaderGroups().map((headerGroup) => (
                             <tr key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => (
                                     <th
                                         key={header.id}
-                                        className="select-none px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider cursor-pointer"
+                                        className="select-none px-6 py-4 text-left text-sm font-semibold dark:text-white text-gray-700 uppercase tracking-wider cursor-pointer"
                                         onClick={header.column.getToggleSortingHandler()}
                                     >
                                         {flexRender(header.column.columnDef.header, header.getContext())}
@@ -240,7 +240,7 @@ const MyDonations = () => {
                             <NoDataFoundTable message={"You haven't made any donations yet."} />
                         )}
                         {table.getRowModel().rows.map((row) => (
-                            <tr key={row.id} className="hover:bg-gray-50/80 transition-colors">
+                            <tr key={row.id} className="hover:bg-gray-50/80 dark:hover:bg-gray-900 transition-colors">
                                 {row.getVisibleCells().map((cell) => (
                                     <td key={cell.id} className="px-6 py-3 whitespace-nowrap">
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -252,9 +252,9 @@ const MyDonations = () => {
                 </table>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6 p-4 bg-gray-50 rounded-lg">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                 <div>
-                    <Typography variant="small" className="text-gray-600">
+                    <Typography variant="small" className="dark:text-white text-gray-600">
                         Showing <span className="font-semibold">{table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1}</span> to{' '}
                         <span className="font-semibold">
                             {Math.min((table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize, countData || 0)}

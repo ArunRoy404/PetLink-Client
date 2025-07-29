@@ -9,7 +9,7 @@ const NavLinkDashboard = ({item}) => {
             className={({ isActive }) =>
                 `group flex items-center gap-3 p-3 rounded-lg transition-all
                 ${isActive
-                    ? 'bg-surface text-primary dark:bg-gray-700 dark:text-blue-400 font-medium'
+                    ? 'bg-surface text-primary dark:bg-gray-700 dark:text-[#c2b3ff] font-bold'
                     : 'hover:bg-surface hover:text-primary dark:hover:bg-gray-700 dark:text-gray-300'}`
             }
         >

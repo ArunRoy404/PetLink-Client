@@ -104,16 +104,16 @@ const MyDonationCampaigns = () => {
         columnHelper.accessor((row, index) => index + 1 + pagination.pageIndex * pagination.pageSize, {
             id: "serial",
             header: () => "#",
-            cell: (info) => <span className="font-medium">{info.getValue()}</span>,
+            cell: (info) => <span className="font-medium dark:text-white  ">{info.getValue()}</span>,
         }),
         columnHelper.accessor("petName", {
             header: () => (
                 <div className="flex items-center gap-1 cursor-pointer">
-                    Pet Name <ArrowUpDown size={14} className="text-gray-500" />
+                    Pet Name <ArrowUpDown size={14} className="dark:text-white text-gray-500" />
                 </div>
             ),
             cell: (info) => (
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 dark:text-white ">
                     <Avatar
                         src={info.row.original.petImage}
                         alt={info.getValue()}
@@ -142,7 +142,7 @@ const MyDonationCampaigns = () => {
 
                 return (
                     <div className="flex flex-col gap-1 w-full max-w-[200px]">
-                        <div className="flex justify-between text-xs">
+                        <div className="flex justify-between text-xs dark:text-white ">
                             <span>${donatedAmount.toLocaleString()}</span>
                             <span>${info.getValue().toLocaleString()}</span>
                         </div>
@@ -151,7 +151,7 @@ const MyDonationCampaigns = () => {
                             color={progress >= 100 ? "green" : "blue"}
                             className="h-2"
                         />
-                        <span className="text-xs text-gray-600">
+                        <span className="text-xs dark:text-white text-gray-600">
                             {progress.toFixed(1)}% funded
                         </span>
                     </div>
@@ -243,17 +243,17 @@ const MyDonationCampaigns = () => {
     return (
         <div className="p-3 lg:p-6 w-full">
             <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-                <Typography variant="h4" className="font-bold text-gray-900 flex items-center gap-2">
+                <Typography variant="h4" className="font-bold dark:text-white text-gray-900 flex items-center gap-2">
                     <HeartHandshake className="h-6 w-6 text-primary" />
                     My Donation Campaigns
                 </Typography>
                 <div className="flex items-center gap-4">
                     <div className="flex items-center gap-2">
-                        <Typography variant="small" className="text-gray-600">Show:</Typography>
+                        <Typography variant="small" className="dark:text-white text-gray-600">Show:</Typography>
                         <Select
                             value={pagination.pageSize.toString()}
                             onChange={handlePageSizeChange}
-                            className="!min-w-20"
+                            className="!min-w-20 dark:text-white "
                         >
                             <Option value="5">5</Option>
                             <Option value="10">10</Option>
@@ -261,20 +261,20 @@ const MyDonationCampaigns = () => {
                             <Option value="20">20</Option>
                             <Option value="25">25</Option>
                         </Select>
-                        <Typography variant="small" className="text-gray-600">entries</Typography>
+                        <Typography variant="small" className="dark:text-white text-gray-600">entries</Typography>
                     </div>
                 </div>
             </div>
 
             <div className="overflow-x-auto rounded-xl border border-gray-200">
                 <table className="w-full">
-                    <thead className="bg-gray-50">
+                    <thead className="bg-gray-50 dark:bg-gray-700">
                         {table.getHeaderGroups().map((headerGroup) => (
                             <tr key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => (
                                     <th
                                         key={header.id}
-                                        className="select-none px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider cursor-pointer"
+                                        className="select-none px-6 py-4 text-left text-sm font-semibold dark:text-white text-gray-700 uppercase tracking-wider cursor-pointer"
                                         onClick={header.column.getToggleSortingHandler()}
                                     >
                                         {flexRender(header.column.columnDef.header, header.getContext())}
@@ -289,7 +289,7 @@ const MyDonationCampaigns = () => {
                             <NoDataFoundTable message={"You haven't created any donation campaigns yet."} colSpan={columns.length} />
                         )}
                         {table.getRowModel().rows.map((row) => (
-                            <tr key={row.id} className="hover:bg-gray-50/80 transition-colors">
+                            <tr key={row.id} className="hover:bg-gray-50/80 dark:hover:bg-gray-900 transition-colors">
                                 {row.getVisibleCells().map((cell) => (
                                     <td key={cell.id} className="px-6 py-3 whitespace-nowrap">
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -301,9 +301,9 @@ const MyDonationCampaigns = () => {
                 </table>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6 p-4 bg-gray-50 rounded-lg">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6 p-4 dark:bg-gray-700 bg-gray-50 rounded-lg">
                 <div>
-                    <Typography variant="small" className="text-gray-600">
+                    <Typography variant="small" className="dark:text-white text-gray-600">
                         Showing <span className="font-semibold">{table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1}</span> to{' '}
                         <span className="font-semibold">
                             {Math.min((table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize, countData || 0)}

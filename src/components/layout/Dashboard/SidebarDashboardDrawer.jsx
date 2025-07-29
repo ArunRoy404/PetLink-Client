@@ -12,10 +12,10 @@ const SidebarDashboardDrawer = ({ isSidebarOpen, toggleSidebar, navItems }) => {
         <Drawer
             open={isSidebarOpen}
             onClose={toggleSidebar}
-            className="flex flex-col bg-white dark:bg-gray-800"
+            className="flex flex-col bg-white dark:bg-[#1F1A33]"
             placement="left"
         >
-            <div className="p-4 flex items-center gap-2">
+            <div className="p-4 flex items-center gap-2 dark:text-white">
                 <Logo />
             </div>
             <nav className="flex-1 flex flex-col gap-1 p-4">

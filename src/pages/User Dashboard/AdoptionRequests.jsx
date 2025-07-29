@@ -111,7 +111,7 @@ const AdoptionRequests = () => {
         columnHelper.accessor((row, index) => index + 1 + pagination.pageIndex * pagination.pageSize, {
             id: "serial",
             header: () => "#",
-            cell: (info) => <span className="font-medium">{info.getValue()}</span>,
+            cell: (info) => <span className="font-medium dark:text-white">{info.getValue()}</span>,
         }),
         columnHelper.accessor("petImage", {
             header: () => "Pet",
@@ -123,23 +123,23 @@ const AdoptionRequests = () => {
                         size="sm"
                         className="border border-gray-200"
                     />
-                    <span className="font-medium">{info.row.original.petName}</span>
+                    <span className="font-medium dark:text-white">{info.row.original.petName}</span>
                 </div>
             ),
         }),
         columnHelper.accessor("adoptionInfo.userEmail", {
             header: () => (
                 <div className="flex items-center gap-1 cursor-pointer">
-                    Requester <ArrowUpDown size={14} className="text-gray-500" />
+                    Requester <ArrowUpDown size={14} className="dark:text-white text-gray-500" />
                 </div>
             ),
             cell: (info) => (
                 <div className="flex items-center gap-3">
                     <div>
-                        <Typography variant="small" className="font-medium">
+                        <Typography variant="small" className="font-medium dark:text-white">
                             {info.getValue()}
                         </Typography>
-                        <Typography variant="small" className="text-gray-600">
+                        <Typography variant="small" className="dark:text-white text-gray-600">
                             {info.row.original.adoptionInfo.phone}
                         </Typography>
                     </div>
@@ -148,16 +148,16 @@ const AdoptionRequests = () => {
         }),
         columnHelper.accessor("adoptionInfo.address", {
             header: "Location",
-            cell: (info) => <span className="text-gray-700">{info.getValue()}</span>,
+            cell: (info) => <span className="dark:text-white text-gray-700">{info.getValue()}</span>,
         }),
         columnHelper.accessor("adoptionInfo.requestDate", {
             header: () => (
                 <div className="flex items-center gap-1 cursor-pointer">
-                    Request Date <ArrowUpDown size={14} className="text-gray-500" />
+                    Request Date <ArrowUpDown size={14} className="dark:text-white text-gray-500" />
                 </div>
             ),
             cell: (info) => (
-                <span className="text-gray-700">
+                <span className="dark:text-white text-gray-700">
                     {new Date(info.getValue()).toLocaleDateString()}
                 </span>
             ),
@@ -166,8 +166,8 @@ const AdoptionRequests = () => {
             header: "Status",
             cell: (info) => (
                 <span className={`px-3 py-1.5 rounded-full text-xs font-semibold ${info.getValue() === 'accepted' ? 'bg-green-100 text-green-800' :
-                    info.getValue() === 'rejected' ? 'bg-red-100 text-red-800' :
-                        'bg-amber-100 text-amber-800'
+                        info.getValue() === 'rejected' ? 'bg-red-100 text-red-800' :
+                            'bg-amber-100 text-amber-800'
                     }`}>
                     {info.getValue().charAt(0).toUpperCase() + info.getValue().slice(1)}
                 </span>
@@ -229,17 +229,17 @@ const AdoptionRequests = () => {
     return (
         <div className="p-3 lg:p-6 w-full">
             <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-                <Typography variant="h4" className="font-bold text-gray-900 flex items-center gap-2">
+                <Typography variant="h4" className="font-bold dark:text-white text-gray-900 flex items-center gap-2">
                     <PawPrint className="h-6 w-6 text-primary" />
                     Adoption Requests
                 </Typography>
                 <div className="flex items-center gap-4">
                     <div className="flex items-center gap-2">
-                        <Typography variant="small" className="text-gray-600">Show:</Typography>
+                        <Typography variant="small" className="dark:text-white text-gray-600">Show:</Typography>
                         <Select
                             value={pagination.pageSize.toString()}
                             onChange={handlePageSizeChange}
-                            className="!min-w-20"
+                            className="!min-w-20 dark:text-white"
                         >
                             <Option value="5">5</Option>
                             <Option value="10">10</Option>
@@ -247,20 +247,20 @@ const AdoptionRequests = () => {
                             <Option value="20">20</Option>
                             <Option value="25">25</Option>
                         </Select>
-                        <Typography variant="small" className="text-gray-600">entries</Typography>
+                        <Typography variant="small" className="dark:text-white text-gray-600">entries</Typography>
                     </div>
                 </div>
             </div>
 
             <div className="overflow-x-auto rounded-xl border border-gray-200">
                 <table className="w-full">
-                    <thead className="bg-gray-50">
+                    <thead className="bg-gray-50 dark:bg-gray-700">
                         {table.getHeaderGroups().map((headerGroup) => (
                             <tr key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => (
                                     <th
                                         key={header.id}
-                                        className="select-none px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider cursor-pointer"
+                                        className="select-none px-6 py-4 text-left text-sm font-semibold dark:text-white text-gray-700 uppercase tracking-wider cursor-pointer"
                                         onClick={header.column.getToggleSortingHandler()}
                                     >
                                         {flexRender(header.column.columnDef.header, header.getContext())}
@@ -275,7 +275,7 @@ const AdoptionRequests = () => {
                             <NoDataFoundTable message={"No adoption requests found"} colSpan={columns.length} />
                         )}
                         {table.getRowModel().rows.map((row) => (
-                            <tr key={row.id} className="hover:bg-gray-50/80 transition-colors">
+                            <tr key={row.id} className="hover:bg-gray-50/80 dark:hover:bg-gray-900 transition-colors">
                                 {row.getVisibleCells().map((cell) => (
                                     <td key={cell.id} className="px-6 py-3 whitespace-nowrap">
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -287,9 +287,9 @@ const AdoptionRequests = () => {
                 </table>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6 p-4 bg-gray-50 rounded-lg">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                 <div>
-                    <Typography variant="small" className="text-gray-600">
+                    <Typography variant="small" className="dark:text-white text-gray-600">
                         Showing <span className="font-semibold">{table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1}</span> to{' '}
                         <span className="font-semibold">
                             {Math.min((table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize, requestsData?.totalCount || 0)}

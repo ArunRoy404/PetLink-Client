@@ -117,13 +117,13 @@ const CreateDonationCampaign = () => {
     };
 
     return (
-        <Card className="shadow-none">
-            <CardHeader floated={false} shadow={false} className="rounded-none">
-                <Typography variant="h4" color="blue-gray" className="flex items-center gap-2">
+        <Card className="shadow-none bg-transparent">
+            <CardHeader floated={false} shadow={false} className="rounded-none bg-transparent">
+                <Typography variant="h4" color="blue-gray" className="flex items-center gap-2 dark:text-white">
                     <HeartHandshake className="h-6 w-6 text-primary" />
                     Create Donation Campaign
                 </Typography>
-                <Typography color="gray" className="mt-1 font-normal">
+                <Typography color="gray" className="mt-1 font-normal dark:text-white">
                     Help pets in need by creating a donation campaign
                 </Typography>
             </CardHeader>
@@ -134,7 +134,7 @@ const CreateDonationCampaign = () => {
                         {/* Image Upload */}
                         <div className="lg:col-span-1">
                             <div className="space-y-2">
-                                <Typography variant="h6" color="blue-gray" className="flex items-center gap-2">
+                                <Typography variant="h6" color="blue-gray" className="flex items-center gap-2 dark:text-white">
                                     <ImageIcon className="h-5 w-5" />
                                     Pet Photo
                                 </Typography>
@@ -144,7 +144,7 @@ const CreateDonationCampaign = () => {
                                             htmlFor="petImage"
                                             className={`min-h-40 md:min-h-64 flex flex-col items-center justify-center border-2 border-dashed rounded-xl cursor-pointer overflow-hidden
                                                         ${errors.petImage ? 'border-red-500' : 'border-gray-300 hover:border-blue-500'} 
-                                                        transition-colors bg-gray-50 dark:bg-gray-800`}
+                                                        transition-colors bg-gray-50 dark:bg-[#3b3162]`}
                                         >
                                             {imagePreview || isImageLoading ? (
                                                 <>
@@ -158,7 +158,7 @@ const CreateDonationCampaign = () => {
                                                     {isImageLoading && (
                                                         <div className="flex flex-col gap-2 items-center justify-center">
                                                             <Loader size={32} />
-                                                            <Typography variant="small" color="gray">
+                                                            <Typography variant="small" color="gray" className='dark:text-white'>
                                                                 Uploading...
                                                             </Typography>
                                                         </div>
@@ -167,7 +167,7 @@ const CreateDonationCampaign = () => {
                                             ) : (
                                                 <div className="flex flex-col items-center justify-center p-6 text-center">
                                                     <UploadCloud className="w-8 h-8 mb-2 text-gray-400" />
-                                                    <Typography variant="small" color="gray">
+                                                    <Typography variant="small" color="gray" className='dark:text-white'>
                                                         Click to upload
                                                     </Typography>
                                                 </div>
@@ -177,7 +177,7 @@ const CreateDonationCampaign = () => {
                                             id='petImage'
                                             type="file"
                                             accept="image/*"
-                                            className='hidden'
+                                            className='hidden dark:text-white'
                                             onChange={handleImageChange}
                                         />
                                         <input type='hidden' {...register('petImage', { required: 'Pet Image is Required' })} />
@@ -197,7 +197,7 @@ const CreateDonationCampaign = () => {
                                     </div>
                                 </div>
                                 {errors.petImage && (
-                                    <Typography variant="small" color="red" className="flex items-center gap-1 mt-2">
+                                    <Typography variant="small" color="red" className="flex items-center gap-1 mt-2 dark:text-white">
                                         <AlertCircle className="h-4 w-4" />
                                         {errors.petImage.message}
                                     </Typography>
@@ -209,11 +209,12 @@ const CreateDonationCampaign = () => {
                         <div className="lg:col-span-2 space-y-6">
                             {/* Pet Name */}
                             <div className="space-y-2">
-                                <Typography variant="h6" color="blue-gray" className="flex items-center gap-2">
+                                <Typography variant="h6" color="blue-gray" className="flex items-center gap-2 dark:text-white">
                                     <PawPrint className="h-5 w-5" />
                                     Pet Name
                                 </Typography>
                                 <Input
+                                    className='dark:text-white'
                                     size="lg"
                                     placeholder="Enter the pet's name"
                                     {...register('petName', {
@@ -227,7 +228,7 @@ const CreateDonationCampaign = () => {
                                     icon={<PawPrint className="h-5 w-5" />}
                                 />
                                 {errors.petName && (
-                                    <Typography variant="small" color="red" className="flex items-center gap-1">
+                                    <Typography variant="small" color="red" className="flex items-center gap-1 dark:text-white">
                                         <AlertCircle className="h-4 w-4" />
                                         {errors.petName.message}
                                     </Typography>
@@ -236,11 +237,12 @@ const CreateDonationCampaign = () => {
 
                             {/* Maximum Donation Amount */}
                             <div className="space-y-2">
-                                <Typography variant="h6" color="blue-gray" className="flex items-center gap-2">
+                                <Typography variant="h6" color="blue-gray" className="flex items-center gap-2 dark:text-white" >
                                     <DollarSign className="h-5 w-5" />
                                     Maximum Donation Amount
                                 </Typography>
                                 <Input
+                                    className='dark:text-white'
                                     size="lg"
                                     placeholder="Enter the maximum donation amount"
                                     type="number"
@@ -257,7 +259,7 @@ const CreateDonationCampaign = () => {
                                     icon={<DollarSign className="h-5 w-5" />}
                                 />
                                 {errors.maxDonationAmount && (
-                                    <Typography variant="small" color="red" className="flex items-center gap-1">
+                                    <Typography variant="small" color="red" className="flex items-center gap-1 dark:text-white">
                                         <AlertCircle className="h-4 w-4" />
                                         {errors.maxDonationAmount.message}
                                     </Typography>
@@ -266,7 +268,7 @@ const CreateDonationCampaign = () => {
 
                             {/* Last Donation Date */}
                             <div className="space-y-2">
-                                <Typography variant="h6" color="blue-gray" className="flex items-center gap-2">
+                                <Typography variant="h6" color="blue-gray" className="flex items-center gap-2 dark:text-white">
                                     <CalendarIcon className="h-5 w-5" />
                                     Last Donation Date
                                 </Typography>
@@ -288,13 +290,13 @@ const CreateDonationCampaign = () => {
                                         error={!!errors.lastDonationDate}
                                         icon={<CalendarIcon className="h-5 w-5" />}
                                         min={new Date().toISOString().split('T')[0]}
-                                        className="cursor-pointer"
+                                        className="cursor-pointer dark:text-white"
                                         containerProps={{ className: "min-w-0" }}
                                         onFocus={(e) => e.target.showPicker()}
                                     />
                                 </div>
                                 {errors.lastDonationDate && (
-                                    <Typography variant="small" color="red" className="flex items-center gap-1">
+                                    <Typography variant="small" color="red" className="flex items-center gap-1 dark:text-white">
                                         <AlertCircle className="h-4 w-4" />
                                         {errors.lastDonationDate.message}
                                     </Typography>
@@ -305,14 +307,15 @@ const CreateDonationCampaign = () => {
 
                     {/* Short Description */}
                     <div className="space-y-2">
-                        <Typography variant="h6" color="blue-gray" className="flex items-center gap-2">
+                        <Typography variant="h6" color="blue-gray" className="flex items-center gap-2 dark:text-white">
                             <PawPrint className="h-5 w-5" />
                             Short Description
-                            <Typography variant="small" color="gray" className="inline ml-2">
+                            <Typography variant="small" color="gray" className="inline ml-2 dark:text-white">
                                 (Max 150 characters)
                             </Typography>
                         </Typography>
                         <Input
+                            className='dark:text-white'
                             size="lg"
                             placeholder="Briefly describe the purpose of this donation campaign"
                             {...register('shortDescription', {
@@ -325,7 +328,7 @@ const CreateDonationCampaign = () => {
                             error={!!errors.shortDescription}
                         />
                         {errors.shortDescription && (
-                            <Typography variant="small" color="red" className="flex items-center gap-1">
+                            <Typography variant="small" color="red" className="flex items-center gap-1 dark:text-white">
                                 <AlertCircle className="h-4 w-4" />
                                 {errors.shortDescription.message}
                             </Typography>
@@ -334,11 +337,12 @@ const CreateDonationCampaign = () => {
 
                     {/* Long Description */}
                     <div className="space-y-2">
-                        <Typography variant="h6" color="blue-gray" className="flex items-center gap-2">
+                        <Typography variant="h6" color="blue-gray" className="flex items-center gap-2 dark:text-white">
                             <PawPrint className="h-5 w-5" />
                             Detailed Information
                         </Typography>
                         <Textarea
+                            className='dark:text-white'
                             size="lg"
                             placeholder="Provide more details about:
     - The pet's condition or situation
@@ -360,7 +364,7 @@ const CreateDonationCampaign = () => {
                             rows={6}
                         />
                         {errors.longDescription && (
-                            <Typography variant="small" color="red" className="flex items-center gap-1">
+                            <Typography variant="small" color="red" className="flex items-center gap-1 dark:text-white">
                                 <AlertCircle className="h-4 w-4" />
                                 {errors.longDescription.message}
                             </Typography>
@@ -378,7 +382,7 @@ const CreateDonationCampaign = () => {
                                 setImagePreview(null);
                             }}
                             disabled={isSubmitting}
-                            className="flex items-center gap-2"
+                            className="flex items-center gap-2 dark:text-white dark;border-white"
                         >
                             <X className="h-5 w-5" />
                             Cancel

@@ -56,7 +56,7 @@ const DashboardLayout = () => {
 
 
     return (
-        <div className='flex h-screen gap-4 p-4'>
+        <div className='flex h-screen gap-4 p-4 dark:bg-gradient-to-t dark:from-[#121212] dark:to-[#1F1A33]'>
             <SidebarDashboard navItems={navItems} />
             <SidebarDashboardDrawer navItems={navItems} isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
@@ -64,7 +64,7 @@ const DashboardLayout = () => {
             <div className="flex-1 flex flex-col gap-4 overflow-hidden">
                 <NavbarDashboard toggleSidebar={toggleSidebar} />
 
-                <main className="flex-1 border border-gray-300 rounded-md overflow-y-auto md:p-4 dark:bg-gray-900">
+                <main className="flex-1 border border-gray-300 rounded-md overflow-y-auto md:p-4 dark:bg-[#2b2542]">
                     <Outlet />
                 </main>
             </div>
