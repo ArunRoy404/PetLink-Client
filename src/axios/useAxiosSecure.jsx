@@ -3,7 +3,7 @@ import { useAuthContext } from '../context/AuthContext';
 
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:3000'
+    baseURL: 'https://pet-link-server.vercel.app'
 })
 
 const useAxiosSecure = () => {
