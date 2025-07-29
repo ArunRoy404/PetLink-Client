@@ -4,7 +4,7 @@ import {
 
 import ProfileDashboard from './ProfileDashboard';
 import NavLinkDashboard from './NavLinkDashboard';
-import Logo from '../../ui/Logo';
+import Logo from '../../components/ui/Logo';
 
 const SidebarDashboardDrawer = ({ isSidebarOpen, toggleSidebar, navItems }) => {
     return (
