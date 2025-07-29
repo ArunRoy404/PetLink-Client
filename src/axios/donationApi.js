@@ -25,8 +25,8 @@ const useGetMyCampaignsCountApi = () => {
 
 const useGetCampaignsApi = () => {
     const axiosSecure = useAxiosSecure()
-    const getCampaignsPromise = (page, size) => {
-        return axiosSecure.get(`/campaigns?page=${page}&size=${size}`)
+    const getCampaignsPromise = (page, size, paused) => {
+        return axiosSecure.get(`/campaigns?page=${page}&size=${size}&paused=${paused}`)
     }
     return { getCampaignsPromise }
 }

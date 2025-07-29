@@ -18,7 +18,7 @@ import DonationCard from '../components/ui/DonationCard.jsx/DonationCard';
 
 
 
-const PetListing = () => {
+const DonationCampaigns = () => {
 
     const [campaignsData, setPetsData] = useState([])
 
@@ -33,8 +33,7 @@ const PetListing = () => {
     // Fetch pets data
     const { data, isLoading } = useQuery({
         queryKey: ['campaigns',],
-        queryFn: () => getCampaignsPromise(),
-        select: (res) => res.data.filter(pet => !pet.adopted)
+        queryFn: () => getCampaignsPromise().then(res=>res.data)
     });
 
 
@@ -66,7 +65,7 @@ const PetListing = () => {
                 </div>
             )}
 
-            {/* Pets Grid */}
+            {/* Donation Grid */}
             {!isLoading && (
                 <div className=" px-4 container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     {campaignsData?.length > 0 ? (
@@ -94,4 +93,4 @@ const PetListing = () => {
     );
 };
 
-export default PetListing;
+export default DonationCampaigns;

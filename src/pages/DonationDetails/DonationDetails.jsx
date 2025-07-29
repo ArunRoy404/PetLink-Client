@@ -20,6 +20,8 @@ import { useGetCampaignInfoApi } from '../../axios/donationApi';
 import DonationBenefit from '../../components/ui/DonationBenefit.jsx/DonationBenefit';
 import DonationTerms from '../../components/ui/DonationTerms/DonationTerms';
 import PaymentDialog from '../../components/DonationDialog/PaymentDialog';
+import ActiveCampaigns from '../../components/pages/Donationdetails/ActiveCampaigns';
+import Loader from '../../components/ui/Loader';
 
 // Dummy donation data for progress visualization
 const dummyDonations = [
@@ -36,7 +38,7 @@ const DonationDetail = () => {
     const [openDonationModal, setOpenDonationModal] = useState(false);
 
 
-    const handleCloseDialog = () =>{
+    const handleCloseDialog = () => {
         setOpenDonationModal(false)
     }
 
@@ -48,7 +50,7 @@ const DonationDetail = () => {
 
     if (isLoading) return (
         <div className="flex justify-center items-center h-screen">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
+            <Loader size={30}/>
         </div>
     );
 
@@ -203,8 +205,15 @@ const DonationDetail = () => {
                 </Card>
             </div>
 
+
+            {/* Active donation campaigns  */}
+            <div className='container mx-auto px-4'>
+                <ActiveCampaigns/>
+            </div>
+
+
             {/* Recent Donations Section */}
-            <div className="container mx-auto px-4 mb-16">
+            <div className="container mx-auto px-4 my-16">
                 <Card className="p-8 shadow-none">
                     <Typography variant="h3" className="font-bold text-2xl mb-6 text-gray-900 border-b pb-2">
                         Recent Donations
@@ -261,10 +270,10 @@ const DonationDetail = () => {
             /><DonationDialog /> */}
 
             <PaymentDialog
-            open={openDonationModal}
-            onClose={handleCloseDialog}
-            campaignData={campaignData}
-            donationAmount={donationAmount}
+                open={openDonationModal}
+                onClose={handleCloseDialog}
+                campaignData={campaignData}
+                donationAmount={donationAmount}
             />
         </div>
     );
