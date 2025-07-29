@@ -10,9 +10,13 @@ import { Toaster } from "react-hot-toast";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-      <ProviderContainer>
-        <Toaster></Toaster>
-        <RouterProvider router={router}/>
-      </ProviderContainer>
+    <ProviderContainer>
+      <Toaster toastOptions={{
+        style: {
+          zIndex: 99999999
+        },
+      }}></Toaster>
+      <RouterProvider router={router} />
+    </ProviderContainer>
   </StrictMode>
 );

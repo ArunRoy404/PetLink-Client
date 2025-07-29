@@ -21,7 +21,7 @@ const PaymentDialog = ({ open, onClose, campaignData, donationAmount }) => {
               Donate to <span className="font-semibold text-deep-purple-600">{campaignData.petName}</span>
             </Typography>
             <Typography variant="small" className="text-gray-500">
-              Campaign ID: {campaignData._id.slice(-6).toUpperCase()}
+              Campaign ID: {campaignData._id}
             </Typography>
           </div>
         </div>
@@ -41,7 +41,7 @@ const PaymentDialog = ({ open, onClose, campaignData, donationAmount }) => {
         </Card>
 
         {/* Card Info Form */}
-        <Payment donationAmount={donationAmount}/>
+        <Payment donationAmount={donationAmount} campaignData={campaignData}/>
       </DialogBody>
 
       <DialogFooter>

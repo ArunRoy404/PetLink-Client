@@ -1,37 +1,67 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useState } from 'react';
 import { useParams } from 'react-router';
-// import { useGetCampaignInfoApi } from '../../axios/donationApi';
-// import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../axios/useAxiosSecure';
 import { Button } from '@material-tailwind/react';
 import Loader from '../../components/ui/Loader';
+import { useAuthContext } from '../../context/AuthContext';
+import { useCreateDonationApi } from '../../axios/donationApi';
 
-const PaymentForm = ({ donationAmount }) => {
+const PaymentForm = ({ donationAmount, campaignData }) => {
     const [paymentProcessing, setPaymentProcessing] = useState(false)
     const stripe = useStripe()
     const elements = useElements()
     const [error, setError] = useState('')
+    const [success, setSuccess] = useState('')
     const { id: campaignId } = useParams()
-    // const { getCampaignInfoPromise } = useGetCampaignInfoApi()
     const axiosSecure = useAxiosSecure()
+    const { firebaseUser } = useAuthContext()
+    const { getCreateDonationPromise } = useCreateDonationApi()
 
 
-    // const { data: campaignData, isLoading } = useQuery({
-    //     queryKey: ['campaign', campaignId],
-    //     queryFn: () => getCampaignInfoPromise(campaignId).then(res => res.data),
-    // });
+    const handleSaveData = (paymentIntent) => {
+        const data = {
+            campaignId: campaignData._id,
+            petName: campaignData.petName,
+            petImage: campaignData.petImage,
 
 
-    // if (isLoading) {
-    //     return <div>loading...</div>
-    // }
+            donorEmail: firebaseUser.email,
+            donorName: firebaseUser.displayName,
+
+            amount: donationAmount,
+            currency: "usd",
+            paymentIntentId: paymentIntent.client_secret,
+
+
+            // Audit
+            createdAt: new Date().toISOString()
+        }
+
+        setPaymentProcessing(true)
+
+        getCreateDonationPromise(data)
+            .then(res => {
+                console.log(res);
+                if (res.data.insertedId) {
+                    setSuccess("Payment successful")
+                }
+                else {
+                    setError({ message: 'Something went wrong' })
+                }
+            })
+            .catch(error => setError(error))
+            .finally(() => setPaymentProcessing(false))
+    }
 
 
 
     const handleForm = async (e) => {
         e.preventDefault()
+        setError(null)
+        setSuccess(null)
         setPaymentProcessing(true)
+
 
         if (!stripe || !elements) {
             setPaymentProcessing(false)
@@ -45,7 +75,7 @@ const PaymentForm = ({ donationAmount }) => {
             return
         }
 
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
+        const { error } = await stripe.createPaymentMethod({
             type: 'card',
             card
         })
@@ -55,7 +85,6 @@ const PaymentForm = ({ donationAmount }) => {
             setError(error)
         } else {
             setError('')
-            console.log(paymentMethod);
         }
 
         setPaymentProcessing(true)
@@ -81,11 +110,9 @@ const PaymentForm = ({ donationAmount }) => {
             console.log(result.error.message)
         } else {
             if (result.paymentIntent.status === 'succeeded') {
-                console.log("successful");
+                handleSaveData(result.paymentIntent)
             }
         }
-
-        console.log('response', result);
 
 
     }
@@ -120,7 +147,10 @@ const PaymentForm = ({ donationAmount }) => {
 
                 </Button>
                 {
-                    error && <p className='text-red-400'>{error.message}</p>
+                    error && <p className='text-red-400 text-sm font-bold '>{error.message}</p>
+                }
+                {
+                    success && <p className='text-green-400 text-sm font-bold '>{success}</p>
                 }
             </form>
         </div>

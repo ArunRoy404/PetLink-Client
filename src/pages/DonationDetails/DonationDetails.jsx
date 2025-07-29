@@ -19,7 +19,6 @@ import { useParams } from 'react-router';
 import { useGetCampaignInfoApi } from '../../axios/donationApi';
 import DonationBenefit from '../../components/ui/DonationBenefit.jsx/DonationBenefit';
 import DonationTerms from '../../components/ui/DonationTerms/DonationTerms';
-import DonationDialog from '../../components/DonationDialog/DonationDialog';
 import PaymentDialog from '../../components/DonationDialog/PaymentDialog';
 
 // Dummy donation data for progress visualization
@@ -68,7 +67,6 @@ const DonationDetail = () => {
             maximumFractionDigits: 0
         }).format(amount);
     };
-
 
     return (
         <div className="pb-8">

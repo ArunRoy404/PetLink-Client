@@ -58,4 +58,14 @@ const useGetCampaignInfoApi = () => {
 
 
 
-export {useGetCampaignsApi, useGetCampaignsCountApi, useAddDonationCampaignApi, useGetCampaignInfoApi, useGetMyCampaignsApi, useGetMyCampaignsCountApi, useUpdateCampaignApi }
+const useCreateDonationApi = () => {
+    const axiosSecure = useAxiosSecure()
+    const getCreateDonationPromise = (donationData) => {
+        return axiosSecure.post('/donations', donationData)
+    }
+    return { getCreateDonationPromise }
+}
+
+
+
+export { useCreateDonationApi, useGetCampaignsApi, useGetCampaignsCountApi, useAddDonationCampaignApi, useGetCampaignInfoApi, useGetMyCampaignsApi, useGetMyCampaignsCountApi, useUpdateCampaignApi }
