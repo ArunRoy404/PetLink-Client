@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import {
     Card,
@@ -16,7 +16,7 @@ import {
 import { useParams } from 'react-router';
 
 
-import { useGetCampaignInfoApi } from '../../axios/donationApi';
+import { useGetCampaignInfoApi, useGetDonationsApi } from '../../axios/donationApi';
 import DonationBenefit from '../../components/ui/DonationBenefit.jsx/DonationBenefit';
 import DonationTerms from '../../components/ui/DonationTerms/DonationTerms';
 import PaymentDialog from '../../components/DonationDialog/PaymentDialog';
@@ -24,18 +24,32 @@ import ActiveCampaigns from '../../components/pages/Donationdetails/ActiveCampai
 import Loader from '../../components/ui/Loader';
 
 // Dummy donation data for progress visualization
-const dummyDonations = [
-    { name: "John D.", amount: 150, date: "2025-07-30" },
-    { name: "Sarah M.", amount: 75, date: "2025-07-29" },
-    { name: "Anonymous", amount: 200, date: "2025-07-28" },
-    { name: "PetLovers Inc.", amount: 300, date: "2025-07-27" }
-];
+// const donations = [
+//     { name: "John D.", amount: 150, date: "2025-07-30" },
+//     { name: "Sarah M.", amount: 75, date: "2025-07-29" },
+//     { name: "Anonymous", amount: 200, date: "2025-07-28" },
+//     { name: "PetLovers Inc.", amount: 300, date: "2025-07-27" }
+// ];
 
 const DonationDetail = () => {
     const { campaignId } = useParams();
     const { getCampaignInfoPromise } = useGetCampaignInfoApi();
     const [donationAmount, setDonationAmount] = useState(50);
     const [openDonationModal, setOpenDonationModal] = useState(false);
+    const [donatedAmount, setDonatedAmount] = useState(0)
+    const [donations, setDonations] = useState([])
+
+
+    const { getDonationsPromise } = useGetDonationsApi()
+    useEffect(() => {
+        getDonationsPromise(campaignId)
+            .then(res => {
+                setDonatedAmount(res.data.totalAmount)
+                setDonations(res.data.donations)
+            })
+    }, [openDonationModal])
+    console.log(donations);
+
 
 
     const handleCloseDialog = () => {
@@ -50,14 +64,13 @@ const DonationDetail = () => {
 
     if (isLoading) return (
         <div className="flex justify-center items-center h-screen">
-            <Loader size={30}/>
+            <Loader size={30} />
         </div>
     );
 
     if (!campaignData) return <div className="text-center py-20">Campaign not found</div>;
 
-    // Calculate progress
-    const donatedAmount = campaignData.donatedAmount || 0;
+
     const progress = Math.min(Math.round((donatedAmount / campaignData.maxDonationAmount) * 100), 100);
     const remainingAmount = campaignData.maxDonationAmount - donatedAmount;
     const isUrgent = remainingAmount > campaignData.maxDonationAmount * 0.7;
@@ -126,7 +139,7 @@ const DonationDetail = () => {
                                 <Progress
                                     value={progress}
                                     size="lg"
-                                    color={progress >= 100 ? 'green' : isUrgent ? 'red' : 'amber'}
+                                    color={progress >=60 ? 'green' : isUrgent ? 'red' : 'amber'}
                                     className="bg-gray-200 h-3"
                                 />
                                 <div className="flex justify-between mt-2">
@@ -208,7 +221,7 @@ const DonationDetail = () => {
 
             {/* Active donation campaigns  */}
             <div className='container mx-auto px-4'>
-                <ActiveCampaigns/>
+                <ActiveCampaigns />
             </div>
 
 
@@ -219,7 +232,7 @@ const DonationDetail = () => {
                         Recent Donations
                     </Typography>
                     <div className="space-y-4">
-                        {dummyDonations.map((donation, index) => (
+                        {donations.map((donation, index) => (
                             <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                                 <div className="flex items-center gap-3">
                                     <Avatar
@@ -229,7 +242,7 @@ const DonationDetail = () => {
                                     />
                                     <div>
                                         <Typography variant="h6" className="font-semibold">
-                                            {donation.name}
+                                            {donation.donorName}
                                         </Typography>
                                         {donation.message && (
                                             <Typography variant="small" className="text-gray-600">
@@ -243,7 +256,7 @@ const DonationDetail = () => {
                                         {formatCurrency(donation.amount)}
                                     </Typography>
                                     <Typography variant="small" className="text-gray-500">
-                                        {new Date(donation.date).toLocaleDateString()}
+                                        {new Date(donation.createdAt).toLocaleDateString()}
                                     </Typography>
                                 </div>
                             </div>
