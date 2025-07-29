@@ -22,6 +22,7 @@ import PetListing from '../pages/PetListing/PetListing';
 import PetDetails from '../pages/PetDetails/PetDetails';
 import DonationCampaigns from '../pages/DonationCampaigns';
 import DonationDetails from '../pages/DonationDetails/DonationDetails';
+import Payment from '../pages/Payment/Payment';
 
 
 const router = createBrowserRouter([
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
             {
                 path: '/campaign/:campaignId',
                 Component: DonationDetails
+            },
+            {
+                path:'/payment/:id',
+                Component: Payment
             }
         ]
     },

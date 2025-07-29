@@ -8,21 +8,10 @@ import {
     Chip,
     Progress,
     Avatar,
-    Tooltip
 } from '@material-tailwind/react';
 import {
-    MapPin,
-    CalendarDays,
-    Heart,
-    ShieldCheck,
-    Handshake,
-    Bell,
-    Gift,
     AlertCircle,
     DollarSign,
-    Users,
-    Clock,
-    CheckCircle
 } from 'lucide-react';
 import { useParams } from 'react-router';
 
@@ -30,6 +19,8 @@ import { useParams } from 'react-router';
 import { useGetCampaignInfoApi } from '../../axios/donationApi';
 import DonationBenefit from '../../components/ui/DonationBenefit.jsx/DonationBenefit';
 import DonationTerms from '../../components/ui/DonationTerms/DonationTerms';
+import DonationDialog from '../../components/DonationDialog/DonationDialog';
+import PaymentDialog from '../../components/DonationDialog/PaymentDialog';
 
 // Dummy donation data for progress visualization
 const dummyDonations = [
@@ -41,9 +32,14 @@ const dummyDonations = [
 
 const DonationDetail = () => {
     const { campaignId } = useParams();
-
     const { getCampaignInfoPromise } = useGetCampaignInfoApi();
     const [donationAmount, setDonationAmount] = useState(50);
+    const [openDonationModal, setOpenDonationModal] = useState(false);
+
+
+    const handleCloseDialog = () =>{
+        setOpenDonationModal(false)
+    }
 
     // Fetch campaign details
     const { data: campaignData, isLoading } = useQuery({
@@ -73,11 +69,6 @@ const DonationDetail = () => {
         }).format(amount);
     };
 
-    const handleDonate = () => {
-        // Implement donation logic here
-        console.log(`Donating ${donationAmount} to ${campaignData.petName}`);
-        // After donation, you might want to redirect to payment page or show success modal
-    };
 
     return (
         <div className="pb-8">
@@ -186,7 +177,7 @@ const DonationDetail = () => {
                                 fullWidth
                                 className="flex items-center bg-primary justify-center gap-2 transition-all mt-4"
                                 disabled={campaignData.paused}
-                                onClick={handleDonate}
+                                onClick={() => setOpenDonationModal(true)}
                             >
                                 <DollarSign size={20} />
                                 {campaignData.paused ? 'Campaign Paused' : `Donate ${formatCurrency(donationAmount)} Now`}
@@ -263,6 +254,20 @@ const DonationDetail = () => {
             <div className="container mx-auto px-4">
                 <DonationTerms />
             </div>
+
+            {/* <DonationDialog
+                open={openDonationModal}
+                handleOpen={setOpenDonationModal}
+                donationAmount={donationAmount}
+                campaignData={campaignData}
+            /><DonationDialog /> */}
+
+            <PaymentDialog
+            open={openDonationModal}
+            onClose={handleCloseDialog}
+            campaignData={campaignData}
+            donationAmount={donationAmount}
+            />
         </div>
     );
 };
