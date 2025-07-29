@@ -8,7 +8,7 @@ import axios from 'axios';
 const AuthProvider = ({ children }) => {
     const [firebaseUser, setFirebaseUser] = useState(null)
     const [isUserLoading, setIsUserLoading] = useState(true)
-    const [userRole, setUserRole] = useState('user')
+    const [userRole, setUserRole] = useState(null)
     const googleProvider = new GoogleAuthProvider()
     const githubProvider = new GithubAuthProvider()
     const [roleLoading, setRoleLoading] = useState(true)

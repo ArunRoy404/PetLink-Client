@@ -21,7 +21,7 @@ const AdminRoute = ({ children }) => {
         return <div className="h-[80vh] flex items-center justify-center"><Loader /></div>
     }
 
-    if (userRole ==='user' ) {
+    if (userRole ==='user') {
         return <Navigate to={'/dashboard'} state={pathname}></Navigate>
     }
 
