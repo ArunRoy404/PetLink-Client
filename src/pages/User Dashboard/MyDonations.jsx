@@ -7,6 +7,7 @@ import {
     getSortedRowModel,
     createColumnHelper,
 } from "@tanstack/react-table";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
     Button,
     IconButton,
@@ -14,7 +15,6 @@ import {
     Option,
     Select,
     Avatar,
-    Badge,
     Dialog,
     DialogHeader,
     DialogBody,
@@ -32,9 +32,10 @@ import {
 } from "lucide-react";
 import TableSkeleton from "../../components/ui/TableSkeleton";
 import NoDataFoundTable from "../../components/ui/NoDatafoundTable";
+import { notifyError, notifySuccess } from "../../ReactHotToast/ReactHotToast";
+import { useDeleteDonationsApi, useGetMyDonationsApi, useGetMyDonationsCountPromise } from "../../axios/donationApi";
 
 const columnHelper = createColumnHelper();
-
 const MyDonations = () => {
     const [pagination, setPagination] = useState({
         pageIndex: 0,
@@ -44,101 +45,56 @@ const MyDonations = () => {
     const [refundDialog, setRefundDialog] = useState(false);
     const [donationToRefund, setDonationToRefund] = useState(null);
 
-    // Dummy data for donations
-    const dummyDonations = [
-        {
-            id: 1,
-            petImage: "https://i.ibb.co/wZv42XK5/pet1.jpg",
-            petName: "Buddy",
-            donatedAmount: 150,
-            donationDate: "2025-07-20",
-            campaignId: "camp1"
-        },
-        {
-            id: 2,
-            petImage: "https://i.ibb.co/wZv42XK5/pet2.jpg",
-            petName: "Luna",
-            donatedAmount: 200,
-            donationDate: "2025-07-18",
-            campaignId: "camp2"
-        },
-        {
-            id: 3,
-            petImage: "https://i.ibb.co/wZv42XK5/pet3.jpg",
-            petName: "Max",
-            donatedAmount: 100,
-            donationDate: "2025-07-15",
-            campaignId: "camp3"
-        },
-        {
-            id: 4,
-            petImage: "https://i.ibb.co/wZv42XK5/pet4.jpg",
-            petName: "Bella",
-            donatedAmount: 250,
-            donationDate: "2025-07-10",
-            campaignId: "camp4"
-        },
-        {
-            id: 5,
-            petImage: "https://i.ibb.co/wZv42XK5/pet5.jpg",
-            petName: "Charlie",
-            donatedAmount: 75,
-            donationDate: "2025-07-05",
-            campaignId: "camp5"
-        },
-        {
-            id: 6,
-            petImage: "https://i.ibb.co/wZv42XK5/pet6.jpg",
-            petName: "Lucy",
-            donatedAmount: 300,
-            donationDate: "2025-06-28",
-            campaignId: "camp6"
-        },
-        {
-            id: 7,
-            petImage: "https://i.ibb.co/wZv42XK5/pet7.jpg",
-            petName: "Cooper",
-            donatedAmount: 125,
-            donationDate: "2025-06-25",
-            campaignId: "camp7"
-        },
-        {
-            id: 8,
-            petImage: "https://i.ibb.co/wZv42XK5/pet8.jpg",
-            petName: "Daisy",
-            donatedAmount: 175,
-            donationDate: "2025-06-20",
-            campaignId: "camp8"
-        },
-        {
-            id: 9,
-            petImage: "https://i.ibb.co/wZv42XK5/pet9.jpg",
-            petName: "Rocky",
-            donatedAmount: 225,
-            donationDate: "2025-06-15",
-            campaignId: "camp9"
-        },
-        {
-            id: 10,
-            petImage: "https://i.ibb.co/wZv42XK5/pet10.jpg",
-            petName: "Molly",
-            donatedAmount: 150,
-            donationDate: "2025-06-10",
-            campaignId: "camp10"
-        }
-    ];
+    const { getMyDonationsPromise } = useGetMyDonationsApi();
+    const { getMyDonationsCountPromise } = useGetMyDonationsCountPromise();
+    const { DeleteMyDonationsPromise } = useDeleteDonationsApi();
+    const queryClient = useQueryClient();
+
+    const handleRefund = (id) => {
+        return DeleteMyDonationsPromise(id);
+    };
 
     const handleRefundRequest = (donation) => {
-        console.log("Requesting refund for donation:", donation);
         setDonationToRefund(donation);
         setRefundDialog(true);
     };
 
     const confirmRefund = () => {
-        console.log("Refund confirmed for donation:", donationToRefund);
+        if (donationToRefund) {
+            mutateRefundDonation(donationToRefund._id);
+        }
         setRefundDialog(false);
         setDonationToRefund(null);
     };
+
+    const {
+        data: donationsData,
+        isLoading: donationsLoading,
+        refetch: refetchData,
+    } = useQuery({
+        queryKey: ["my-donations", pagination],
+        queryFn: () => getMyDonationsPromise(pagination.pageIndex, pagination.pageSize).then((res) => res.data),
+        keepPreviousData: true,
+    });
+
+    const { data: countData, refetch: refetchCount } = useQuery({
+        queryKey: ["my-donations-count"],
+        queryFn: () => getMyDonationsCountPromise().then((res) => res.data),
+    });
+
+    const { mutate: mutateRefundDonation } = useMutation({
+        mutationFn: handleRefund,
+        onSuccess: () => {
+            notifySuccess('Refund requested successfully');
+            refetchData();
+            refetchCount();
+            queryClient.invalidateQueries(['my-donations']);
+            queryClient.invalidateQueries(['my-donations-count']);
+        },
+        onError: () => {
+            notifyError('Refund request failed');
+        }
+    });
 
     const handlePageSizeChange = (value) => {
         setPagination(prev => ({
@@ -173,7 +129,7 @@ const MyDonations = () => {
             ),
             cell: (info) => <span className="font-medium">{info.getValue()}</span>,
         }),
-        columnHelper.accessor("donatedAmount", {
+        columnHelper.accessor("amount", {
             header: () => (
                 <div className="flex items-center gap-1 cursor-pointer">
                     Donated Amount <ArrowUpDown size={14} className="text-gray-500" />
@@ -185,7 +141,7 @@ const MyDonations = () => {
                 </span>
             ),
         }),
-        columnHelper.accessor("donationDate", {
+        columnHelper.accessor("createdAt", {
             header: () => (
                 <div className="flex items-center gap-1 cursor-pointer">
                     Date <ArrowUpDown size={14} className="text-gray-500" />
@@ -220,9 +176,9 @@ const MyDonations = () => {
     ];
 
     const table = useReactTable({
-        data: dummyDonations,
+        data: donationsData || [],
         columns,
-        pageCount: Math.ceil(dummyDonations.length / pagination.pageSize),
+        pageCount: Math.ceil((countData || 0) / pagination.pageSize),
         state: {
             pagination,
             sorting,
@@ -279,6 +235,10 @@ const MyDonations = () => {
                         ))}
                     </thead>
                     <tbody className="divide-y divide-gray-200">
+                        {donationsLoading && <TableSkeleton />}
+                        {!donationsLoading && !donationsData?.length && (
+                            <NoDataFoundTable message={"You haven't made any donations yet."} />
+                        )}
                         {table.getRowModel().rows.map((row) => (
                             <tr key={row.id} className="hover:bg-gray-50/80 transition-colors">
                                 {row.getVisibleCells().map((cell) => (
@@ -297,9 +257,9 @@ const MyDonations = () => {
                     <Typography variant="small" className="text-gray-600">
                         Showing <span className="font-semibold">{table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1}</span> to{' '}
                         <span className="font-semibold">
-                            {Math.min((table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize, dummyDonations.length)}
+                            {Math.min((table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize, countData || 0)}
                         </span>{' '}
-                        of <span className="font-semibold">{dummyDonations.length}</span> donations
+                        of <span className="font-semibold">{countData || 0}</span> donations
                     </Typography>
                 </div>
 
@@ -375,7 +335,7 @@ const MyDonations = () => {
             <Dialog open={refundDialog} handler={() => setRefundDialog(false)}>
                 <DialogHeader>Confirm Refund Request</DialogHeader>
                 <DialogBody>
-                    Are you sure you want to request a refund of ${donationToRefund?.donatedAmount.toLocaleString()} for {donationToRefund?.petName}?
+                    Are you sure you want to request a refund of ${donationToRefund?.amount?.toLocaleString()} for {donationToRefund?.petName}?
                 </DialogBody>
                 <DialogFooter>
                     <Button variant="text" color="gray" onClick={() => setRefundDialog(false)}>

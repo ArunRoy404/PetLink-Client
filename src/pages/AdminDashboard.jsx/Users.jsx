@@ -197,7 +197,7 @@ const Users = () => {
                                 <User size={16} /> Make User
                             </Button>
                         )}
-                        {!user.banned ? (
+                        {/* {!user.banned ? (
                             <Button
                                 size="sm"
                                 color="red"
@@ -217,7 +217,7 @@ const Users = () => {
                             >
                                 <UserCheck size={16} /> Unban
                             </Button>
-                        )}
+                        )} */}
                     </div>
                 );
             },

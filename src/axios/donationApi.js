@@ -87,5 +87,31 @@ const useGetDonationsApi = () => {
 }
 
 
+const useGetMyDonationsCountPromise = () => {
+    const axiosSecure = useAxiosSecure()
+    const getMyDonationsCountPromise = () => {
+        return axiosSecure.get('/my-donations-count',)
+    }
+    return { getMyDonationsCountPromise }
+}
 
-export { useGetDonationsApi, useCreateDonationApi, useGetCampaignsApi, useGetCampaignsCountApi, useAddDonationCampaignApi, useGetCampaignInfoApi, useGetMyCampaignsApi, useGetMyCampaignsCountApi, useUpdateCampaignApi }
+const useGetMyDonationsApi = () => {
+    const axiosSecure = useAxiosSecure()
+    const getMyDonationsPromise = (page, size) => {
+        return axiosSecure.get(`/my-donations?page=${page}&size=${size}`)
+    }
+    return { getMyDonationsPromise }
+}
+
+const useDeleteDonationsApi = () => {
+    const axiosSecure = useAxiosSecure()
+    const DeleteMyDonationsPromise = (id) => {
+        return axiosSecure.delete('/donations', { data: { id } })
+    }
+    return { DeleteMyDonationsPromise }
+}
+
+
+
+
+export { useGetMyDonationsCountPromise, useDeleteDonationsApi, useGetMyDonationsApi, useGetDonationsApi, useCreateDonationApi, useGetCampaignsApi, useGetCampaignsCountApi, useAddDonationCampaignApi, useGetCampaignInfoApi, useGetMyCampaignsApi, useGetMyCampaignsCountApi, useUpdateCampaignApi }
