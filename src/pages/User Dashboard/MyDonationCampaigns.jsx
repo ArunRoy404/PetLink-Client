@@ -59,30 +59,6 @@ const MyDonationCampaigns = () => {
     const { getMyCampaignsCountPromise } = useGetMyCampaignsCountApi();
     const { updateCampaignPromise } = useUpdateCampaignApi();
 
-    // Dummy donators data (to be replaced with API call later)
-    const dummyDonators = [
-        {
-            id: 1,
-            userName: "John Doe",
-            userImage: "https://randomuser.me/api/portraits/men/1.jpg",
-            amount: 200,
-            donationDate: "2025-07-20"
-        },
-        {
-            id: 2,
-            userName: "Jane Smith",
-            userImage: "https://randomuser.me/api/portraits/women/2.jpg",
-            amount: 150,
-            donationDate: "2025-07-18"
-        },
-        {
-            id: 3,
-            userName: "Robert Johnson",
-            userImage: "https://randomuser.me/api/portraits/men/3.jpg",
-            amount: 300,
-            donationDate: "2025-07-15"
-        }
-    ];
 
     const { mutate: mutateUpdateCampaign } = useMutation({
         mutationFn: (campaignData) => updateCampaignPromise(campaignData),
@@ -95,8 +71,9 @@ const MyDonationCampaigns = () => {
         }
     });
 
+
     const handlePauseToggle = (campaign) => {
-        const updatedCampaign = { ...campaign, paused: !campaign.paused };
+        const updatedCampaign = { _id: campaign._id, paused: !campaign.paused };
         mutateUpdateCampaign(updatedCampaign);
     };
 
@@ -108,6 +85,7 @@ const MyDonationCampaigns = () => {
         queryFn: () => getMyCampaignsPromise(pagination.pageIndex, pagination.pageSize).then((res) => res.data),
         keepPreviousData: true,
     });
+
 
     const { data: countData } = useQuery({
         queryKey: ["my-donation-campaigns-count"],
@@ -147,27 +125,21 @@ const MyDonationCampaigns = () => {
             ),
         }),
         columnHelper.accessor("maxDonationAmount", {
-            header: () => (
-                <div className="flex items-center gap-1 cursor-pointer">
-                    Goal <ArrowUpDown size={14} className="text-gray-500" />
-                </div>
-            ),
-            cell: (info) => (
-                <span className="font-medium text-gray-900">
-                    ${info.getValue().toLocaleString()}
-                </span>
-            ),
-        }),
-        columnHelper.accessor("maxDonationAmount", {
             id: "progress",
             header: "Progress",
             cell: (info) => {
-                // Temporary constant value for progress (will be replaced with actual donation data)
-                const donatedAmount = 650; // This will come from API later
+                const campaign = info.row.original;
+                // Calculate total donated amount from donations array
+                const donatedAmount = campaign.donations?.reduce(
+                    (total, donation) => total + donation.amount,
+                    0
+                ) || 0;
+
                 const progress = Math.min(
                     (donatedAmount / info.getValue()) * 100,
                     100
                 );
+
                 return (
                     <div className="flex flex-col gap-1 w-full max-w-[200px]">
                         <div className="flex justify-between text-xs">
@@ -186,6 +158,7 @@ const MyDonationCampaigns = () => {
                 );
             },
         }),
+
         columnHelper.accessor("paused", {
             header: "Status",
             cell: (info) => (
@@ -237,6 +210,19 @@ const MyDonationCampaigns = () => {
             },
         }),
     ];
+
+    const prepareDonorsData = (campaign) => {
+        if (!campaign?.donations) return [];
+
+        return campaign.donations.map((donation, index) => ({
+            id: index,
+            userName: donation.donorName,
+            userImage: "https://randomuser.me/api/portraits/men/1.jpg", // Default image or get from user data
+            amount: donation.amount,
+            donationDate: new Date(donation.createdAt).toLocaleDateString()
+        }));
+    };
+
 
     const table = useReactTable({
         data: campaignsData || [],
@@ -399,7 +385,7 @@ const MyDonationCampaigns = () => {
                 open={donatorsDialog}
                 closeFn={() => setDonatorsDialog(false)}
                 name={selectedCampaign?.petName}
-                donators={dummyDonators}
+                donators={selectedCampaign ? prepareDonorsData(selectedCampaign) : []}
             />
 
         </div>

@@ -42,7 +42,7 @@ const useGetMyCampaignsApi = () => {
 const useUpdateCampaignApi = () => {
     const axiosSecure = useAxiosSecure()
     const updateCampaignPromise = (campaignData) => {
-        return axiosSecure.put('/campaigns', { data: { campaignData } })
+        return axiosSecure.patch('/campaigns', { data: { campaignData } })
     }
     return { updateCampaignPromise }
 }
