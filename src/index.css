@@ -23,6 +23,10 @@
   /* Tailwind's gray-500 for subtitles */
   --color-border: #E5E7EB;
   /* Tailwind's gray-200 for subtle borders */
+
+  --color-navLink: #8068DF;
+  --color-bullet: #8068DF;
+
 }
 
 .dark {
@@ -38,15 +42,16 @@
   /* Tailwind's gray-400 for subtitles */
   --color-border: #2A2A2A;
   /* Subtle border in dark */
+
+  --color-navLink: black;
+  --color-bullet: white;
+
 }
 
-* {
-  transition: background-color 0.5s ease, border-color 0.5s ease;
-}
 
 
 nav ul .active {
-  color: var(--color-primary);
+  color: var(--color-navLink);
 }
 
 .swiper-pagination-bullet-active {
@@ -55,6 +60,10 @@ nav ul .active {
   border-radius: 5px !important;
   transition: all !important;
   transition-duration: .300s !important;
+}
+
+.swiper-pagination-bullet {
+  background-color: var(--color-primary) !important;
 }
 
 .custom-swiper-button-next::after {

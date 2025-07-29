@@ -5,7 +5,7 @@ import CountUp from 'react-countup';
 export default function AboutUs() {
 
   return (
-    <section className="py-16 px-4 bg-white dark:bg-gray-900">
+    <section className="py-16 px-4  dark:bg-gradient-to-t dark:from-[#121212] dark:to-[#1F1A33]">
       <div className="container mx-auto">
 
         {/* Section Header */}
@@ -46,9 +46,9 @@ export default function AboutUs() {
               desc: "Free 30-day check-ins and training resources for all adopters."
             }
           ].map((item, idx) => (
-            <Card key={idx} className={`sticky top-56 p-6 shadow-none border-2 hover:shadow-xl transition-shadow`} placeholder="">
+            <Card key={idx} className={`sticky top-56 p-6 shadow-none dark:border-gray-800 border-2 hover:shadow-xl dark:bg-[#121212] transition-shadow`} placeholder="">
               {item.icon}
-              <Typography variant="h5" color="blue-gray" className="mb-2" placeholder="">
+              <Typography variant="h5" color="blue-gray" className="dark:text-white mb-2" placeholder="">
                 {item.title}
               </Typography>
               <Typography className="text-gray-600 dark:text-gray-300 text-sm md:text-md" placeholder="">

@@ -11,7 +11,7 @@ import Logo from "../ui/Logo";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-t from-[#CCC2F2] to-white pt-12 pb-8 px-6 md:px-20 ">
+    <footer className="bg-gradient-to-t from-[#CCC2F2] to-white dark:bg-gradient-to-t dark:text-white dark:from-[#121212] dark:to-[#1F1A33] pt-12 pb-8 px-6 md:px-20 ">
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-10">
         {/* Logo & Info */}
         <div>

@@ -47,7 +47,7 @@ export default function FAQSection() {
     };
 
     return (
-        <section className="py-20 px-6 md:px-12 bg-background dark:bg-gray-900">
+        <section className="dark:bg-gradient-to-b dark:from-[#121212] dark:to-[#1F1A33] py-20 px-6 md:px-12 bg-background dark:bg-gray-900">
             <div className="max-w-4xl mx-auto text-center mb-12">
                 <Typography variant="h3" color="blue-gray" className="dark:text-white">
                     Frequently Asked Questions

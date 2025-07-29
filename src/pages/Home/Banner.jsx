@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 const Banner = () => {
   return (
-    <section className="bg-gradient-to-b from-[#CCC2F2] dark:bg-gradient-to-b dark:from-[#1C1633] py-40">
+    <section className="bg-gradient-to-b from-[#CCC2F2]  dark:from-[#342e4e] dark:to-[#121212] py-40">
       <div className="container mx-auto px-4 flex flex-col-reverse lg:flex-row items-center justify-between  md:gap-10">
         {/* Left Text Section */}
         <div className="w-full lg:w-1/2 text-center lg:text-left">
@@ -50,7 +50,7 @@ const Banner = () => {
               <PawPrint />
               <Link to="/pet-listing">Browse Pets</Link>
             </Button>
-            <Button variant="outlined" className="flex items-center" color="gray" size="lg">
+            <Button variant="outlined" className="flex items-center dark:border-white dark:text-white" size="lg">
               <Wallet2 />
               <Link to="/campaigns">Donate Now</Link>
             </Button>

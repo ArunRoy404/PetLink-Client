@@ -3,7 +3,7 @@ import { PawPrint, Heart, HandHeart, Users, ShieldCheck } from "lucide-react";
 
 export default function JoinMission() {
     return (
-        <section className="relative py-20 px-4 r">
+        <section className="relative py-20 px-4 r dark:bg-[#1F1A33] dark:text-white">
             <div className="container mx-auto relative z-10">
                 <div className="max-w-3xl mx-auto text-center">
                     {/* Icon & Heading */}
@@ -11,7 +11,7 @@ export default function JoinMission() {
 
                     <Typography
                         variant="h2"
-                        className="text-3xl md:text-5xl font-bold mb-6"
+                        className="text-3xl md:text-5xl dark:text-white font-bold mb-6"
                         placeholder=""
                     >
                         Be Part of Their <span className="text-primary">Happy Ending</span>
@@ -50,7 +50,7 @@ export default function JoinMission() {
                         <Button
                             variant="outlined"
                             size="lg"
-                            className="flex items-center gap-2 px-8 group hover:bg-white/10"
+                            className="flex items-center gap-2 px-8 group hover:bg-white/10 dark:border-white dark:text-white"
                             placeholder=""
                         >
                             <Users className="w-5 h-5 transition group-hover:scale-110" />

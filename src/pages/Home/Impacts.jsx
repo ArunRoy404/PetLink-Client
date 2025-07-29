@@ -47,7 +47,7 @@ const stats = [
 const Impacts = () => {
   return (
     <section>
-      <div className="bg-background dark:bg-gray-800 p-8 md:p-12">
+      <div className="bg-background dark:bg-gradient-to-b dark:from-[#121212] dark:to-[#1F1A33] p-8 md:p-12">
         <div className="container mx-auto text-center">
           <Users className="w-12 h-12 mx-auto mb-6 text-primary" />
           <Typography
@@ -70,7 +70,7 @@ const Impacts = () => {
             {stats.map((stat, index) => (
               <div
                 key={index}
-                className="bg-white dark:bg-gray-700 p-6 rounded-lg border border-gray-200 dark:border-gray-600 hover:shadow-lg transition duration-300"
+                className="bg-white dark:bg-[#121212] p-6 rounded-lg border border-gray-200 dark:border-gray-600 hover:shadow-lg transition duration-300"
               >
                 <stat.icon className="w-8 h-8 text-primary mb-3 mx-auto" />
                 <Typography
