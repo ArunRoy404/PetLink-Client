@@ -1,21 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Progress, Button, Typography, Avatar, Card, CardBody, CardFooter } from '@material-tailwind/react';
 import { Heart, Eye } from 'lucide-react';
 import { useNavigate } from 'react-router';
+import { useGetDonationsApi } from '../../../axios/donationApi';
 
 const DonationCard = ({ campaignData }) => {
-
     const navigate = useNavigate()
+
+    const [donatedAmount, setDonatedAmount] = useState(0)
+
 
     const {
         petName,
         petImage,
         maxDonationAmount,
-        donatedAmount = 0, // Default to 0 if not provided
         shortDescription,
         lastDonationDate,
         paused
     } = campaignData;
+
+
+    const { getDonationsPromise } = useGetDonationsApi()
+    useEffect(() => {
+        getDonationsPromise(campaignData._id)
+            .then(res => {
+                setDonatedAmount(res.data.totalAmount)
+            })
+    }, [])
+
 
     // Calculate donation progress percentage
     const progress = Math.min(Math.round((donatedAmount / maxDonationAmount) * 100), 100);
@@ -105,7 +117,7 @@ const DonationCard = ({ campaignData }) => {
 
                     <Button
                         className="flex items-center gap-2 bg-primary"
-                        onClick={()=>navigate(`/campaign/${campaignData._id}`)}
+                        onClick={() => navigate(`/campaign/${campaignData._id}`)}
                     >
                         <Eye size={18} />
                         Details
