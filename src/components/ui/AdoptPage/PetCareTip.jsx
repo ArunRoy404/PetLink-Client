@@ -31,8 +31,8 @@ const PetCareTip = ({petData}) => {
     };
 
     return (
-        <div className="container mx-auto px-4 rounded-xl p-8 mb-8 mt-8">
-            <Typography variant="h2" className="font-bold text-2xl mb-6 text-gray-900 border-b pb-2">
+        <div className="container mx-auto px-4 rounded-xl p-8 py-10">
+            <Typography variant="h2" className="dark:text-white font-bold text-2xl mb-6 text-gray-900 border-b pb-2">
                 Care Tips for {petData.petName}
             </Typography>
             <div className="grid md:grid-cols-2 gap-4">

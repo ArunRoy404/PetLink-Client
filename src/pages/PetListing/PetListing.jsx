@@ -33,7 +33,7 @@ const PetListing = () => {
     // Fetch pets data
     const { data, isLoading } = useQuery({
         queryKey: ['pets', searchTerm, selectedCategory?.value],
-        queryFn: () => getPetsPromise(0, 100, searchTerm, selectedCategory?.value, false).then(res=>res.data)
+        queryFn: () => getPetsPromise(0, 100, searchTerm, selectedCategory?.value, false).then(res => res.data)
     });
 
 
@@ -48,7 +48,7 @@ const PetListing = () => {
     });
 
     useEffect(() => {
-        if(searchTerm || selectedCategory){
+        if (searchTerm || selectedCategory) {
             setPetsData(data)
         }
         else if (inView || data) {
@@ -57,11 +57,11 @@ const PetListing = () => {
     }, [inView, searchTerm, selectedCategory, data])
 
     return (
-        <div className=" pb-8 ">
+        <div className=" pb-8 dark:bg-gradient-to-t  dark:from-[#342e4e] dark:to-[#121212] ">
             <div className='px-4 pt-40 bg-gradient-to-b from-surface '>
                 {/* Page Header */}
                 <div className="container mx-auto text-center mb-10">
-                    <Typography variant="h2" className="font-bold text-gray-900 mb-2">
+                    <Typography variant="h2" className="font-bold dark:text-white text-gray-900 mb-2">
                         Find Your Perfect Pet Companion
                     </Typography>
                     <Typography variant="lead" className="text-gray-600">
@@ -70,7 +70,7 @@ const PetListing = () => {
                 </div>
 
                 {/* Search and Filter Section */}
-                <div className="z-10 sticky top-10 px-4 container mx-auto flex flex-col md:flex-row gap-4 mb-8">
+                <div className="px-4 container mx-auto flex flex-col md:flex-row gap-4 mb-8">
                     <div className="relative flex-1">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <Search className="h-5 w-5 text-gray-400" />

@@ -42,7 +42,7 @@ const DonationCard = ({ campaignData }) => {
     };
 
     return (
-        <Card className="w-full  rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+        <Card className="w-full dark:bg-[#1F1A33] dark:text-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
             {/* Pet Image with Paused Badge */}
             <div className="relative h-48 overflow-hidden">
                 <img
@@ -60,7 +60,7 @@ const DonationCard = ({ campaignData }) => {
             <CardBody className="p-6">
                 {/* Pet Name & Description */}
                 <div className="flex items-start justify-between mb-4">
-                    <Typography variant="h5" className="font-bold text-gray-900">
+                    <Typography variant="h5" className="font-bold text-gray-900 dark:text-white">
                         {petName}
                     </Typography>
                     <Avatar
@@ -109,7 +109,7 @@ const DonationCard = ({ campaignData }) => {
                     <Button
                         variant="outlined"
                         color="gray"
-                        className="flex items-center gap-2 hover:bg-gray-100 px-4 py-2 rounded-lg"
+                        className="flex items-center gap-2 dark:text-white dark:border-white hover:bg-gray-100 px-4 py-2 rounded-lg"
                     >
                         <Heart size={18} className="text-red-500" />
                         <span>Save</span>

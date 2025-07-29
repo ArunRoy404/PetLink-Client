@@ -33,7 +33,7 @@ const DonationCampaigns = () => {
     // Fetch pets data
     const { data, isLoading } = useQuery({
         queryKey: ['campaigns',],
-        queryFn: () => getCampaignsPromise().then(res=>res.data)
+        queryFn: () => getCampaignsPromise().then(res => res.data)
     });
 
 
@@ -45,20 +45,20 @@ const DonationCampaigns = () => {
     }, [inView, data])
 
     return (
-        <div className=" pb-8 ">
+        <div className="dark:bg-gradient-to-b  dark:from-[#342e4e] dark:to-[#121212] ">
             <div className='px-4 pt-40 bg-gradient-to-b from-surface '>
                 {/* Page Header */}
                 <div className="container mx-auto text-center mb-10">
-                    <Typography variant="h2" className="font-bold text-gray-900 mb-2">
+                    <Typography variant="h2" className="dark:text-white font-bold text-gray-900 mb-2">
                         Give Hope to Pets in Need
                     </Typography>
-                    <Typography variant="lead" className="text-gray-600">
+                    <Typography variant="lead" className="text-gray-600 dark:text-white">
                         Your donation can change a life. Browse campaigns below to support pets awaiting medical care, shelter, and loving homes.
                     </Typography>
                 </div>
             </div>
 
-            {/* Loading State */}
+            {/* Loading State */} 
             {isLoading && (
                 <div className="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
                     {[...Array(6)].map((_, i) => <CardSkeleton key={i} />)}

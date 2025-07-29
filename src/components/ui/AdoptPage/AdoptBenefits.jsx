@@ -15,12 +15,12 @@ import {
 
 const AdoptBenefits = () => {
     return (
-        <div className=" container mx-auto px-4 rounded-xl p-8 mb-8">
-            <Typography variant="h2" className="font-bold text-2xl mb-6 text-gray-900 border-b pb-2">
+        <div className=" container mx-auto px-4 rounded-xl p-8">
+            <Typography variant="h2" className="dark:text-white font-bold text-2xl  text-gray-900 border-b pb-2">
                 Adoption Benefits with PetLink
             </Typography>
 
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-6 pt-8">
                 <div className="bg-blue-50 p-6 rounded-lg border border-blue-100">
                     <Typography variant="h5" className="font-bold mb-3 text-blue-800 flex items-center gap-2">
                         <ShieldCheck className="text-blue-600" />

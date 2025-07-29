@@ -27,7 +27,7 @@ const ActiveCampaigns = () => {
             <div className=''>
                 {/* Page Header */}
                 <div className="container mx-auto text-center mb-10">
-                    <Typography variant="h3" className="font-bold text-2xl mb-6 text-gray-900 border-b pb-2">
+                    <Typography variant="h3" className="font-bold text-2xl mb-6 text-gray-900 border-b pb-2 dark:text-white">
                         Recent Active Campaigns
                     </Typography>
                 </div>

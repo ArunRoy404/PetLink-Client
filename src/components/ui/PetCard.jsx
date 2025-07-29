@@ -9,7 +9,7 @@ const PetCard = ({ pet }) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
     <Card 
-      className="relative overflow-hidden transition-all shadow-none hover:shadow-md duration-300 border-2 border-gray-300 group hover:"
+      className="dark:bg-[#1F1A33] dark:border-gray-700 relative overflow-hidden transition-all shadow-none hover:shadow-md duration-300 border-2 border-gray-300 group hover:"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -72,7 +72,7 @@ const PetCard = ({ pet }) => {
         {/* Pet name with subtle hover effect */}
         <Typography 
           variant="h5" 
-          className="font-bold text-gray-900 mb-1.5 transition-colors hover:text-primary cursor-pointer"
+          className="font-bold text-gray-900 mb-1.5 dark:text-white  transition-colors hover:text-primary cursor-pointer"
           onClick={() => navigate(`/pets/${pet._id}`)}
         >
           {pet.petName}

@@ -62,10 +62,10 @@ const PetDetails = () => {
     if (!petData) return <div className="text-center py-20">Pet not found</div>;
 
     return (
-        <div className="pb-8">
-            <div className='pt-40 bg-gradient-to-b from-surface '>
+        <div>
+            <div className='pt-40 bg-gradient-to-b from-surface dark:bg-gradient-to-t  dark:from-[#342e4e] dark:to-[#121212] pb-16 '>
                 {/* Pet Details Card */}
-                <Card className="container mx-auto overflow-hidden shadow-none border-2 border-gray-300 mb-16">
+                <Card className="container mx-auto overflow-hidden shadow-none border-2 border-gray-300 ">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                         {/* Pet Image */}
                         <div className="relative h-96 lg:h-auto">
@@ -175,18 +175,26 @@ const PetDetails = () => {
             </div>
 
 
-            <AdoptBenefits />
+            <div className='dark:bg-gradient-to-b  dark:from-[#342e4e] dark:to-[#121212] '>
+                <AdoptBenefits />
+            </div>
 
-            {/* Pet Care Tips */}
-            <PetCareTip petData={petData} />
+            <div className='dark:bg-gradient-to-t  dark:from-[#342e4e] dark:to-[#121212] '>
+                {/* Pet Care Tips */}
+                <PetCareTip petData={petData} />
+            </div>
 
-            {/* Terms and Conditions Section */}
-            <AdoptTerms />
+            <div className='dark:bg-gradient-to-b  dark:from-[#342e4e] dark:to-[#121212] '>
+                {/* Terms and Conditions Section */}
+                <AdoptTerms />
+            </div>
 
 
 
-            {/* Contact Support */}
-            <AdoptHelp petData={petData} />
+            <div className='dark:bg-gradient-to-t  dark:from-[#342e4e] dark:to-[#121212]'>
+                {/* Contact Support */}
+                <AdoptHelp petData={petData} />
+            </div>
 
             {/* Adoption Form Modal */}
             <AdoptDialog petData={petData} openAdoptModal={openAdoptModal} setOpenAdoptModal={setOpenAdoptModal} />

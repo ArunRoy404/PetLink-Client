@@ -4,8 +4,8 @@ import { Gift, ShieldCheck, Users } from "lucide-react";
 
 const DonationBenefit = () => {
     return (
-        <Card className="p-8 shadow-none">
-            <Typography variant="h3" className="font-bold text-2xl mb-6 text-gray-900 border-b pb-2">
+        <Card className="p-8 shadow-none dark:bg-[#1F1A33] dark:border-2 dark:border-gray-700 ">
+            <Typography variant="h3" className="font-bold text-2xl mb-6 text-gray-900 border-b pb-2 dark:text-white">
                 How Your Donation Helps
             </Typography>
             <div className="grid md:grid-cols-3 gap-6">
@@ -30,10 +30,10 @@ const DonationBenefit = () => {
                         <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
                             {item.icon}
                         </div>
-                        <Typography variant="h5" className="font-bold mb-2">
+                        <Typography variant="h5" className="font-bold mb-2 dark:text-white/80">
                             {item.title}
                         </Typography>
-                        <Typography className="text-gray-700">
+                        <Typography className="text-gray-700 dark:text-white/60">
                             {item.description}
                         </Typography>
                     </div>

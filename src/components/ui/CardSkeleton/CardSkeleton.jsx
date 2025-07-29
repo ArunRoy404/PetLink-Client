@@ -3,7 +3,7 @@ import { Card, CardBody } from '@material-tailwind/react';
 
 const CardSkeleton = () => {
     return (
-        <Card className="animate-pulse shadow-none border-2">
+        <Card className="animate-pulse shadow-none border-2 dark:bg-[#1F1A33]">
             <div className="h-48 rounded-t-lg bg-gray-200"></div>
             <CardBody className="space-y-3">
                 <div className="h-6 bg-gray-200 rounded w-3/4"></div>
