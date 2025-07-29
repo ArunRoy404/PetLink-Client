@@ -103,6 +103,7 @@ const AllPets = () => {
         queryFn: () => getPetsCountPromise().then((res) => res.data),
     });
 
+
     const { mutate: mutateDeletePet } = useMutation({
         mutationFn: handleDelete,
         onSuccess: () => {

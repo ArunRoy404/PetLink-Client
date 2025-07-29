@@ -7,6 +7,7 @@ import {
     getSortedRowModel,
     createColumnHelper,
 } from "@tanstack/react-table";
+import { useQuery } from "@tanstack/react-query";
 import {
     Button,
     IconButton,
@@ -34,10 +35,15 @@ import {
 } from "lucide-react";
 import TableSkeleton from "../../components/ui/TableSkeleton";
 import NoDataFoundTable from "../../components/ui/NoDatafoundTable";
+import { notifyError, notifySuccess } from "../../ReactHotToast/ReactHotToast";
+import { useAuthContext } from "../../context/AuthContext";
+import { useGetAdoptionRequestsApi, useUpdateAdoptionApi } from "../../axios/AdoptionApi";
+import Loader from "../../components/ui/Loader";
 
 const columnHelper = createColumnHelper();
 
 const AdoptionRequests = () => {
+    const { firebaseUser } = useAuthContext();
     const [pagination, setPagination] = useState({
         pageIndex: 0,
         pageSize: 10,
@@ -46,76 +52,23 @@ const AdoptionRequests = () => {
     const [actionDialog, setActionDialog] = useState(false);
     const [selectedRequest, setSelectedRequest] = useState(null);
     const [actionType, setActionType] = useState(null); // 'accept' or 'reject'
+    const [isUpdating, setIsUpdating] = useState(false);
 
-    // Dummy data for adoption requests
-    const dummyRequests = [
-        {
-            id: 1,
-            petId: "pet1",
-            petImage: "https://i.ibb.co/wZv42XK5/pet1.jpg",
-            petName: "Buddy",
-            requesterName: "John Doe",
-            requesterEmail: "john@example.com",
-            requesterPhone: "+1 555-123-4567",
-            requesterLocation: "New York, USA",
-            requestDate: "2025-07-20",
-            status: "pending" // 'pending', 'accepted', 'rejected'
-        },
-        {
-            id: 2,
-            petId: "pet2",
-            petImage: "https://i.ibb.co/wZv42XK5/pet2.jpg",
-            petName: "Luna",
-            requesterName: "Jane Smith",
-            requesterEmail: "jane@example.com",
-            requesterPhone: "+1 555-987-6543",
-            requesterLocation: "Los Angeles, USA",
-            requestDate: "2025-07-18",
-            status: "pending"
-        },
-        {
-            id: 3,
-            petId: "pet3",
-            petImage: "https://i.ibb.co/wZv42XK5/pet3.jpg",
-            petName: "Max",
-            requesterName: "Robert Johnson",
-            requesterEmail: "robert@example.com",
-            requesterPhone: "+1 555-456-7890",
-            requesterLocation: "Chicago, USA",
-            requestDate: "2025-07-15",
-            status: "pending"
-        },
-        {
-            id: 4,
-            petId: "pet4",
-            petImage: "https://i.ibb.co/wZv42XK5/pet4.jpg",
-            petName: "Bella",
-            requesterName: "Emily Davis",
-            requesterEmail: "emily@example.com",
-            requesterPhone: "+1 555-789-0123",
-            requesterLocation: "Houston, USA",
-            requestDate: "2025-07-10",
-            status: "pending"
-        },
-        {
-            id: 5,
-            petId: "pet5",
-            petImage: "https://i.ibb.co/wZv42XK5/pet5.jpg",
-            petName: "Charlie",
-            requesterName: "Michael Wilson",
-            requesterEmail: "michael@example.com",
-            requesterPhone: "+1 555-234-5678",
-            requesterLocation: "Phoenix, USA",
-            requestDate: "2025-07-05",
-            status: "pending"
-        },
-    ];
-
-    // Commented out API functions for reference
-    /*
     const { getAdoptionRequestsPromise } = useGetAdoptionRequestsApi();
-    const { updateAdoptionRequestPromise } = useUpdateAdoptionRequestApi();
-    */
+    const { updateAdoptionPromise } = useUpdateAdoptionApi();
+
+    const { data: requestsData, isLoading: requestsLoading, refetch } = useQuery({
+        queryKey: ["adoption-requests", pagination, firebaseUser?.email],
+        queryFn: () => getAdoptionRequestsPromise(
+            pagination.pageIndex,
+            pagination.pageSize,
+            firebaseUser?.email
+        ).then(res => res.data),
+        enabled: !!firebaseUser?.email,
+        keepPreviousData: true,
+    });
+
+    console.log(requestsData);
 
     const handleActionClick = (request, type) => {
         setSelectedRequest(request);
@@ -123,30 +76,27 @@ const AdoptionRequests = () => {
         setActionDialog(true);
     };
 
-    const confirmAction = () => {
-        console.log(`${actionType}ing request for ${selectedRequest.petName} by ${selectedRequest.requesterName}`);
-        
-        // Commented out actual API call
-        /*
-        updateAdoptionRequestPromise({
-            requestId: selectedRequest.id,
-            status: actionType === 'accept' ? 'accepted' : 'rejected'
-        }).then(() => {
-            // Refresh data or update local state
-        });
-        */
-        
-        // Update local dummy data
-        // const updatedRequests = dummyRequests.map(req => 
-        //     req.id === selectedRequest.id 
-        //         ? { ...req, status: actionType === 'accept' ? 'accepted' : 'rejected' } 
-        //         : req
-        // );
-        // In real implementation, you would set state here
-        
-        setActionDialog(false);
-        setSelectedRequest(null);
-        setActionType(null);
+    const confirmAction = async () => {
+        if (!selectedRequest || !actionType) return;
+
+        setIsUpdating(true);
+        try {
+            const newStatus = actionType === 'accept' ? 'accepted' : 'rejected';
+            await updateAdoptionPromise({
+                _id: selectedRequest.adoptionInfo._id,
+                status: newStatus
+            });
+
+            notifySuccess(`Request ${newStatus} successfully`);
+            refetch(); // Refresh the data after update
+        } catch (error) {
+            notifyError(`Failed to update request: ${error.message}`);
+        } finally {
+            setIsUpdating(false);
+            setActionDialog(false);
+            setSelectedRequest(null);
+            setActionType(null);
+        }
     };
 
     const handlePageSizeChange = (value) => {
@@ -177,7 +127,7 @@ const AdoptionRequests = () => {
                 </div>
             ),
         }),
-        columnHelper.accessor("requesterName", {
+        columnHelper.accessor("adoptionInfo.userEmail", {
             header: () => (
                 <div className="flex items-center gap-1 cursor-pointer">
                     Requester <ArrowUpDown size={14} className="text-gray-500" />
@@ -185,32 +135,22 @@ const AdoptionRequests = () => {
             ),
             cell: (info) => (
                 <div className="flex items-center gap-3">
-                    <Avatar
-                        variant="circular"
-                        size="sm"
-                        className="border border-gray-200 bg-blue-50"
-                        icon={<User className="h-4 w-4" />}
-                    />
                     <div>
                         <Typography variant="small" className="font-medium">
                             {info.getValue()}
                         </Typography>
                         <Typography variant="small" className="text-gray-600">
-                            {info.row.original.requesterEmail}
+                            {info.row.original.adoptionInfo.phone}
                         </Typography>
                     </div>
                 </div>
             ),
         }),
-        columnHelper.accessor("requesterPhone", {
-            header: "Phone",
-            cell: (info) => <span className="text-gray-700">{info.getValue()}</span>,
-        }),
-        columnHelper.accessor("requesterLocation", {
+        columnHelper.accessor("adoptionInfo.address", {
             header: "Location",
             cell: (info) => <span className="text-gray-700">{info.getValue()}</span>,
         }),
-        columnHelper.accessor("requestDate", {
+        columnHelper.accessor("adoptionInfo.requestDate", {
             header: () => (
                 <div className="flex items-center gap-1 cursor-pointer">
                     Request Date <ArrowUpDown size={14} className="text-gray-500" />
@@ -222,24 +162,15 @@ const AdoptionRequests = () => {
                 </span>
             ),
         }),
-        columnHelper.accessor("status", {
+        columnHelper.accessor("adoptionInfo.status", {
             header: "Status",
             cell: (info) => (
-                <Badge
-                    color={
-                        info.getValue() === 'accepted' ? 'green' : 
-                        info.getValue() === 'rejected' ? 'red' : 'amber'
-                    }
-                    className="rounded-full"
-                >
-                    <span className={`px-3 py-1.5 rounded-full text-xs font-semibold ${
-                        info.getValue() === 'accepted' ? 'bg-green-100 text-green-800' :
-                        info.getValue() === 'rejected' ? 'bg-red-100 text-red-800' :
+                <span className={`px-3 py-1.5 rounded-full text-xs font-semibold ${info.getValue() === 'accepted' ? 'bg-green-100 text-green-800' :
+                    info.getValue() === 'rejected' ? 'bg-red-100 text-red-800' :
                         'bg-amber-100 text-amber-800'
                     }`}>
-                        {info.getValue().charAt(0).toUpperCase() + info.getValue().slice(1)}
-                    </span>
-                </Badge>
+                    {info.getValue().charAt(0).toUpperCase() + info.getValue().slice(1)}
+                </span>
             ),
         }),
         columnHelper.display({
@@ -247,32 +178,32 @@ const AdoptionRequests = () => {
             header: "Actions",
             cell: ({ row }) => {
                 const request = row.original;
+                const isPending = request.adoptionInfo.status === 'pending';
+
                 return (
                     <div className="flex gap-2">
-                        {request.status === 'pending' && (
-                            <>
-                                <Tooltip content="Accept request">
-                                    <IconButton
-                                        variant="gradient"
-                                        size="sm"
-                                        color="green"
-                                        onClick={() => handleActionClick(request, 'accept')}
-                                    >
-                                        <Check size={16} />
-                                    </IconButton>
-                                </Tooltip>
-                                <Tooltip content="Reject request">
-                                    <IconButton
-                                        variant="gradient"
-                                        size="sm"
-                                        color="red"
-                                        onClick={() => handleActionClick(request, 'reject')}
-                                    >
-                                        <X size={16} />
-                                    </IconButton>
-                                </Tooltip>
-                            </>
-                        )}
+                        <Tooltip content={isPending ? "Accept request" : "Request already processed"}>
+                            <IconButton
+                                variant="gradient"
+                                size="sm"
+                                color="green"
+                                onClick={() => isPending && handleActionClick(request, 'accept')}
+                                disabled={!isPending}
+                            >
+                                <Check size={16} />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip content={isPending ? "Reject request" : "Request already processed"}>
+                            <IconButton
+                                variant="gradient"
+                                size="sm"
+                                color="red"
+                                onClick={() => isPending && handleActionClick(request, 'reject')}
+                                disabled={!isPending}
+                            >
+                                <X size={16} />
+                            </IconButton>
+                        </Tooltip>
                     </div>
                 );
             },
@@ -280,9 +211,9 @@ const AdoptionRequests = () => {
     ];
 
     const table = useReactTable({
-        data: dummyRequests,
+        data: requestsData || [],
         columns,
-        pageCount: Math.ceil(dummyRequests.length / pagination.pageSize),
+        pageCount: Math.ceil((requestsData?.totalCount || 0) / pagination.pageSize),
         state: {
             pagination,
             sorting,
@@ -339,6 +270,10 @@ const AdoptionRequests = () => {
                         ))}
                     </thead>
                     <tbody className="divide-y divide-gray-200">
+                        {requestsLoading && <TableSkeleton colSpan={columns.length} />}
+                        {!requestsLoading && !requestsData?.length && (
+                            <NoDataFoundTable message={"No adoption requests found"} colSpan={columns.length} />
+                        )}
                         {table.getRowModel().rows.map((row) => (
                             <tr key={row.id} className="hover:bg-gray-50/80 transition-colors">
                                 {row.getVisibleCells().map((cell) => (
@@ -357,9 +292,9 @@ const AdoptionRequests = () => {
                     <Typography variant="small" className="text-gray-600">
                         Showing <span className="font-semibold">{table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1}</span> to{' '}
                         <span className="font-semibold">
-                            {Math.min((table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize, dummyRequests.length)}
+                            {Math.min((table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize, requestsData?.totalCount || 0)}
                         </span>{' '}
-                        of <span className="font-semibold">{dummyRequests.length}</span> requests
+                        of <span className="font-semibold">{requestsData?.totalCount || 0}</span> requests
                     </Typography>
                 </div>
 
@@ -430,25 +365,33 @@ const AdoptionRequests = () => {
                     </IconButton>
                 </div>
             </div>
-
-            {/* Action Confirmation Dialog */}
-            <Dialog open={actionDialog} handler={() => setActionDialog(false)}>
+            <Dialog open={actionDialog} handler={() => !isUpdating && setActionDialog(false)}>
                 <DialogHeader>
                     {actionType === 'accept' ? 'Accept' : 'Reject'} Adoption Request
                 </DialogHeader>
                 <DialogBody>
-                    Are you sure you want to {actionType} the adoption request for <span className="font-bold">{selectedRequest?.petName}</span> from <span className="font-bold">{selectedRequest?.requesterName}</span>?
+                    Are you sure you want to {actionType} the adoption request for <span className="font-bold">{selectedRequest?.petName}</span> from <span className="font-bold">{selectedRequest?.adoptionInfo.userEmail}</span>?
                 </DialogBody>
                 <DialogFooter>
-                    <Button variant="text" color="gray" onClick={() => setActionDialog(false)}>
+                    <Button
+                        variant="text"
+                        color="gray"
+                        onClick={() => setActionDialog(false)}
+                        disabled={isUpdating}
+                    >
                         Cancel
                     </Button>
-                    <Button 
-                        variant="gradient" 
-                        color={actionType === 'accept' ? "green" : "red"} 
+                    <Button
+                        variant="gradient"
+                        color={actionType === 'accept' ? "green" : "red"}
                         onClick={confirmAction}
+                        disabled={isUpdating}
                     >
-                        {actionType === 'accept' ? 'Accept' : 'Reject'} Request
+                        {isUpdating ? (
+                            <Loader size="sm" />
+                        ) : (
+                            actionType === 'accept' ? 'Accept' : 'Reject'
+                        )}
                     </Button>
                 </DialogFooter>
             </Dialog>

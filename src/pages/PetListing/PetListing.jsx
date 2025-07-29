@@ -33,8 +33,7 @@ const PetListing = () => {
     // Fetch pets data
     const { data, isLoading } = useQuery({
         queryKey: ['pets', searchTerm, selectedCategory?.value],
-        queryFn: () => getPetsPromise(0, 100, searchTerm, selectedCategory?.value),
-        select: (res) => res.data.filter(pet => !pet.adopted)
+        queryFn: () => getPetsPromise(0, 100, searchTerm, selectedCategory?.value, false).then(res=>res.data)
     });
 
 

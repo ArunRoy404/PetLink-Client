@@ -8,5 +8,29 @@ const useCreateAdoptionApi = () => {
     return { createAdoptionPromise };
 };
 
+const useGetAdoptionApi = () => {
+    const axiosSecure = useAxiosSecure();
+    const getAdoptionPromise = (id) => {
+        return axiosSecure.get(`/adoptions/${id}`,);
+    };
+    return { getAdoptionPromise };
+};
 
-export { useCreateAdoptionApi }
+const useGetAdoptionRequestsApi = () => {
+    const axiosSecure = useAxiosSecure();
+    const getAdoptionRequestsPromise = (page, size, email) => {
+        return axiosSecure.get(`/adoption-requests?email=${email}&page=${page}&size=${size}`);
+    };
+    return { getAdoptionRequestsPromise };
+};
+
+const useUpdateAdoptionApi = () => {
+    const axiosSecure = useAxiosSecure();
+    const updateAdoptionPromise = (updateData) => {
+        return axiosSecure.patch('/adoptions', { data: { updateData } });
+    };
+    return { updateAdoptionPromise };
+};
+
+
+export {useUpdateAdoptionApi, useGetAdoptionRequestsApi, useGetAdoptionApi, useCreateAdoptionApi }

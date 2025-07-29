@@ -33,8 +33,6 @@ const useGetPetsApi = () => {
 
 
 
-
-
 const useGetMyAddedPetsCountApi = () => {
     const axiosSecure = useAxiosSecure()
     const getMyAddedPetsCountPromise = () => axiosSecure.get(`/my-added-pets-count`)
