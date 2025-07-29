@@ -9,7 +9,7 @@ bouncy.register()
 
 const GoogleSignIn = ({ setError }) => {
     const [loading, setLoading] = useState(false)
-    const { googleSignIn } = useAuthContext()
+    const { googleSignIn, saveUserToDB } = useAuthContext()
 
     const navigate = useNavigate()
     const location = useLocation()
@@ -20,7 +20,8 @@ const GoogleSignIn = ({ setError }) => {
             setError('')
         }
         googleSignIn()
-            .then(() => {
+            .then((res) => {
+                saveUserToDB(res.user)
                 notifySuccess("Sign In Successful")
                 navigate(location.state || '/')
             })

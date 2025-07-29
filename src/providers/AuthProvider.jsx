@@ -19,11 +19,13 @@ const AuthProvider = ({ children }) => {
             setRoleLoading(false)
             await axios.get(`https://pet-link-server.vercel.app/users/${firebaseUser.email}`)
                 .then(res => {
+
                     setUserRole(res.data.role)
                 })
                 .finally(() => setRoleLoading(false))
         }
     }
+
 
     useEffect(() => {
         getUserRole()
@@ -37,8 +39,7 @@ const AuthProvider = ({ children }) => {
     const saveUserToDB = async (userData) => {
         const { email, displayName, photoURL } = userData
         const user = { email, displayName, photoURL }
-        const res = await axios.post('https://pet-link-server.vercel.app/users', user)
-        console.log(res);
+        await axios.post('https://pet-link-server.vercel.app/users', user)
     }
 
 
@@ -87,6 +88,7 @@ const AuthProvider = ({ children }) => {
                 // reloadUser()
             } else {
                 setFirebaseUser(null)
+                setUserRole(null)
             }
             setIsUserLoading(false)
         })
@@ -99,13 +101,13 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         if (firebaseUser) {
             localStorage.setItem("accessToken", firebaseUser.accessToken);
-            saveUserToDB(firebaseUser)
         } else {
             localStorage.removeItem("accessToken");
         }
     }, [firebaseUser])
 
     const firebase = {
+        saveUserToDB,
         firebaseUser,
         isUserLoading,
         roleLoading,

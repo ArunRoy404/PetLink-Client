@@ -38,7 +38,7 @@ export default function SignUpPage() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
     const [photoURL, setPhotoURL] = useState(null);
-    const { createUser, updateUserProfile } = useAuthContext()
+    const { createUser, updateUserProfile, saveUserToDB } = useAuthContext()
 
     const navigate = useNavigate()
     const location = useLocation()
@@ -61,6 +61,7 @@ export default function SignUpPage() {
                 updateUserProfile(userData)
                     .then(() => {
                         notifySuccess("User Sign Up Successful")
+                        saveUserToDB(userData)
                         navigate(location.state || '/')
                     })
             })

@@ -10,9 +10,9 @@ bouncy.register()
 
 const GithubSignIn = ({ setError }) => {
     const [loading, setLoading] = useState(false)
-    const { githubSignIn } = useAuthContext()
+    const { githubSignIn, saveUserToDB } = useAuthContext()
 
-    
+
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -22,7 +22,8 @@ const GithubSignIn = ({ setError }) => {
             setError('')
         }
         githubSignIn()
-            .then(() => {
+            .then((res) => {
+                saveUserToDB(res.user)
                 notifySuccess("Sign In Successful")
                 navigate(location.state || '/')
             })
