@@ -23,6 +23,7 @@ import PetDetails from '../pages/PetDetails/PetDetails';
 import DonationCampaigns from '../pages/DonationCampaigns';
 import DonationDetails from '../pages/DonationDetails/DonationDetails';
 import Payment from '../pages/Payment/Payment';
+import PrivateRoute from './PrivateRoute/PrivateRoute';
 
 
 const router = createBrowserRouter([
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'pets/:petId',
-                Component: PetDetails
+                element: <PrivateRoute><PetDetails /></PrivateRoute>
             },
             {
                 path: '/campaigns',
@@ -48,11 +49,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/campaign/:campaignId',
-                Component: DonationDetails
-            },
-            {
-                path:'/payment/:id',
-                Component: Payment
+                element: <PrivateRoute><DonationDetails /></PrivateRoute>
             }
         ]
     },
@@ -76,39 +73,39 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                Component: DashBoardHomeUser
+                element: <PrivateRoute><DashBoardHomeUser /></PrivateRoute>
             },
             {
                 path: 'add-pet',
-                Component: AddPet
+                element: <PrivateRoute><AddPet /></PrivateRoute>
             },
             {
                 path: 'my-added-pets',
-                Component: MyAddedPets,
+                element: <PrivateRoute><MyAddedPets /></PrivateRoute>
             },
             {
                 path: 'adoption-requests',
-                Component: AdoptionRequests,
+                element: <PrivateRoute><AdoptionRequests /></PrivateRoute>
             },
             {
                 path: 'update-pet/:id',
-                Component: UpdatePet
+                element: <PrivateRoute><UpdatePet /></PrivateRoute>
             },
             {
                 path: 'create-campaign',
-                Component: CreateDonationCampaign
+                element: <PrivateRoute><CreateDonationCampaign /></PrivateRoute>
             },
             {
                 path: 'my-campaigns',
-                Component: MyDonationCampaigns
+                element: <PrivateRoute><MyDonationCampaigns /></PrivateRoute>
             },
             {
                 path: 'update-campaign/:id',
-                Component: UpdateCampaign
+                element: <PrivateRoute><UpdateCampaign /></PrivateRoute>
             },
             {
                 path: 'my-donations',
-                Component: MyDonations
+                element: <PrivateRoute><MyDonations /></PrivateRoute>
             },
             {
                 path: 'users',

@@ -8,9 +8,26 @@ import axios from 'axios';
 const AuthProvider = ({ children }) => {
     const [firebaseUser, setFirebaseUser] = useState(null)
     const [isUserLoading, setIsUserLoading] = useState(true)
+    const [userRole, setUserRole] = useState('user')
     const googleProvider = new GoogleAuthProvider()
     const githubProvider = new GithubAuthProvider()
+    const [roleLoading, setRoleLoading] = useState(true)
 
+
+    const getUserRole = async () => {
+        if (firebaseUser) {
+            setRoleLoading(false)
+            await axios.get(`http://localhost:3000/users/${firebaseUser.email}`)
+                .then(res => {
+                    setUserRole(res.data.role)
+                })
+                .finally(() => setRoleLoading(false))
+        }
+    }
+
+    useEffect(() => {
+        getUserRole()
+    }, [firebaseUser])
 
     const createUser = (email, password) => {
         setIsUserLoading(true)
@@ -23,6 +40,7 @@ const AuthProvider = ({ children }) => {
         const res = await axios.post('http://localhost:3000/users', user)
         console.log(res);
     }
+
 
     const signIn = (email, password) => {
         setIsUserLoading(true)
@@ -90,6 +108,7 @@ const AuthProvider = ({ children }) => {
     const firebase = {
         firebaseUser,
         isUserLoading,
+        roleLoading,
         googleSignIn,
         githubSignIn,
         createUser,
@@ -97,7 +116,8 @@ const AuthProvider = ({ children }) => {
         // reloadUser,
         signIn,
         userSignOut,
-        resetPass
+        resetPass,
+        userRole
     }
 
     return (

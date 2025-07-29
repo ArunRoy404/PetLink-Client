@@ -10,7 +10,7 @@ import {
 } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import { Mail, Github, CircleUserRound, EyeOff, Eye } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useAuthContext } from "../../context/AuthContext";
 import { notifyError, notifySuccess } from "../../ReactHotToast/ReactHotToast";
 import { bouncy } from 'ldrs'
@@ -26,6 +26,9 @@ export default function SignInPage() {
     const [showPassword, setShowPassword] = useState(false);
     const { signIn } = useAuthContext()
 
+    const navigate = useNavigate()
+    const location = useLocation()
+
     const {
         register,
         handleSubmit,
@@ -38,7 +41,10 @@ export default function SignInPage() {
         setError('')
 
         signIn(email, password)
-            .then(() => { notifySuccess("SignIn Successful") })
+            .then(() => {
+                notifySuccess("SignIn Successful")
+                navigate(location.state || '/')
+            })
             .catch(err => {
                 setError(err)
                 notifyError("Sign In Failed")
@@ -158,6 +164,7 @@ export default function SignInPage() {
                         >
                             Don&apos;t have an account?
                             <Link to={'/auth/sign-up'}
+                                state={location.state}
                                 href="#signup"
                                 className="ml-1 font-semibold text-blue-500 hover:underline"
                             >

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useAuthContext } from '../../context/AuthContext';
 import { notifyError, notifySuccess } from '../../ReactHotToast/ReactHotToast';
 import { bouncy } from 'ldrs'
+import { useLocation, useNavigate } from 'react-router';
 bouncy.register()
 
 
@@ -10,14 +11,19 @@ const GoogleSignIn = ({ setError }) => {
     const [loading, setLoading] = useState(false)
     const { googleSignIn } = useAuthContext()
 
+    const navigate = useNavigate()
+    const location = useLocation()
 
     const handleGoogleSignIn = () => {
         setLoading(true)
-        if (setError){
+        if (setError) {
             setError('')
         }
         googleSignIn()
-            .then(() => notifySuccess("Sign In Successful"))
+            .then(() => {
+                notifySuccess("Sign In Successful")
+                navigate(location.state || '/')
+            })
             .catch((err) => {
                 if (setError) {
                     setError(err)

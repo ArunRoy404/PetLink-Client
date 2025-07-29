@@ -4,6 +4,7 @@ import { useAuthContext } from '../../context/AuthContext';
 import { useState } from 'react';
 import { bouncy } from 'ldrs'
 import { notifyError, notifySuccess } from '../../ReactHotToast/ReactHotToast';
+import { useLocation, useNavigate } from 'react-router';
 bouncy.register()
 
 
@@ -11,13 +12,20 @@ const GithubSignIn = ({ setError }) => {
     const [loading, setLoading] = useState(false)
     const { githubSignIn } = useAuthContext()
 
+    
+    const navigate = useNavigate()
+    const location = useLocation()
+
     const handleGithubSignIn = () => {
         setLoading(true)
-        if (setError){
+        if (setError) {
             setError('')
         }
         githubSignIn()
-            .then(() => notifySuccess("Sign In Successful"))
+            .then(() => {
+                notifySuccess("Sign In Successful")
+                navigate(location.state || '/')
+            })
             .catch((err) => {
                 if (setError) {
                     setError(err)

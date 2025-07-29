@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 import axios from 'axios';
 import Avatar from "../../components/ui/Avatar";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import GoogleSignIn from "../../components/ui/GoogleSignIn";
 import GithubSignIn from "../../components/ui/GithubSignIn";
 import { notifyError, notifySuccess } from "../../ReactHotToast/ReactHotToast";
@@ -40,6 +40,8 @@ export default function SignUpPage() {
     const [photoURL, setPhotoURL] = useState(null);
     const { createUser, updateUserProfile } = useAuthContext()
 
+    const navigate = useNavigate()
+    const location = useLocation()
 
     const {
         register,
@@ -57,7 +59,10 @@ export default function SignUpPage() {
         createUser(email, password)
             .then(() => {
                 updateUserProfile(userData)
-                    .then(() => notifySuccess("User Sign Up Successful"))
+                    .then(() => {
+                        notifySuccess("User Sign Up Successful")
+                        navigate(location.state || '/')
+                    })
             })
             .catch(err => {
                 setError(err)

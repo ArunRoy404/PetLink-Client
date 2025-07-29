@@ -2,9 +2,10 @@ import React from 'react';
 import GoogleSignIn from './GoogleSignIn';
 import GithubSignIn from './GithubSignIn';
 import { Typography } from '@material-tailwind/react';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 
-const SocialLogin = ({setError}) => {
+const SocialLogin = ({ setError }) => {
+    const location = useLocation()
     return (
         <>
             {/* Google Sign Up */}
@@ -20,6 +21,7 @@ const SocialLogin = ({setError}) => {
             >
                 Already have an account?
                 <Link to={'/auth/sign-in'}
+                    state={location.state}
                     href="#signin"
                     className="ml-1 font-semibold text-blue-500 hover:underline"
                 >

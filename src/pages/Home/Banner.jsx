@@ -52,7 +52,7 @@ const Banner = () => {
             </Button>
             <Button variant="outlined" className="flex items-center" color="gray" size="lg">
               <Wallet2 />
-              <Link to="/donations">Donate Now</Link>
+              <Link to="/campaigns">Donate Now</Link>
             </Button>
           </div>
         </div>
