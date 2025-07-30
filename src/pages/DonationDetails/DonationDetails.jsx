@@ -22,6 +22,7 @@ import DonationTerms from '../../components/ui/DonationTerms/DonationTerms';
 import PaymentDialog from '../../components/DonationDialog/PaymentDialog';
 import ActiveCampaigns from '../../components/pages/Donationdetails/ActiveCampaigns';
 import Loader from '../../components/ui/Loader';
+import { useThemeContext } from '../../context/ThemeContext';
 
 // Dummy donation data for progress visualization
 // const donations = [
@@ -38,6 +39,7 @@ const DonationDetail = () => {
     const [openDonationModal, setOpenDonationModal] = useState(false);
     const [donatedAmount, setDonatedAmount] = useState(0)
     const [donations, setDonations] = useState([])
+    const { isDark } = useThemeContext()
 
 
     const { getDonationsPromise } = useGetDonationsApi()
@@ -62,8 +64,12 @@ const DonationDetail = () => {
     });
 
     if (isLoading) return (
-        <div className="flex justify-center items-center h-screen">
-            <Loader size={30} />
+        <div className="flex justify-center items-center dark:bg-gradient-to-t dark:from-[#121212] dark:to-[#1F1A33] h-screen">
+            {
+                isDark
+                    ? <Loader size={30} color='white' />
+                    : <Loader size={30} />
+            }
         </div>
     );
 

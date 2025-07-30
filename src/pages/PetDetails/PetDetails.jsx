@@ -27,6 +27,8 @@ import PetCareTip from '../../components/ui/AdoptPage/PetCareTip';
 import AdoptHelp from '../../components/ui/AdoptPage/AdoptHelp';
 import AdoptDialog from '../../components/ui/AdoptPage/AdoptDialog';
 import { useAuthContext } from '../../context/AuthContext';
+import { useThemeContext } from '../../context/ThemeContext';
+import Loader from '../../components/ui/Loader';
 
 // Pet traits with icons and colors
 const PET_TRAITS = [
@@ -45,6 +47,7 @@ const PetDetails = () => {
     const { getPetInfoPromise } = useGetPetInfoApi();
     const navigate = useNavigate()
     const { firebaseUser } = useAuthContext()
+    const { isDark } = useThemeContext()
 
     // Fetch pet details
     const { data: petData, isLoading } = useQuery({
@@ -54,8 +57,12 @@ const PetDetails = () => {
 
 
     if (isLoading) return (
-        <div className="flex justify-center items-center h-screen">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
+        <div className="flex justify-center items-center dark:bg-gradient-to-t dark:from-[#121212] dark:to-[#1F1A33] h-screen">
+            {
+                isDark
+                    ? <Loader size={30} color='white' />
+                    : <Loader size={30} />
+            }
         </div>
     );
 

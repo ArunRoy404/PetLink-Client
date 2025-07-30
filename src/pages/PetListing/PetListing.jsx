@@ -118,7 +118,7 @@ const PetListing = () => {
 
             <div ref={ref} className='py-10 w-full flex items-center justify-center container mx-auto'>
                 {
-                    inView && !searchTerm && !selectedCategory && !isLoading && (
+                    petsData?.length !== 0 && inView && !searchTerm && !selectedCategory && !isLoading && (
                         <div className='flex flex-col items-center justify-center gap-4 font-bold '>
                             <Loader size={50} />
                             Loading...

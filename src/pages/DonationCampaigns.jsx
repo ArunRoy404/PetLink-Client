@@ -13,7 +13,7 @@ import NoDataFound from '../components/ui/NoDataFound';
 import Loader from '../components/ui/Loader';
 import CardSkeleton from '../components/ui/CardSkeleton/CardSkeleton';
 import PetCard from '../components/ui/PetCard';
-import { useGetCampaignsApi } from '../axios/donationApi';
+import { useGetAllCampaignsApi } from '../axios/donationApi';
 import DonationCard from '../components/ui/DonationCard.jsx/DonationCard';
 
 
@@ -24,7 +24,7 @@ const DonationCampaigns = () => {
 
 
 
-    const { getCampaignsPromise } = useGetCampaignsApi()
+    const { getAllCampaignsPromise } = useGetAllCampaignsApi()
 
     const { ref, inView } = useInView({ threshold: 1 })
 
@@ -33,13 +33,13 @@ const DonationCampaigns = () => {
     // Fetch pets data
     const { data, isLoading } = useQuery({
         queryKey: ['campaigns',],
-        queryFn: () => getCampaignsPromise().then(res => res.data)
+        queryFn: () => getAllCampaignsPromise().then(res => res.data)
     });
 
 
 
     useEffect(() => {
-        if (inView || data) {
+        if (inView || data?.length) {
             setPetsData(prevData => [...prevData, ...data])
         }
     }, [inView, data])
@@ -58,12 +58,14 @@ const DonationCampaigns = () => {
                 </div>
             </div>
 
-            {/* Loading State */} 
+            {/* Loading State */}
             {isLoading && (
                 <div className="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
                     {[...Array(6)].map((_, i) => <CardSkeleton key={i} />)}
                 </div>
             )}
+
+
 
             {/* Donation Grid */}
             {!isLoading && (
@@ -80,7 +82,7 @@ const DonationCampaigns = () => {
 
             <div ref={ref} className='py-10 w-full flex items-center justify-center container mx-auto'>
                 {
-                    inView && !isLoading && (
+                    campaignsData?.length !== 0 && inView && !isLoading && (
                         <div className='flex flex-col items-center justify-center gap-4 font-bold '>
                             <Loader size={50} />
                             Loading...
