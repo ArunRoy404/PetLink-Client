@@ -43,7 +43,7 @@ const GithubSignIn = ({ setError }) => {
                 onClick={handleGithubSignIn}
                 fullWidth
                 variant="outlined"
-                className="flex items-center justify-center gap-2 text-sm normal-case"
+                className="flex items-center justify-center gap-2 text-sm normal-case dark:text-white dark:border-white"
             >
                 <Github className="w-5 h-5" />
                 {

@@ -48,7 +48,6 @@ const DonationDetail = () => {
                 setDonations(res.data.donations)
             })
     }, [openDonationModal])
-    console.log(donations);
 
 
 

@@ -52,7 +52,6 @@ export default function SignUpPage() {
     const onSubmit = (data) => {
         const { email, name, password } = data
         const userData = { email, displayName: name, photoURL }
-        console.log(userData);
         setLoading(true)
         setError('')
 
@@ -97,15 +96,15 @@ export default function SignUpPage() {
     };
 
     return (
-        <section className="bg-gradient-to-b from-white to-[#CCC2F2] min-h-screen flex items-center justify-center dark:bg-gray-900 transition px-4">
+        <section className="bg-gradient-to-b from-white to-[#CCC2F2] dark:from-[#342e4e] dark:to-[#121212] min-h-screen flex items-center justify-center dark:bg-gray-900 transition px-4">
             <Card className="mt-20 mb-12 w-full max-w-5xl border-2 bg-white/20 shadow-none dark:border-gray-700">
                 <div className="grid md:grid-cols-2 gap-6">
                     {/* Form */}
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <CardBody className="pb-0 flex flex-col gap-4">
+                    <form onSubmit={handleSubmit(onSubmit)} className="dark:text-white">
+                        <CardBody className="pb-0 flex flex-col gap-4 ">
                             <div className="flex items-center gap-2">
                                 <CircleUserRound className="w-6 h-6 text-primary" />
-                                <Typography variant="h4" color="blue-gray">
+                                <Typography variant="h4" color="blue-gray " className="dark:text-white">
                                     Sign Up
                                 </Typography>
                             </div>
@@ -122,6 +121,7 @@ export default function SignUpPage() {
                                     Name
                                 </Typography>
                                 <Input
+                                className="dark:text-white"
                                     icon={<User className="w-5 h-5 text-primary" />}
                                     label="Enter your name"
                                     size="lg"
@@ -141,6 +141,7 @@ export default function SignUpPage() {
                                     Email
                                 </Typography>
                                 <Input
+                                className="dark:text-white"
                                     icon={<Mail className="w-5 h-5 text-primary" />}
                                     label="Enter your email"
                                     size="lg"
@@ -166,6 +167,7 @@ export default function SignUpPage() {
                                     Password
                                 </Typography>
                                 <Input
+                                className="dark:text-white"
                                     icon={
                                         <div
                                             className="cursor-pointer text-primary"
@@ -211,10 +213,11 @@ export default function SignUpPage() {
 
                                 <div className="relative">
                                     <Input
+                                    
                                         icon={<ImageIcon className="absolute top-2 w-5 h-5 text-primary pointer-events-none" />}
                                         type="file"
                                         accept="image/*"
-                                        className="!h-14 pr-8 cursor-pointer file:mr-4 file:py-2 file:px-4 file:border-0 file:rounded-lg file:text-sm file:font-semibold file:bg-blue-50 file:text-primary hover:file:bg-blue-100"
+                                        className="!h-14 dark:text-white pr-8 cursor-pointer file:mr-4 file:py-2 file:px-4 file:border-0 file:rounded-lg file:text-sm file:font-semibold file:bg-blue-50 file:text-primary hover:file:bg-blue-100"
                                         containerProps={{ className: "cursor-pointer" }}
                                         label="Choose Profile Image"
                                         {...register("profile", { required: "Profile image is required" })}

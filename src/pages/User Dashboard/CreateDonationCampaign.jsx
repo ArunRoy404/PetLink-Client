@@ -102,6 +102,8 @@ const CreateDonationCampaign = () => {
                 if (res.data.insertedId) {
                     notifySuccess("Donation campaign created successfully!");
                     setSubmitStatus('success');
+                    setImagePreview(null)
+                    reset()
                 } else {
                     notifyWarn("Failed to create donation campaign");
                     setSubmitStatus('error');

@@ -37,7 +37,7 @@ import TableSkeleton from "../../components/ui/TableSkeleton";
 import NoDataFoundTable from "../../components/ui/NoDatafoundTable";
 import { notifyError, notifySuccess } from "../../ReactHotToast/ReactHotToast";
 import { useAuthContext } from "../../context/AuthContext";
-import { useGetAdoptionRequestsApi, useUpdateAdoptionApi } from "../../axios/AdoptionApi";
+import { useGetAdoptionRequestsApi, useGetAdoptionRequestsCountApi, useUpdateAdoptionApi } from "../../axios/AdoptionApi";
 import Loader from "../../components/ui/Loader";
 
 const columnHelper = createColumnHelper();
@@ -55,6 +55,7 @@ const AdoptionRequests = () => {
     const [isUpdating, setIsUpdating] = useState(false);
 
     const { getAdoptionRequestsPromise } = useGetAdoptionRequestsApi();
+    const { getAdoptionRequestsCountPromise } = useGetAdoptionRequestsCountApi();
     const { updateAdoptionPromise } = useUpdateAdoptionApi();
 
     const { data: requestsData, isLoading: requestsLoading, refetch } = useQuery({
@@ -68,7 +69,13 @@ const AdoptionRequests = () => {
         keepPreviousData: true,
     });
 
-    console.log(requestsData);
+    const { data: countData } = useQuery({
+        queryKey: ["adoption-requests-count", firebaseUser?.email],
+        queryFn: () => getAdoptionRequestsCountPromise(firebaseUser?.email).then(res => res.data),
+        enabled: !!firebaseUser?.email,
+    });
+
+    console.log(countData);
 
     const handleActionClick = (request, type) => {
         setSelectedRequest(request);
@@ -213,7 +220,7 @@ const AdoptionRequests = () => {
     const table = useReactTable({
         data: requestsData || [],
         columns,
-        pageCount: Math.ceil((requestsData?.totalCount || 0) / pagination.pageSize),
+        pageCount: Math.ceil((countData || 0) / pagination.pageSize),
         state: {
             pagination,
             sorting,
@@ -292,9 +299,9 @@ const AdoptionRequests = () => {
                     <Typography variant="small" className="dark:text-white text-gray-600">
                         Showing <span className="font-semibold">{table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1}</span> to{' '}
                         <span className="font-semibold">
-                            {Math.min((table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize, requestsData?.totalCount || 0)}
+                            {Math.min((table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize, countData || 0)}
                         </span>{' '}
-                        of <span className="font-semibold">{requestsData?.totalCount || 0}</span> requests
+                        of <span className="font-semibold">{countData || 0}</span> requests
                     </Typography>
                 </div>
 

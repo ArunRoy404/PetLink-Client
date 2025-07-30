@@ -16,6 +16,14 @@ const useGetAdoptionApi = () => {
     return { getAdoptionPromise };
 };
 
+const useGetAdoptionRequestsCountApi = () => {
+    const axiosSecure = useAxiosSecure();
+    const getAdoptionRequestsCountPromise = (email) => {
+        return axiosSecure.get(`/adoption-requests-count?email=${email}`);
+    };
+    return { getAdoptionRequestsCountPromise };
+};
+
 const useGetAdoptionRequestsApi = () => {
     const axiosSecure = useAxiosSecure();
     const getAdoptionRequestsPromise = (page, size, email) => {
@@ -33,4 +41,4 @@ const useUpdateAdoptionApi = () => {
 };
 
 
-export {useUpdateAdoptionApi, useGetAdoptionRequestsApi, useGetAdoptionApi, useCreateAdoptionApi }
+export { useGetAdoptionRequestsCountApi, useUpdateAdoptionApi, useGetAdoptionRequestsApi, useGetAdoptionApi, useCreateAdoptionApi }

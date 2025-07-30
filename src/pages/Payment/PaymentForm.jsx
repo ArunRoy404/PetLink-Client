@@ -42,7 +42,6 @@ const PaymentForm = ({ donationAmount, campaignData }) => {
 
         getCreateDonationPromise(data)
             .then(res => {
-                console.log(res);
                 if (res.data.insertedId) {
                     setSuccess("Payment successful")
                 }
@@ -107,7 +106,7 @@ const PaymentForm = ({ donationAmount, campaignData }) => {
         }).finally(() => setPaymentProcessing(false))
 
         if (result.error) {
-            console.log(result.error.message)
+            setError(result.error)
         } else {
             if (result.paymentIntent.status === 'succeeded') {
                 handleSaveData(result.paymentIntent)

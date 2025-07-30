@@ -128,6 +128,8 @@ const AddPet = () => {
                 if (res.data.insertedId) {
                     notifySuccess("Pet added Successfully")
                     setSubmitStatus('success')
+                    reset()
+                    setImagePreview(null)
                 } else {
                     notifyWarn("Pet add unsuccessful")
                     setSubmitStatus('error')

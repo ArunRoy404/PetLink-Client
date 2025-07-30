@@ -27,7 +27,6 @@ const PetListing = () => {
 
 
     const { ref, inView } = useInView({ threshold: 1 })
-    console.log(searchTerm, selectedCategory);
 
 
     // Fetch pets data

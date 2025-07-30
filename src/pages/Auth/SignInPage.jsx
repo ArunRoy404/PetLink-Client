@@ -53,19 +53,19 @@ export default function SignInPage() {
     };
 
     return (
-        <section className="bg-gradient-to-b from-white to-[#CCC2F2] min-h-screen flex items-center justify-center dark:bg-gray-900 transition">
+        <section className="bg-gradient-to-b from-white to-[#CCC2F2] dark:from-[#342e4e] dark:to-[#121212] min-h-screen flex items-center justify-center dark:bg-gray-900 transition">
             <Card className="mt-24 mb-12 mx-2 bg-white/20 shadow-none border-2 w-full max-w-md dark:border-gray-700">
 
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} className="dark:text-white">
                     <CardBody className="pb-0 flex flex-col gap-4">
                         <div className="flex items-center gap-2">
                             <CircleUserRound className="w-6 h-6 text-primary" />
-                            <Typography variant="h4" color="blue-gray">
+                            <Typography variant="h4" color="blue-gray" className="dark:text-white">
                                 Sign In
                             </Typography>
                         </div>
                         <Typography
-                            className="-mt-2 text-sm text-black dark:text-gray-400"
+                            className="-mt-2 text-sm text-black dark:text-gray-400 dark:text-white"
                             variant="paragraph"
                         >
                             Enter your email and password to sign in.
@@ -77,7 +77,8 @@ export default function SignInPage() {
                                 Email
                             </Typography>
                             <Input
-                                icon={<Mail className="w-5 h-5 text-gray-400" />}
+                                className="dark:text-white"
+                                icon={<Mail className="w-5 h-5 text-gray-400 " />}
                                 label="Enter your email"
                                 size="lg"
                                 {...register("email", {
@@ -102,6 +103,7 @@ export default function SignInPage() {
                                 Password
                             </Typography>
                             <Input
+                                className="dark:text-white"
                                 icon={<div
                                     className="cursor-pointer text-gray-500"
                                     onClick={() => setShowPassword((prev) => !prev)}
