@@ -17,11 +17,11 @@ const AdminRoute = ({ children }) => {
         }
     }, [isUserLoading, firebaseUser])
 
-    if (isUserLoading || roleLoading) {
+    if (isUserLoading || roleLoading || !userRole) {
         return <div className="h-[80vh] flex items-center justify-center"><Loader /></div>
     }
 
-    if (!userRole && userRole !=='admin') {
+    if (userRole !=='admin') {
         return <Navigate to={'/dashboard'} state={pathname}></Navigate>
     }
 

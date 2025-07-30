@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
     const getUserRole = async () => {
         if (firebaseUser) {
             setRoleLoading(false)
-            await axios.get(`https://pet-link-server.vercel.app/users/${firebaseUser.email}`)
+            await axios.get(`http://localhost:3000/users/${firebaseUser.email}`)
                 .then(res => {
 
                     setUserRole(res.data.role)
@@ -39,7 +39,7 @@ const AuthProvider = ({ children }) => {
     const saveUserToDB = async (userData) => {
         const { email, displayName, photoURL } = userData
         const user = { email, displayName, photoURL }
-        await axios.post('https://pet-link-server.vercel.app/users', user)
+        await axios.post('http://localhost:3000/users', user)
     }
 
 
