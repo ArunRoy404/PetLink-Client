@@ -31,6 +31,7 @@ import { useGetCampaignInfoApi, useUpdateCampaignApi } from '../../axios/donatio
 import { useParams } from 'react-router';
 import FormSkeleton from '../ui/FormSkeleton/FormSkeleton';
 import NoDataFound from '../ui/NoDataFound';
+import RichTextEditor from '../ui/RichTextEditor/RichTextEditor';
 
 
 const UpdateCampaign = () => {
@@ -40,6 +41,7 @@ const UpdateCampaign = () => {
     const [isImageLoading, setIsImageLoading] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState(null);
+    const [description, setDescription] = useState('')
     const { getCampaignInfoPromise } = useGetCampaignInfoApi()
     const { updateCampaignPromise } = useUpdateCampaignApi()
     const { id } = useParams()
@@ -68,18 +70,19 @@ const UpdateCampaign = () => {
             .then(res => {
                 setCampaignData(res.data)
             })
-            .catch(()=>{
+            .catch(() => {
                 notifyError('Error loading campaign data')
             })
-            .finally(()=>setIsDataLoading(false))
+            .finally(() => setIsDataLoading(false))
     }, [])
 
-    useEffect(()=>{
-        if(campaignData){
-            reset({...campaignData})
+    useEffect(() => {
+        if (campaignData) {
+            reset({ ...campaignData })
+            setDescription(campaignData.longDescription)
             setImagePreview(campaignData.petImage)
         }
-    },[campaignData])
+    }, [campaignData])
 
     const handleImageChange = async (e) => {
         removeImage();
@@ -110,6 +113,16 @@ const UpdateCampaign = () => {
         setValue('petImage', null, { shouldValidate: true });
         trigger('petImage');
     };
+
+
+    const handleDescriptionChange = (data) => {
+        setDescription(data)
+        setValue('longDescription', data)
+
+        if (data === '') {
+            setValue('longDescription', null, { shouldValidate: true })
+        }
+    }
 
     const onSubmit = async (data) => {
         // setIsSubmitting(true);
@@ -144,8 +157,8 @@ const UpdateCampaign = () => {
         return <FormSkeleton />
     }
 
-    if(!campaignData){
-        return <NoDataFound/>
+    if (!campaignData) {
+        return <NoDataFound />
     }
 
     return (
@@ -367,13 +380,22 @@ const UpdateCampaign = () => {
                             <PawPrint className="h-5 w-5" />
                             Detailed Information
                         </Typography>
-                        <Textarea
+
+                        <RichTextEditor
+                            className={`border border-black/50 rounded-md ${errors.longDescription ? 'border-red-400' : ''}`}
+                            content={description}
+                            onChange={handleDescriptionChange}
+                        />
+                        {errors.longDescription && (
+                            <Typography variant="small" color="red" className="flex items-center gap-1">
+                                <AlertCircle className="h-4 w-4" />
+                                {errors.longDescription.message}
+                            </Typography>
+                        )}
+
+                        <textarea
+                            className='hidden'
                             size="lg"
-                            placeholder="Provide more details about:
-    - The pet's condition or situation
-    - How the donations will be used
-    - Any specific needs or treatments required
-    - The impact donations will make"
                             {...register('longDescription', {
                                 required: 'Detailed information is required',
                                 minLength: {
@@ -385,15 +407,9 @@ const UpdateCampaign = () => {
                                     message: 'Should not exceed 1000 characters'
                                 }
                             })}
-                            error={!!errors.longDescription}
                             rows={6}
                         />
-                        {errors.longDescription && (
-                            <Typography variant="small" color="red" className="flex items-center gap-1">
-                                <AlertCircle className="h-4 w-4" />
-                                {errors.longDescription.message}
-                            </Typography>
-                        )}
+
                     </div>
 
                     {/* Form Actions */}

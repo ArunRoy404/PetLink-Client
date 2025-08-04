@@ -65,7 +65,7 @@ export default function SignInPage() {
                             </Typography>
                         </div>
                         <Typography
-                            className="-mt-2 text-sm text-black dark:text-gray-400 dark:text-white"
+                            className="-mt-2 text-sm text-black dark:text-white"
                             variant="paragraph"
                         >
                             Enter your email and password to sign in.

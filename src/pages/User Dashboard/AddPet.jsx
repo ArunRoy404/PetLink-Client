@@ -36,6 +36,7 @@ import { notifyError, notifySuccess, notifyWarn } from '../../ReactHotToast/Reac
 import Loader from '../../components/ui/Loader';
 import { useAddPetApi } from '../../axios/petsApi';
 import { useAuthContext } from '../../context/AuthContext';
+import RichTextEditor from '../../components/ui/RichTextEditor/RichTextEditor';
 
 
 
@@ -44,6 +45,7 @@ const AddPet = () => {
     const [isImageLoading, setIsImageLoading] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState(null);
+    const [description, setDescription] = useState('')
     const { addPetPromise } = useAddPetApi()
     const { firebaseUser } = useAuthContext()
 
@@ -78,6 +80,15 @@ const AddPet = () => {
         { value: 'reptile', label: 'Reptile', icon: <Turtle className="w-4 h-4 mr-2" /> },
         { value: 'other', label: 'Other', icon: <PawPrint className="w-4 h-4 mr-2" /> }
     ];
+
+    const handleDescriptionChange = (data) => {
+        setDescription(data)
+        setValue('longDescription', data)
+
+        if (data == '') {
+            setValue('longDescription', null, { shouldValidate: true })
+        }
+    }
 
     const handleImageChange = async (e) => {
         removeImage()
@@ -401,15 +412,21 @@ const AddPet = () => {
                             <PawPrint className="h-5 w-5" />
                             Detailed Information
                         </Typography>
-                        <Textarea
-                            className='dark:text-white'
-                            size="lg"
-                            placeholder="Tell potential adopters about:
-    - Personality traits
-    - Health conditions
-    - Special care needs
-    - Behavior with other pets/children
-    - Any training received"
+
+                        <RichTextEditor
+                            className={`border border-black/50 rounded-md ${errors.longDescription ? 'border-red-400' : ''}`}
+                            content={description}
+                            onChange={handleDescriptionChange}
+                        />
+                        {errors.longDescription && (
+                            <Typography variant="small" color="red" className="flex items-center gap-1 dark:!text-white">
+                                <AlertCircle className="h-4 w-4" />
+                                {errors.longDescription.message}
+                            </Typography>
+                        )}
+
+                        <textarea
+                            className='dark:text-white hidden'
                             {...register('longDescription', {
                                 required: 'Detailed information is required',
                                 minLength: {
@@ -421,15 +438,9 @@ const AddPet = () => {
                                     message: 'Should not exceed 1000 characters'
                                 }
                             })}
-                            error={!!errors.longDescription}
                             rows={6}
                         />
-                        {errors.longDescription && (
-                            <Typography variant="small" color="red" className="flex items-center gap-1 dark:!text-white">
-                                <AlertCircle className="h-4 w-4" />
-                                {errors.longDescription.message}
-                            </Typography>
-                        )}
+
                     </div>
 
                     {/* Form Actions */}

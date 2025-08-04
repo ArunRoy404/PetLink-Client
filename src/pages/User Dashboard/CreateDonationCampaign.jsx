@@ -29,12 +29,14 @@ import Loader from '../../components/ui/Loader';
 
 import { useAuthContext } from '../../context/AuthContext';
 import { useAddDonationCampaignApi } from '../../axios/donationApi';
+import RichTextEditor from '../../components/ui/RichTextEditor/RichTextEditor';
 
 const CreateDonationCampaign = () => {
     const [imagePreview, setImagePreview] = useState(null);
     const [isImageLoading, setIsImageLoading] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState(null);
+    const [description, setDescription] = useState('')
     const { addDonationCampaignPromise } = useAddDonationCampaignApi();
     const { firebaseUser } = useAuthContext();
 
@@ -85,6 +87,15 @@ const CreateDonationCampaign = () => {
         setValue('petImage', null, { shouldValidate: true });
         trigger('petImage');
     };
+
+    const handleDescriptionChange = (data) => {
+        setDescription(data)
+        setValue('longDescription', data)
+
+        if (data == '') {
+            setValue('longDescription', null, { shouldValidate: true })
+        }
+    }
 
     const onSubmit = async (data) => {
         setIsSubmitting(true);
@@ -343,8 +354,21 @@ const CreateDonationCampaign = () => {
                             <PawPrint className="h-5 w-5" />
                             Detailed Information
                         </Typography>
-                        <Textarea
-                            className='dark:text-white'
+
+                        <RichTextEditor
+                            className={`border border-black/50 rounded-md ${errors.longDescription ? 'border-red-400' : ''}`}
+                            content={description}
+                            onChange={handleDescriptionChange}
+                        />
+                        {errors.longDescription && (
+                            <Typography variant="small" color="red" className="flex items-center gap-1 dark:text-white">
+                                <AlertCircle className="h-4 w-4" />
+                                {errors.longDescription.message}
+                            </Typography>
+                        )}
+
+                        <textarea
+                            className='dark:text-white hidden'
                             size="lg"
                             placeholder="Provide more details about:
     - The pet's condition or situation
@@ -362,15 +386,9 @@ const CreateDonationCampaign = () => {
                                     message: 'Should not exceed 1000 characters'
                                 }
                             })}
-                            error={!!errors.longDescription}
                             rows={6}
                         />
-                        {errors.longDescription && (
-                            <Typography variant="small" color="red" className="flex items-center gap-1 dark:text-white">
-                                <AlertCircle className="h-4 w-4" />
-                                {errors.longDescription.message}
-                            </Typography>
-                        )}
+
                     </div>
 
                     {/* Form Actions */}

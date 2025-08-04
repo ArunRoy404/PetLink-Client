@@ -39,6 +39,7 @@ import { useAuthContext } from '../../context/AuthContext';
 import { useParams } from 'react-router';
 import NoDataFound from '../ui/NoDataFound';
 import FormSkeleton from '../ui/FormSkeleton/FormSkeleton';
+import RichTextEditor from '../ui/RichTextEditor/RichTextEditor';
 
 
 
@@ -50,6 +51,7 @@ const UpdatePet = () => {
     const [isImageLoading, setIsImageLoading] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState(null);
+    const [description, setDescription] = useState('')
     const { firebaseUser } = useAuthContext()
     const { getPetInfoPromise } = useGetPetInfoApi()
     const { updatePetPromise } = useUpdatePetApi()
@@ -94,10 +96,10 @@ const UpdatePet = () => {
             .then(res => {
                 setPetData(res.data)
             })
-            .catch(()=>{
+            .catch(() => {
                 notifyError('Error loading pet data')
             })
-            .finally(()=>{
+            .finally(() => {
                 setPetDataLoading(false)
             })
     }, [])
@@ -107,6 +109,7 @@ const UpdatePet = () => {
         if (petData) {
             reset({ ...petData })
             setImagePreview(petData.petImage)
+            setDescription(petData.longDescription)
             const selectedCategory = petCategories.find(category => category.value == petData.petCategory)
             setValue('petCategory', selectedCategory, {
                 shouldValidate: true
@@ -143,6 +146,16 @@ const UpdatePet = () => {
         setIsImageLoading(false)
     };
 
+    const handleDescriptionChange = (data) => {
+        setDescription(data)
+        setValue('longDescription', data)
+
+        if (data === '') {
+            setValue('longDescription', null, { shouldValidate: true })
+        }
+    }
+
+
     const removeImage = () => {
         setImagePreview(null)
         setValue('petImage', null, { shouldValidate: true })
@@ -159,6 +172,7 @@ const UpdatePet = () => {
         updatePetData.addedBy = firebaseUser?.email
         updatePetData.petCategory = data.petCategory.value
         updatePetData.petImage = imagePreview
+        
 
         updatePetPromise(updatePetData)
             .then(res => {
@@ -189,7 +203,7 @@ const UpdatePet = () => {
     );
 
     if (petDataLoading) {
-        return <FormSkeleton/>
+        return <FormSkeleton />
     }
 
     if (!petData) {
@@ -431,20 +445,29 @@ const UpdatePet = () => {
                         )}
                     </div>
 
+
                     {/* Long Description */}
                     <div className="space-y-2">
                         <Typography variant="h6" color="blue-gray" className="flex items-center gap-2">
                             <PawPrint className="h-5 w-5" />
                             Detailed Information
                         </Typography>
-                        <Textarea
+
+                        <RichTextEditor
+                            className={`border border-black/50 rounded-md ${errors.longDescription ? 'border-red-400' : ''}`}
+                            content={description}
+                            onChange={handleDescriptionChange}
+                        />
+
+                        {errors.longDescription && (
+                            <Typography variant="small" color="red" className="flex items-center gap-1">
+                                <AlertCircle className="h-4 w-4" />
+                                {errors.longDescription.message}
+                            </Typography>
+                        )}
+                        <textarea
                             size="lg"
-                            placeholder="Tell potential adopters about:
-    - Personality traits
-    - Health conditions
-    - Special care needs
-    - Behavior with other pets/children
-    - Any training received"
+                            className='hidden'
                             {...register('longDescription', {
                                 required: 'Detailed information is required',
                                 minLength: {
@@ -456,15 +479,9 @@ const UpdatePet = () => {
                                     message: 'Should not exceed 1000 characters'
                                 }
                             })}
-                            error={!!errors.longDescription}
                             rows={6}
                         />
-                        {errors.longDescription && (
-                            <Typography variant="small" color="red" className="flex items-center gap-1">
-                                <AlertCircle className="h-4 w-4" />
-                                {errors.longDescription.message}
-                            </Typography>
-                        )}
+
                     </div>
 
                     {/* Form Actions */}
