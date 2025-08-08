@@ -1,12 +1,12 @@
 # PetLink - Pet Adoption Platform (Client)
 
-## 🚀 Live Link
+# 🚀 Live Link
 
 **Frontend Live URL:** [https://pet-link-client.vercel.app/](https://pet-link-client.vercel.app/)
 
 ---
 
-## 🌈 Purpose
+# 🌈 Overview
 
 PetLink is a full-featured pet adoption platform where users can explore and adopt pets, start donation campaigns, manage pets, and perform other pet and donation-related activities. It aims to bridge the gap between pet givers and pet seekers through an easy-to-use, visually engaging platform.
 
@@ -14,24 +14,25 @@ This repository contains the **frontend/client-side** code for the PetLink platf
 
 ---
 
-## 📝 Key Features
+# 📝 Key Features
 
 * Beautiful, responsive design using **TailwindCSS** and **Material Tailwind**
-* Authentication with Firebase (Email/Password + Social logins)
+* Authentication with **Firebase** (Email/Password + Social logins)
+* **JWT Authentication**
 * Role-based dashboard: **Admin** and **User**
-* Infinite scroll for Pet and Donation listings
-* Protected routes with JWT authentication
-* Donation with Stripe Payment Integration
+* **Infinite scroll** for Pet and Donation listings
+* **Protected routes with JWT authentication**
+* Donation with **Stripe** Payment Integration
 * Adoption request and donation refund system
-* Modern editor support (TipTap and Slate)
-* TanStack React Query for efficient data fetching
-* Recharts for data visualization
-* Fully responsive on all screen sizes
-* Dark & Light theme toggle
+* Modern editor support **(TipTap)**
+* **TanStack React Query** for efficient data fetching
+* **Recharts** for data visualization
+* **Fully responsive on all screen sizes**
+* **Dark & Light theme toggle**
 
 ---
 
-## 🏆 Tech Stack
+# 🏆 Tech Stack
 
 ### Core Technologies
 
@@ -58,7 +59,7 @@ This repository contains the **frontend/client-side** code for the PetLink platf
 
 ---
 
-## 🔗 Main Pages
+# 🔗 Main Pages
 
 ### 🏠 Home Page
 
@@ -100,7 +101,7 @@ This repository contains the **frontend/client-side** code for the PetLink platf
 
 ---
 
-## 👨‍💼 Developer Guidelines
+# 👨‍💼 Developer Guidelines
 
 * Firebase keys are securely stored in environment variables
 * Responsive design for mobile/tablet/desktop
@@ -110,7 +111,7 @@ This repository contains the **frontend/client-side** code for the PetLink platf
 
 ---
 
-## 🌐 Deployment
+# 🌐 Deployment
 
 * Client hosted on Vercel
 * Ensure routes do not throw 404/CORS on reload
@@ -122,7 +123,7 @@ This repository contains the **frontend/client-side** code for the PetLink platf
 
 ---
 
-## 📦 Packages Used
+# 📦 Packages Used
 
 ```bash
 @material-tailwind/react, @stripe/react-stripe-js, @stripe/stripe-js, @tanstack/react-query, @tanstack/react-table,
@@ -144,7 +145,7 @@ DevDependencies include: eslint, tailwindcss, vite, postcss, autoprefixer, etc.
 
 
 
-## Tech Stack 🛠️
+# Tech Stack 🛠️
 
 ### Frontend
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
@@ -168,8 +169,63 @@ DevDependencies include: eslint, tailwindcss, vite, postcss, autoprefixer, etc.
 ![Slate](https://img.shields.io/badge/Slate-4A4A4A?style=for-the-badge)
 
 
-## Installation 🛠️
 
-1. Clone the repository:
-```bash
-git clone https://github.com/your-username/petlink-client.git
+
+# PetLink - Local Development Setup Guide
+Follow these steps to run the PetLink project on your local machine.
+
+## Prerequisites
+- Node.js (v16 or higher recommended)
+- npm or yarn
+- Git
+
+
+## Step-by-Step Installation
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/your-username/petlink.git
+   cd petlink
+   ```
+
+2. **Set up environment variables**
+    Create a .env file in the root directory and add the following variables with your own credentials:
+
+    ```bash
+        VITE_apiKey=YOUR_FIREBASE_API_KEY
+        VITE_authDomain=YOUR_FIREBASE_AUTH_DOMAIN
+        VITE_projectId=YOUR_FIREBASE_PROJECT_ID
+        VITE_storageBucket=YOUR_FIREBASE_STORAGE_BUCKET
+        VITE_messagingSenderId=YOUR_FIREBASE_MESSAGING_SENDER_ID
+        VITE_appId=YOUR_FIREBASE_APP_ID
+        VITE_imgbb_apiKey=YOUR_IMGBB_API_KEY
+        VITE_payment_key=YOUR_STRIPE_PUBLIC_KEY
+    ```
+
+    You'll need to:
+    - Create a Firebase project at https://firebase.google.com/
+    - Get an ImgBB API key at https://imgbb.com/
+    - Set up Stripe at https://stripe.com/
+
+
+3. **Install dependencies**
+   ```bash
+        npm install
+        # or
+        yarn install
+   ```
+    
+4. **Run The Development Server**
+   ```bash
+        npm run dev
+        # or
+        yarn dev
+   ```
+
+5. **Access the application**
+    Open your browser and visit: http://localhost:5173
+
+
+# ScreenShot 
+<p align="center">
+    <img src="./PetLinkScreenshot.png" />
+</p>
