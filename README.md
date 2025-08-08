@@ -169,9 +169,11 @@ DevDependencies include: eslint, tailwindcss, vite, postcss, autoprefixer, etc.
 ![Slate](https://img.shields.io/badge/Slate-4A4A4A?style=for-the-badge)
 
 
+---
 
+<br/>
 
-# PetLink - Local Development Setup Guide
+# 🪜 PetLink - Local Development Setup Guide
 Follow these steps to run the PetLink project on your local machine.
 
 ## Prerequisites
@@ -225,7 +227,7 @@ Follow these steps to run the PetLink project on your local machine.
     Open your browser and visit: http://localhost:5173
 
 
-# ScreenShot 
+# 🖼️ ScreenShot 
 <p align="center">
     <img src="./PetLinkScreenshot.png" />
 </p>
