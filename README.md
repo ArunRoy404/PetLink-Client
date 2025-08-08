@@ -43,7 +43,7 @@ This repository contains the **frontend/client-side** code for the PetLink platf
 * **Firebase Authentication**
 * **React Router v7**
 
-### Libraries & Utilities
+### Dependencies and Libraries
 
 * **React Hook Form**
 * **TanStack Query**
@@ -185,8 +185,8 @@ Follow these steps to run the PetLink project on your local machine.
 ## Step-by-Step Installation
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/petlink.git
-   cd petlink
+   git clone https://github.com/ArunRoy404/PetLink-Client.git
+   cd petlink-Client
    ```
 
 2. **Set up environment variables**
@@ -226,6 +226,7 @@ Follow these steps to run the PetLink project on your local machine.
 5. **Access the application**
     Open your browser and visit: http://localhost:5173
 
+---
 
 # 🖼️ ScreenShot 
 <p align="center">
