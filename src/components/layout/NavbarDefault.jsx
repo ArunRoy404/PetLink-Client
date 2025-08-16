@@ -68,9 +68,8 @@ export function NavbarDefault() {
 
 
   return (
-    <Navbar className="z-[100] w-[calc(100%-30px)] fixed top-4 left-[50%] -translate-x-[50%] bg-white/40 dark:bg-white/20 mx-auto shadow-none px-4 py-2 lg:px-8 lg:py-4">
-      <div className="container mx-auto flex items-center justify-between text-text">
-
+    <nav className="z-[100] w-full fixed border-none rounded-none backdrop-blur-md  mx-auto shadow-none py-2 md:py-4 lg:py-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-text">
 
 
         <div className="flex items-center gap-4">
@@ -98,10 +97,10 @@ export function NavbarDefault() {
 
 
       <Collapse open={openNav}>
-        <div className="container mx-auto text-text">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8  text-text">
           {navList}
         </div>
       </Collapse>
-    </Navbar>
+    </nav>
   );
 }
