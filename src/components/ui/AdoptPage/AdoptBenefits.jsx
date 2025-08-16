@@ -15,7 +15,7 @@ import {
 
 const AdoptBenefits = () => {
     return (
-        <div className=" container mx-auto px-4 rounded-xl p-8">
+        <div className="rounded-xl">
             <Typography variant="h2" className="dark:text-white font-bold text-2xl  text-gray-900 border-b pb-2">
                 Adoption Benefits with PetLink
             </Typography>

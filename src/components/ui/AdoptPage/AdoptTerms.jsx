@@ -13,7 +13,7 @@ import {
 
 const AdoptTerms = () => {
     return (
-        <div className="container mx-auto px-4 dark:text-white rounded-xl shadow-none p-8">
+        <div className=" dark:text-white rounded-xl shadow-none">
             <Typography variant="h2" className=" dark:text-white  font-bold text-2xl mb-6 text-gray-900 border-b pb-2">
                 Adoption Terms & Conditions
             </Typography>

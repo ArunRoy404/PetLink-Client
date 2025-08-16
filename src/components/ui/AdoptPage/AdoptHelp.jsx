@@ -3,7 +3,7 @@ import { MessageSquare, Phone } from 'lucide-react';
 
 const AdoptHelp = ({petData}) => {
     return (
-        <div className="container mx-auto px-4  rounded-xl shadow-none py-8">
+        <div className=" rounded-xl shadow-none">
             <Typography variant="h2" className="dark:text-white font-bold text-2xl mb-6 text-gray-900 border-b pb-2">
                 Need Help Deciding?
             </Typography>

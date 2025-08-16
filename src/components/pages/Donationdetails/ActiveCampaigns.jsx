@@ -23,10 +23,10 @@ const ActiveCampaigns = () => {
     });
 
     return (
-        <div className=" pb-8 ">
+        <div className="">
             <div className=''>
                 {/* Page Header */}
-                <div className="container mx-auto text-center mb-10">
+                <div className="text-center mb-10">
                     <Typography variant="h3" className="font-bold text-2xl mb-6 text-gray-900 border-b pb-2 dark:text-white">
                         Recent Active Campaigns
                     </Typography>
@@ -35,14 +35,14 @@ const ActiveCampaigns = () => {
 
             {/* Loading State */}
             {isLoading && (
-                <div className="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mb-16">
+                <div className="auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
                     {[...Array(3)].map((_, i) => <CardSkeleton key={i} />)}
                 </div>
             )}
 
             {/* Donation Grid */}
             {!isLoading && (
-                <div className=" px-4 container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 pb-10">
                     {campaignsData?.length > 0 ? (
                         campaignsData.map((campaignData, index) => <DonationCard key={index} campaignData={campaignData} />)
                     ) : (

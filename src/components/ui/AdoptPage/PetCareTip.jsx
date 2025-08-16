@@ -31,7 +31,7 @@ const PetCareTip = ({petData}) => {
     };
 
     return (
-        <div className="container mx-auto px-4 rounded-xl p-8 py-10">
+        <div className="rounded-xl">
             <Typography variant="h2" className="dark:text-white font-bold text-2xl mb-6 text-gray-900 border-b pb-2">
                 Care Tips for {petData.petName}
             </Typography>

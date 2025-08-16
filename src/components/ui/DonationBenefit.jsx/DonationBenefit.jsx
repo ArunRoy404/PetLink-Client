@@ -4,7 +4,7 @@ import { Gift, ShieldCheck, Users } from "lucide-react";
 
 const DonationBenefit = () => {
     return (
-        <Card className="p-8 shadow-none dark:bg-[#1F1A33] dark:border-2 dark:border-gray-700 ">
+        <Card className="shadow-none dark:bg-[#1F1A33] dark:border-2 dark:border-gray-700 ">
             <Typography variant="h3" className="font-bold text-2xl mb-6 text-gray-900 border-b pb-2 dark:text-white">
                 How Your Donation Helps
             </Typography>

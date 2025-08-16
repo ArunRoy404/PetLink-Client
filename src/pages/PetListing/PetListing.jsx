@@ -56,56 +56,58 @@ const PetListing = () => {
     }, [inView, searchTerm, selectedCategory, data])
 
     return (
-        <div className=" pb-8 dark:bg-gradient-to-t  dark:from-[#342e4e] dark:to-[#121212] ">
-            <div className='px-4 pt-40 bg-gradient-to-b from-surface '>
-                {/* Page Header */}
-                <div className="container mx-auto text-center mb-10">
-                    <Typography variant="h2" className="font-bold dark:text-white text-gray-900 mb-2">
-                        Find Your Perfect Pet Companion
-                    </Typography>
-                    <Typography variant="lead" className="text-gray-600">
-                        Browse through our adorable pets looking for a loving home
-                    </Typography>
-                </div>
-
-                {/* Search and Filter Section */}
-                <div className="px-4 container mx-auto flex flex-col md:flex-row gap-4 mb-8">
-                    <div className="relative flex-1">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <Search className="h-5 w-5 text-gray-400" />
-                        </div>
-                        <input
-                            type="text"
-                            className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                            placeholder="Search by pet name..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
+        <div className="  pb-8 dark:bg-gradient-to-t  dark:from-[#342e4e] dark:to-[#121212] ">
+            <div className=' pt-40 bg-gradient-to-b from-surface '>
+                <div className='container mx-auto px-4 sm:px-6 lg:px-8 '>
+                    {/* Page Header */}
+                    <div className="  text-center mb-10">
+                        <Typography variant="h2" className="font-bold dark:text-white text-gray-900 mb-2">
+                            Find Your Perfect Pet Companion
+                        </Typography>
+                        <Typography variant="lead" className="text-gray-600">
+                            Browse through our adorable pets looking for a loving home
+                        </Typography>
                     </div>
-                    <div className="w-full md:w-64">
-                        <Select
-                            options={categories}
-                            value={selectedCategory}
-                            onChange={setSelectedCategory}
-                            placeholder="Select category..."
-                            className="react-select-container"
-                            classNamePrefix="react-select"
-                            isClearable
-                        />
+
+                    {/* Search and Filter Section */}
+                    <div className="flex flex-col md:flex-row gap-4 mb-8">
+                        <div className="relative flex-1">
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <Search className="h-5 w-5 text-gray-400" />
+                            </div>
+                            <input
+                                type="text"
+                                className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                placeholder="Search by pet name..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                        </div>
+                        <div className="w-full md:w-64">
+                            <Select
+                                options={categories}
+                                value={selectedCategory}
+                                onChange={setSelectedCategory}
+                                placeholder="Select category..."
+                                className="react-select-container"
+                                classNamePrefix="react-select"
+                                isClearable
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
 
             {/* Loading State */}
             {isLoading && (
-                <div className="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
                     {[...Array(6)].map((_, i) => <CardSkeleton key={i} />)}
                 </div>
             )}
 
             {/* Pets Grid */}
             {!isLoading && (
-                <div className=" px-4  container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
                     {petsData?.length > 0 ? (
                         petsData.map((pet, index) => <PetCard key={index} pet={pet} />)
                     ) : (
@@ -116,7 +118,7 @@ const PetListing = () => {
                 </div>
             )}
 
-            <div ref={ref} className='py-10 w-full flex items-center justify-center container mx-auto'>
+            <div ref={ref} className='container mx-auto px-4 sm:px-6 lg:px-8  py-10 w-full flex items-center justify-center'>
                 {
                     petsData?.length !== 0 && inView && !searchTerm && !selectedCategory && !isLoading && (
                         <div className='flex flex-col items-center justify-center gap-4 font-bold '>

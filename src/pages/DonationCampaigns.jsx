@@ -46,9 +46,9 @@ const DonationCampaigns = () => {
 
     return (
         <div className="dark:bg-gradient-to-b  dark:from-[#342e4e] dark:to-[#121212] ">
-            <div className='px-4 pt-40 bg-gradient-to-b from-surface '>
+            <div className='pt-40 bg-gradient-to-b from-surface '>
                 {/* Page Header */}
-                <div className="container mx-auto text-center mb-10">
+                <div className=" container mx-auto px-4 sm:px-6 lg:px-8 text-center mb-10">
                     <Typography variant="h2" className="dark:text-white font-bold text-gray-900 mb-2">
                         Give Hope to Pets in Need
                     </Typography>
@@ -58,37 +58,39 @@ const DonationCampaigns = () => {
                 </div>
             </div>
 
-            {/* Loading State */}
-            {isLoading && (
-                <div className="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-                    {[...Array(6)].map((_, i) => <CardSkeleton key={i} />)}
+            <div className='container mx-auto px-4 sm:px-6 lg:px-8'>
+                {/* Loading State */}
+                {isLoading && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                        {[...Array(6)].map((_, i) => <CardSkeleton key={i} />)}
+                    </div>
+                )}
+
+
+
+                {/* Donation Grid */}
+                {!isLoading && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                        {campaignsData?.length > 0 ? (
+                            campaignsData.map((campaignData, index) => <DonationCard key={index} campaignData={campaignData} />)
+                        ) : (
+                            <div className='col-span-full'>
+                                <NoDataFound message={'Try adjusting the category and search text'} />
+                            </div>
+                        )}
+                    </div>
+                )}
+
+                <div ref={ref} className='py-10 w-full flex items-center justify-center'>
+                    {
+                        campaignsData?.length !== 0 && inView && !isLoading && (
+                            <div className='flex flex-col items-center justify-center gap-4 font-bold '>
+                                <Loader size={50} />
+                                Loading...
+                            </div>
+                        )
+                    }
                 </div>
-            )}
-
-
-
-            {/* Donation Grid */}
-            {!isLoading && (
-                <div className=" px-4 container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                    {campaignsData?.length > 0 ? (
-                        campaignsData.map((campaignData, index) => <DonationCard key={index} campaignData={campaignData} />)
-                    ) : (
-                        <div className='col-span-full'>
-                            <NoDataFound message={'Try adjusting the category and search text'} />
-                        </div>
-                    )}
-                </div>
-            )}
-
-            <div ref={ref} className='py-10 w-full flex items-center justify-center container mx-auto'>
-                {
-                    campaignsData?.length !== 0 && inView && !isLoading && (
-                        <div className='flex flex-col items-center justify-center gap-4 font-bold '>
-                            <Loader size={50} />
-                            Loading...
-                        </div>
-                    )
-                }
             </div>
 
         </div>
