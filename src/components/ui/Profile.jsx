@@ -33,7 +33,7 @@ export default function Profile() {
     {
       label: "My Profile",
       icon: UserCircle2,
-      link: '/profile'
+      link: '/dashboard/profile'
     },
     {
       label: "Dashboard",

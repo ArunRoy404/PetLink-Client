@@ -25,6 +25,7 @@ import DonationDetails from '../pages/DonationDetails/DonationDetails';
 import Payment from '../pages/Payment/Payment';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 import AdminRoute from './PrivateRoute/AdminRoute';
+import MyProfile from '../pages/User Dashboard/MyProfile';
 
 
 const router = createBrowserRouter([
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
                 element: <PrivateRoute><DashBoardHomeUser /></PrivateRoute>
             },
             {
+                path: 'profile',
+                element: <PrivateRoute><MyProfile/></PrivateRoute>
+            },
+            {
                 path: 'add-pet',
                 element: <PrivateRoute><AddPet /></PrivateRoute>
             },
@@ -110,15 +115,15 @@ const router = createBrowserRouter([
             },
             {
                 path: 'users',
-                element: <AdminRoute><Users/></AdminRoute>
+                element: <AdminRoute><Users /></AdminRoute>
             },
             {
                 path: 'all-pets',
-                 element: <AdminRoute><AllPets/></AdminRoute>
+                element: <AdminRoute><AllPets /></AdminRoute>
             },
             {
                 path: 'all-campaigns',
-                 element: <AdminRoute><AllCampaigns/></AdminRoute>
+                element: <AdminRoute><AllCampaigns /></AdminRoute>
             }
         ]
     },

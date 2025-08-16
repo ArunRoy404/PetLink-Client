@@ -68,7 +68,7 @@ export function NavbarDefault() {
       {
         firebaseUser && <>
           <li>
-            <NavLink to={'/profile'} className="flex items-center gap-1 hover:text-primary transition-colors">
+            <NavLink to={'/dashboard/profile'} className="flex items-center gap-1 hover:text-primary transition-colors">
               <div className="flex items-center gap-2 hover:text-primary  transition-colors">
                 <User size={16} />
                 <span className="text-sm font-medium">My Profile</span>

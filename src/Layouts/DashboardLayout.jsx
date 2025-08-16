@@ -11,6 +11,7 @@ import {
     PawPrintIcon,
     LucidePiggyBank,
     HandCoins,
+    User,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router';
@@ -22,6 +23,7 @@ import { useAuthContext } from '../context/AuthContext';
 
 const userNav = [
     { name: "Home", icon: <Home size={20} />, path: "/" },
+    { name: "My profile", icon: <User size={20} />, path: "/dashboard/profile" },
     { name: "Dashboard", icon: <LayoutDashboard size={20} />, path: "/dashboard" },
     { name: "Add a Pet", icon: <PlusCircle size={20} />, path: "/dashboard/add-pet" },
     { name: "My added Pets", icon: <Layers size={20} />, path: "/dashboard/my-added-pets" },
