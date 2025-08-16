@@ -24,6 +24,14 @@ const useGetAdoptionRequestsCountApi = () => {
     return { getAdoptionRequestsCountPromise };
 };
 
+const useGetAllAdoptionRequestsCountApi = () => {
+    const axiosSecure = useAxiosSecure();
+    const getAllAdoptionRequestsCountPromise = () => {
+        return axiosSecure.get(`/all-adoptions-requests-count`);
+    };
+    return { getAllAdoptionRequestsCountPromise };
+};
+
 const useGetAdoptionRequestsApi = () => {
     const axiosSecure = useAxiosSecure();
     const getAdoptionRequestsPromise = (page, size, email) => {
@@ -41,4 +49,4 @@ const useUpdateAdoptionApi = () => {
 };
 
 
-export { useGetAdoptionRequestsCountApi, useUpdateAdoptionApi, useGetAdoptionRequestsApi, useGetAdoptionApi, useCreateAdoptionApi }
+export {useGetAllAdoptionRequestsCountApi, useGetAdoptionRequestsCountApi, useUpdateAdoptionApi, useGetAdoptionRequestsApi, useGetAdoptionApi, useCreateAdoptionApi }

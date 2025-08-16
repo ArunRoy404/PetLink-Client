@@ -26,10 +26,10 @@ const MyProfile = () => {
 
   return (
     <div className="w-full p-4 md:p-0">
-      <Card className="shadow-none  rounded-xl overflow-hidden">
+      <Card className="shadow-none bg-transparent rounded-xl overflow-hidden">
         <CardBody className="p-0">
           {/* Profile Header with Background */}
-          <div className="bg-gradient-to-r from-primary to-primary p-6 text-white">
+          <div className="bg-gradient-to-r from-primary to-primary rounded-xl p-6 text-white">
             <div className="flex flex-col md:flex-row items-center gap-6">
               <Avatar
                 src={userData.photoURL}
@@ -59,11 +59,11 @@ const MyProfile = () => {
           </div>
 
           {/* Main Content Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 py-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 py-6 ">
             {/* Personal Information Section */}
-            <Card className="shadow-none border border-gray-300">
-              <CardBody>
-                <Typography variant="h5" color="blue-gray" className="mb-4 flex items-center gap-2">
+            <Card className="shadow-none border border-gray-300 dark:bg-[#3b3162]">
+              <CardBody className='dark:text-white'>
+                <Typography variant="h5" className="mb-4 flex items-center gap-2">
                   <User className="w-5 h-5" /> Personal Information
                 </Typography>
                 
@@ -73,10 +73,10 @@ const MyProfile = () => {
                       <Mail className="w-5 h-5 text-blue-600" />
                     </div>
                     <div>
-                      <Typography variant="small" color="blue-gray" className="font-normal">
+                      <Typography variant="small" className="font-normal">
                         Email
                       </Typography>
-                      <Typography variant="paragraph" color="blue-gray">
+                      <Typography variant="paragraph">
                         {userData.email}
                         {userData.emailVerified === 'Verified' ? (
                           <span className="ml-2 px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">Verified</span>
@@ -92,10 +92,10 @@ const MyProfile = () => {
                       <Phone className="w-5 h-5 text-green-600" />
                     </div>
                     <div>
-                      <Typography variant="small" color="blue-gray" className="font-normal">
+                      <Typography variant="small" className="font-normal">
                         Phone
                       </Typography>
-                      <Typography variant="paragraph" color="blue-gray">
+                      <Typography variant="paragraph">
                         {userData.phone}
                       </Typography>
                     </div>
@@ -106,10 +106,10 @@ const MyProfile = () => {
                       <MapPin className="w-5 h-5 text-purple-600" />
                     </div>
                     <div>
-                      <Typography variant="small" color="blue-gray" className="font-normal">
+                      <Typography variant="small" className="font-normal">
                         Location
                       </Typography>
-                      <Typography variant="paragraph" color="blue-gray">
+                      <Typography variant="paragraph">
                         {userData.address}
                         {/* <span className="text-sm text-gray-600 mt-1">{userData.country} • {userData.timezone}</span> */}
                       </Typography>
@@ -120,9 +120,9 @@ const MyProfile = () => {
             </Card>
 
             {/* Account Information Section */}
-            <Card className="shadow-none border border-gray-300">
-              <CardBody>
-                <Typography variant="h5" color="blue-gray" className="mb-4 flex items-center gap-2">
+            <Card className="shadow-none border border-gray-300 dark:bg-[#3b3162]">
+              <CardBody className='dark:text-white'>
+                <Typography variant="h5" className="mb-4 flex items-center gap-2">
                   <Shield className="w-5 h-5" /> Account Information
                 </Typography>
                 
@@ -132,10 +132,10 @@ const MyProfile = () => {
                       <Calendar className="w-5 h-5 text-amber-600" />
                     </div>
                     <div>
-                      <Typography variant="small" color="blue-gray" className="font-normal">
+                      <Typography variant="small" className="font-normal">
                         Member Since
                       </Typography>
-                      <Typography variant="paragraph" color="blue-gray">
+                      <Typography variant="paragraph">
                         {new Date(userData.joinDate).toLocaleDateString()}
                       </Typography>
                     </div>
@@ -146,10 +146,10 @@ const MyProfile = () => {
                       <User className="w-5 h-5 text-red-600" />
                     </div>
                     <div>
-                      <Typography variant="small" color="blue-gray" className="font-normal">
+                      <Typography variant="small" className="font-normal">
                         Last Login
                       </Typography>
-                      <Typography variant="paragraph" color="blue-gray">
+                      <Typography variant="paragraph">
                         {new Date(userData.lastLogin).toLocaleString()}
                       </Typography>
                     </div>
@@ -160,10 +160,10 @@ const MyProfile = () => {
                       <Briefcase className="w-5 h-5 text-indigo-600" />
                     </div>
                     <div>
-                      <Typography variant="small" color="blue-gray" className="font-normal">
+                      <Typography variant="small" className="font-normal">
                         Account Status
                       </Typography>
-                      <Typography variant="paragraph" color="blue-gray">
+                      <Typography variant="paragraph">
                         <span className={`px-2 py-1 rounded-full text-xs ${
                           userData.membership === 'Active' 
                             ? 'bg-green-100 text-green-800' 
@@ -180,10 +180,10 @@ const MyProfile = () => {
                       <Globe className="w-5 h-5 text-teal-600" />
                     </div>
                     <div>
-                      <Typography variant="small" color="blue-gray" className="font-normal">
+                      <Typography variant="small" className="font-normal">
                         User ID
                       </Typography>
-                      <Typography variant="paragraph" color="blue-gray" className="text-sm break-all">
+                      <Typography variant="paragraph" className="text-sm break-all">
                         {firebaseUser?.uid || 'Not available'}
                       </Typography>
                     </div>

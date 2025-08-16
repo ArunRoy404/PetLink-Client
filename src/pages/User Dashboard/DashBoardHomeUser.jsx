@@ -33,8 +33,19 @@ import {
     Clock
 } from 'lucide-react';
 import DashboardAreaChart from '../../components/ui/Dashboard/DashboardAreaChart';
+import { useAuthContext } from '../../context/AuthContext';
+import { useGetPetsCountApi } from '../../axios/petsApi';
+import StatCard from '../../components/ui/Dashboard/StatCard';
+import { useGetAllAdoptionRequestsCountApi } from '../../axios/AdoptionApi';
+import { useGetCampaignsCountApi, useGetDonationAmountApi } from '../../axios/donationApi';
 
 const DashBoardHomeUser = () => {
+
+    const { firebaseUser } = useAuthContext()
+    const { getPetsCountPromise } = useGetPetsCountApi()
+    const { getAllAdoptionRequestsCountPromise} = useGetAllAdoptionRequestsCountApi()
+    const {getCampaignsCountPromise} = useGetCampaignsCountApi()
+    const {getDonationAmountPromise} = useGetDonationAmountApi()
 
     // Chart Data
     const adoptionData = [
@@ -51,41 +62,6 @@ const DashBoardHomeUser = () => {
         { name: 'Food Drive', value: 90, color: '#F59E0B' },
     ];
 
-    const stats = [
-        {
-            title: "Pets Added",
-            value: "24",
-            change: "+5%",
-            link: "/dashboard/my-pets",
-            icon: <Layers className="text-blue-500" />,
-            trend: 'up'
-        },
-        {
-            title: "Adoption Requests",
-            value: "8",
-            change: "+12%",
-            link: "/dashboard/adoption-requests",
-            icon: <Inbox className="text-purple-500" />,
-            trend: 'up'
-        },
-        {
-            title: "Active Campaigns",
-            value: "3",
-            change: "+2",
-            link: "/dashboard/my-campaigns",
-            icon: <Gift className="text-amber-500" />,
-            trend: 'up'
-        },
-        {
-            title: "Total Donations",
-            value: "$1,240",
-            change: "+18%",
-            link: "/dashboard/donations",
-            icon: <BarChart2 className="text-emerald-500 dark:text-white" />,
-            trend: 'up'
-        },
-    ];
-
 
     return (
         <div className="space-y-6">
@@ -98,90 +74,30 @@ const DashBoardHomeUser = () => {
                     <div className="relative z-10 flex flex-col md:flex-row items-center justify-between">
                         <div>
                             <Typography variant="h4" color="white" className="mb-2 font-bold">
-                                Welcome back, John! 🐾
+                                Welcome back, {firebaseUser?.displayName}! 🐾
                             </Typography>
                             <Typography color="white" className="opacity-90 max-w-md">
                                 You've helped 12 pets find homes this month. Keep up the great work!
                             </Typography>
                         </div>
-                        <Button
+                        {/* <Button
                             color="white"
                             size="sm"
                             className="mt-4 md:mt-0 flex items-center gap-2 shadow-md hover:shadow-lg transition"
                         >
                             Quick Actions
                             <ArrowRight className="h-4 w-4" />
-                        </Button>
+                        </Button> */}
                     </div>
                 </CardBody>
             </Card>
 
             {/* Stats Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {stats.map((stat, index) => (
-                    <Card
-                        key={index}
-                        className="hover:shadow-lg transition-shadow hover:border-blue-100 dark:bg-[#3b3162] dark:hover:border-gray-600 border border-transparent"
-                    >
-                        <CardBody className="p-5">
-                            <div className="flex items-center justify-between mb-4">
-                                <div className={`p-2 rounded-lg ${stat.trend === 'up' ? 'bg-green-50 dark:bg-gray-700' : 'bg-red-50 dark:bg-gray-700'}`}>
-                                    {stat.icon}
-                                </div>
-                                <Chip
-                                    value={stat.change}
-                                    color={stat.change.includes('+') ? 'green' : 'red'}
-                                    size="sm"
-                                    className="rounded-full"
-                                    icon={
-                                        stat.change.includes('+') ? (
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 20 20"
-                                                fill="currentColor"
-                                                className="h-4 w-4"
-                                            >
-                                                <path
-                                                    fillRule="evenodd"
-                                                    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                                                    clipRule="evenodd"
-                                                />
-                                            </svg>
-                                        ) : (
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 20 20"
-                                                fill="currentColor"
-                                                className="h-4 w-4"
-                                            >
-                                                <path
-                                                    fillRule="evenodd"
-                                                    d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z"
-                                                    clipRule="evenodd"
-                                                />
-                                            </svg>
-                                        )
-                                    }
-                                />
-                            </div>
-                            <Typography variant="h3" className="dark:text-white mb-1">
-                                {stat.value}
-                            </Typography>
-                            <Typography variant="paragraph" className="text-gray-600 dark:text-gray-400">
-                                {stat.title}
-                            </Typography>
-                        </CardBody>
-                        <CardFooter className="p-4 pt-0">
-                            <NavLink
-                                to={stat.link}
-                                className="text-sm font-medium text-blue-500 hover:text-blue-700 dark:hover:text-blue-400 transition flex items-center gap-1"
-                            >
-                                View details
-                                <ArrowRight className="h-3 w-3" />
-                            </NavLink>
-                        </CardFooter>
-                    </Card>
-                ))}
+                <StatCard icon={<Layers className="text-primary" />} link={'/dashboard/my-added-pets'} promise={getPetsCountPromise} title={'Pets Added'} />
+                <StatCard icon={<Inbox className="text-primary" />} link={'/dashboard/adoption-requests'} promise={getAllAdoptionRequestsCountPromise} title={'Adoption Requests'} />
+                <StatCard icon={<Gift className="text-primary" />} link={'/dashboard/my-campaigns'} promise={getCampaignsCountPromise} title={'Campaigns'} />
+                <StatCard icon={<BarChart2 className="text-primary" />} link={'/dashboard/my-campaigns'} isMoney={true} promise={getDonationAmountPromise} title={'Total Donations'} />
             </div>
 
             {/* Charts Section */}

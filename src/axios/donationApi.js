@@ -21,6 +21,13 @@ const useGetMyCampaignsCountApi = () => {
     return ({ getMyCampaignsCountPromise })
 }
 
+const useGetDonationAmountApi = () => {
+    const axiosSecure = useAxiosSecure()
+    const getDonationAmountPromise = () => axiosSecure.get(`/donation-amount`)
+    return ({ getDonationAmountPromise })
+}
+
+
 
 
 const useGetCampaignsApi = () => {
@@ -124,4 +131,4 @@ const useDeleteDonationsApi = () => {
 
 
 
-export {useGetAllCampaignsApi, useGetMyDonationsCountPromise, useDeleteDonationsApi, useGetMyDonationsApi, useGetDonationsApi, useCreateDonationApi, useGetCampaignsApi, useGetCampaignsCountApi, useAddDonationCampaignApi, useGetCampaignInfoApi, useGetMyCampaignsApi, useGetMyCampaignsCountApi, useUpdateCampaignApi }
+export {useGetDonationAmountApi, useGetAllCampaignsApi, useGetMyDonationsCountPromise, useDeleteDonationsApi, useGetMyDonationsApi, useGetDonationsApi, useCreateDonationApi, useGetCampaignsApi, useGetCampaignsCountApi, useAddDonationCampaignApi, useGetCampaignInfoApi, useGetMyCampaignsApi, useGetMyCampaignsCountApi, useUpdateCampaignApi }
