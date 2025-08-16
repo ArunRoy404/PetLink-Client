@@ -42,8 +42,8 @@ export function NavbarDefault() {
   const navList = (
     <ul className="nav-links mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <li>
-        <NavLink to={'/'} className="flex items-center gap-1 dark:hover:text-black hover:text-primary transition-colors">
-          <div className="flex items-center gap-2 hover:text-primary dark:hover:text-black transition-colors">
+        <NavLink to={'/'} className="flex items-center gap-1 hover:text-primary transition-colors">
+          <div className="flex items-center gap-2 hover:text-primary  transition-colors">
             <Home size={16} />
             <span className="text-sm font-medium">Home</span>
           </div>
@@ -51,7 +51,7 @@ export function NavbarDefault() {
       </li>
       <li>
         <NavLink to={'/pet-listing'} className="flex items-center gap-1 hover:text-primary transition-colors">
-          <div className="flex items-center gap-2 hover:text-primary dark:hover:text-black transition-colors">
+          <div className="flex items-center gap-2 hover:text-primary  transition-colors">
             <PawPrint size={16} />
             <span className="text-sm font-medium">Pet Listing</span>
           </div>
@@ -59,7 +59,7 @@ export function NavbarDefault() {
       </li>
       <li>
         <NavLink to={'/campaigns'} className="flex items-center gap-1 hover:text-primary transition-colors">
-          <div className="flex items-center gap-2 dark:hover:text-black hover:text-primary transition-colors">
+          <div className="flex items-center gap-2  hover:text-primary transition-colors">
             <HeartHandshake size={16} />
             <span className="text-sm font-medium">Donation Campaigns</span>
           </div>
@@ -69,7 +69,7 @@ export function NavbarDefault() {
         firebaseUser && <>
           <li>
             <NavLink to={'/profile'} className="flex items-center gap-1 hover:text-primary transition-colors">
-              <div className="flex items-center gap-2 hover:text-primary dark:hover:text-black transition-colors">
+              <div className="flex items-center gap-2 hover:text-primary  transition-colors">
                 <User size={16} />
                 <span className="text-sm font-medium">My Profile</span>
               </div>
@@ -77,7 +77,7 @@ export function NavbarDefault() {
           </li>
           <li>
             <NavLink to={'/dashboard'} className="flex items-center gap-1 hover:text-primary transition-colors">
-              <div className="flex items-center gap-2 dark:hover:text-black hover:text-primary transition-colors">
+              <div className="flex items-center gap-2  hover:text-primary transition-colors">
                 <LayoutDashboard size={16} />
                 <span className="text-sm font-medium">Dashboard</span>
               </div>

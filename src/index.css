@@ -51,7 +51,7 @@
 
 
 nav ul .active {
-  color: var(--color-navLink);
+  color: var(--color-primary);
 }
 
 .swiper-pagination-bullet-active {
