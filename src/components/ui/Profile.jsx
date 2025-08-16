@@ -33,30 +33,29 @@ export default function Profile() {
     {
       label: "My Profile",
       icon: UserCircle2,
-      link: '/'
+      link: '/profile'
     },
     {
       label: "Dashboard",
       icon: LayoutDashboard,
       link: '/dashboard'
     },
-    {
-      label: "Edit Profile",
-      icon: Settings,
-      link: '/'
+    // {
+    //   label: "Edit Profile",
+    //   icon: Settings,
+    //   link: '/'
+    // },
+    // {
+    //   label: "Inbox",
+    //   icon: Inbox,
+    //   link: '/'
 
-    },
-    {
-      label: "Inbox",
-      icon: Inbox,
-      link: '/'
-
-    },
-    {
-      label: "Help",
-      icon: LifeBuoy,
-      link: '/'
-    },
+    // },
+    // {
+    //   label: "Help",
+    //   icon: LifeBuoy,
+    //   link: '/'
+    // },
   ];
 
   return (
