@@ -19,8 +19,8 @@ const categories = [
 
 const PetsCategory = () => {
   return (
-    <section className="md:py-16 bg-white dark:bg-[#121212]  text-black dark:text-white">
-      <div className="container mx-auto px-5 ">
+    <section className="py-16 md:py-20 bg-white dark:bg-[#121212]  text-black dark:text-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8  ">
         <h2 className="text-3xl font-bold text-center mb-10">
           Browse by Pet Category
         </h2>

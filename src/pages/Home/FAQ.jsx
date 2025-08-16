@@ -47,33 +47,37 @@ export default function FAQSection() {
     };
 
     return (
-        <section className="dark:bg-gradient-to-b dark:from-[#121212] dark:to-[#1F1A33] py-20 px-6 md:px-12 bg-background dark:bg-gray-900">
-            <div className="max-w-4xl mx-auto text-center mb-12">
-                <Typography variant="h3" color="blue-gray" className="dark:text-white">
-                    Frequently Asked Questions
-                </Typography>
-                <Typography variant="lead" className="mt-2 text-gray-600 dark:text-gray-300">
-                    Everything you need to know before adopting through PetLink.
-                </Typography>
-            </div>
+        <section className="dark:bg-gradient-to-b dark:from-[#121212] dark:to-[#1F1A33] py-16 md:py-20 bg-background dark:bg-gray-900">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 ">
+                <div className="max-w-4xl mx-auto text-center mb-12">
+                    <Typography variant="h3" color="blue-gray" className="dark:text-white">
+                        Frequently Asked Questions
+                    </Typography>
+                    <Typography variant="lead" className="mt-2 text-gray-600 dark:text-gray-300">
+                        Everything you need to know before adopting through PetLink.
+                    </Typography>
+                </div>
 
-            <div className="max-w-3xl mx-auto space-y-4">
-                {faqs.map((item, index) => (
-                    <Accordion key={index} open={openIndex === index + 1}>
-                        <AccordionHeader
-                            onClick={() => handleOpen(index + 1)}
-                            className="text-left dark:text-white text-lg "
-                        >
-                            <span className="flex items-center justify-between w-full">
-                                {item.question}
-                                <ChevronDown className={` ${openIndex===index+1 ?'rotate-180' :''} transition-all duration-300`} />
-                            </span>
-                        </AccordionHeader>
-                        <AccordionBody className="text-gray-600 dark:text-gray-300">
-                            {item.answer}
-                        </AccordionBody>
-                    </Accordion>
-                ))}
+                <div className=" space-y-4">
+                    {faqs.map((item, index) => (
+                        <Accordion key={index} open={openIndex === index + 1}>
+                            <AccordionHeader
+                                onClick={() => handleOpen(index + 1)}
+                                className="text-left dark:text-white text-lg "
+                            >
+                                <span className="flex items-center justify-between w-full">
+                                    <div className="w-full">
+                                        {item.question}
+                                    </div>
+                                    <ChevronDown className={` ${openIndex === index + 1 ? 'rotate-180' : ''} transition-all duration-300`} />
+                                </span>
+                            </AccordionHeader>
+                            <AccordionBody className="text-gray-600 dark:text-gray-300">
+                                {item.answer}
+                            </AccordionBody>
+                        </Accordion>
+                    ))}
+                </div>
             </div>
         </section>
     );

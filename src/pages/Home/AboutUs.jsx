@@ -5,8 +5,8 @@ import CountUp from 'react-countup';
 export default function AboutUs() {
 
   return (
-    <section className="py-16 px-4  dark:bg-gradient-to-t dark:from-[#121212] dark:to-[#1F1A33]">
-      <div className="container mx-auto">
+    <section className="py-16 md:py-20  dark:bg-gradient-to-t dark:from-[#121212] dark:to-[#1F1A33]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 ">
 
         {/* Section Header */}
         <div className="sticky top-32 md:static">

@@ -55,8 +55,8 @@ const MeetTheHeroes = () => {
 
 
     return (
-        <section className="dark:bg-gradient-to-t dark:from-[#121212] dark:to-[#1F1A33] py-20 px-4 sm:px-8">
-            <div className="max-w-6xl mx-auto text-center">
+        <section className="dark:bg-gradient-to-t dark:from-[#121212] dark:to-[#1F1A33] py-16 md:py-20">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8  text-center">
                 <HeartHandshake className="w-12 h-12 mx-auto mb-6 text-primary" />
                 <Typography
                     variant="h3"
