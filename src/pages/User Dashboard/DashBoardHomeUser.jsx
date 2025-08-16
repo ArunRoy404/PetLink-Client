@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import {
     Typography,
     Button,
@@ -18,7 +18,9 @@ import {
     PieChart,
     Pie,
     Cell,
-    Legend
+    Legend,
+    AreaChart,
+    Area
 } from 'recharts';
 import {
     Layers,
@@ -30,6 +32,7 @@ import {
     Heart,
     Clock
 } from 'lucide-react';
+import DashboardAreaChart from '../../components/ui/Dashboard/DashboardAreaChart';
 
 const DashBoardHomeUser = () => {
 
@@ -188,50 +191,22 @@ const DashBoardHomeUser = () => {
                     <CardBody className="p-6">
                         <div className="flex items-center justify-between mb-6">
                             <Typography variant="h6" color="blue-gray" className="dark:text-white">
-                                <BarChart2 className="inline-block h-5 w-5 mr-2 text-blue-500" />
+                                <BarChart2 className="inline-block h-5 w-5 mr-2 text-primary" />
                                 Monthly Adoptions
                             </Typography>
-                            <Button variant="text" size="sm" className="flex items-center gap-1 text-blue-500">
-                                View All
-                                <ArrowRight className="h-3 w-3" />
-                            </Button>
+                            <Link to={'/dashboard/adoption-requests'}>
+                                <Button variant="text" size="sm" className="flex items-center gap-1 text-primary">
+                                    View All
+                                    <ArrowRight className="h-3 w-3" />
+                                </Button>
+                            </Link>
                         </div>
                         <div className="h-[280px]">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <BarChart data={adoptionData}>
-                                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
-                                    <XAxis
-                                        dataKey="name"
-                                        axisLine={false}
-                                        tickLine={false}
-                                        tick={{ fill: '#6B7280', fontSize: 12 }}
-                                    />
-                                    <YAxis
-                                        axisLine={false}
-                                        tickLine={false}
-                                        tick={{ fill: '#6B7280', fontSize: 12 }}
-                                    />
-                                    <Tooltip
-                                        contentStyle={{
-                                            backgroundColor: '#FFFFFF',
-                                            borderColor: '#E5E7EB',
-                                            borderRadius: '0.5rem',
-                                            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-                                            fontSize: '12px'
-                                        }}
-                                        cursor={{ fill: '#EFF6FF' }}
-                                    />
-                                    <Bar
-                                        dataKey="adoptions"
-                                        fill="#3B82F6"
-                                        radius={[4, 4, 0, 0]}
-                                        animationDuration={1500}
-                                    />
-                                </BarChart>
-                            </ResponsiveContainer>
+                            <DashboardAreaChart data={adoptionData} dataKey={"adoptions"} />
                         </div>
                     </CardBody>
                 </Card>
+
 
                 {/* Donations Chart */}
                 <Card className="dark:bg-[#3b3162] overflow-hidden">
