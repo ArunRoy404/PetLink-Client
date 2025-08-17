@@ -39,14 +39,14 @@ const NavbarDashboard = ({ toggleSidebar }) => {
                     <div className="hover:bg-gray-200 p-2 rounded-full">
                         <ThemeToggle />
                     </div>
-                    <IconButton
+                    {/* <IconButton
                         variant="text"
                         className="dark:text-white rounded-full relative"
                         ripple={false}
                     >
                         <Bell className="h-5 w-5" />
                         <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
-                    </IconButton>
+                    </IconButton> */}
                     <Profile />
                 </div>
             </div>

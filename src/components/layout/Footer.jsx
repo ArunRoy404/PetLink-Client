@@ -8,15 +8,23 @@ import {
   PawPrint,
 } from "lucide-react";
 import Logo from "../ui/Logo";
+import { notifySuccess } from "../../ReactHotToast/ReactHotToast";
 
 const Footer = () => {
+
+  const handleSubscription = (e) => {
+    e.preventDefault()
+    notifySuccess('Thank you for subscribing!')
+    e.target.reset()
+  }
+
   return (
     <footer className="bg-gradient-to-t from-[#CCC2F2] to-white dark:bg-gradient-to-t dark:text-white dark:from-[#121212] dark:to-[#1F1A33] pt-12 pb-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8  grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-10">
         {/* Logo & Info */}
         <div>
           <div className="flex items-center gap-2 mb-4">
-            <Logo/>
+            <Logo />
           </div>
           <p className="text-lg leading-relaxed font-bold ">
             Connecting hearts with paws. Adopt, love, and give pets a forever
@@ -29,9 +37,9 @@ const Footer = () => {
           <h4 className="text-lg font-semibold mb-4 text-primary">Quick Links</h4>
           <ul className="space-y-2 text-sm">
             <li><a href="/" className="hover:text-primary">Home</a></li>
-            <li><a href="/pets" className="hover:text-primary">Browse Pets</a></li>
-            <li><a href="/about" className="hover:text-primary">About Us</a></li>
-            <li><a href="/contact" className="hover:text-primary">Contact</a></li>
+            <li><a href="/pet-listing" className="hover:text-primary">Browse Pets</a></li>
+            <li><a href="/campaigns" className="hover:text-primary">Browse Campaigns</a></li>
+            {/* <li><a href="/contact" className="hover:text-primary">Contact</a></li> */}
           </ul>
         </div>
 
@@ -55,8 +63,9 @@ const Footer = () => {
         <div>
           <h4 className="text-lg font-semibold mb-4 text-primary">Stay Updated</h4>
           <p className="text-sm mb-3">Subscribe for latest pet adoption news.</p>
-          <form className="flex flex-col sm:flex-row gap-2">
+          <form onSubmit={handleSubscription} className="flex flex-col sm:flex-row gap-2">
             <input
+              required
               type="email"
               placeholder="Your Email"
               className="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
@@ -78,13 +87,13 @@ const Footer = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-800 dark:text-gray-400 gap-4">
         <p>&copy; {new Date().getFullYear()} PetLink. All rights reserved.</p>
         <div className="flex gap-4">
-          <a href="#" className="hover:text-primary">
+          <a href="http://facebook.com/" target="_blank" className="hover:text-primary">
             <Facebook className="w-5 h-5" />
           </a>
-          <a href="#" className="hover:text-primary">
+          <a href="https://x.com/" target="_blank" className="hover:text-primary">
             <Twitter className="w-5 h-5" />
           </a>
-          <a href="#" className="hover:text-primary">
+          <a href="https://www.instagram.com/" target="_blank" className="hover:text-primary">
             <Instagram className="w-5 h-5" />
           </a>
         </div>

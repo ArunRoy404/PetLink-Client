@@ -41,7 +41,7 @@ const StoryCard = ({ hero }) => {
                 </div>
 
                 {/* Bottom: Details Left + Button Right */}
-                <div className="flex items-center justify-center mt-auto pt-2 border-t border-gray-200 dark:border-gray-600">
+                {/* <div className="flex items-center justify-center mt-auto pt-2 border-t border-gray-200 dark:border-gray-600">
                     <Button
                         size="sm"
                         variant="text"
@@ -50,7 +50,7 @@ const StoryCard = ({ hero }) => {
                         Read More
                         <ArrowRight/>
                     </Button>
-                </div>
+                </div> */}
             </div>
         </div>
     );

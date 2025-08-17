@@ -1,5 +1,6 @@
 import { Typography, Button } from "@material-tailwind/react";
 import { PawPrint, Heart, HandHeart, Users, ShieldCheck } from "lucide-react";
+import { Link } from "react-router";
 
 export default function JoinMission() {
     return (
@@ -28,34 +29,41 @@ export default function JoinMission() {
 
                     {/* Action Buttons */}
                     <div className="flex flex-wrap justify-center gap-4">
-                        <Button
-                            size="lg"
-                            className="flex items-center gap-2 px-8 group bg-primary"
-                            placeholder=""
-                        >
-                            <Heart className="w-5 h-5 transition group-hover:scale-110" />
-                            Adopt Now
-                        </Button>
+                        <Link to='/pet-listing'>
+                            <Button
+                                size="lg"
+                                className="flex items-center gap-2 px-8 group bg-primary"
+                                placeholder=""
+                            >
+                                <Heart className="w-5 h-5 transition group-hover:scale-110" />
+                                Adopt Now
+                            </Button>
+                        </Link>
 
-                        <Button
-                            variant="gradient"
-                            size="lg"
-                            className="flex items-center gap-2 px-8 group bg-secondary"
-                            placeholder=""
-                        >
-                            <HandHeart className="w-5 h-5 transition group-hover:scale-110" />
-                            Donate
-                        </Button>
+                        <Link to='/campaigns'>
+                            <Button
+                                variant="gradient"
+                                size="lg"
+                                className="flex items-center gap-2 px-8 group bg-secondary"
+                                placeholder=""
+                            >
+                                <HandHeart className="w-5 h-5 transition group-hover:scale-110" />
+                                Donate
+                            </Button>
+                        </Link>
 
-                        <Button
-                            variant="outlined"
-                            size="lg"
-                            className="flex items-center gap-2 px-8 group hover:bg-white/10 dark:border-white dark:text-white"
-                            placeholder=""
-                        >
-                            <Users className="w-5 h-5 transition group-hover:scale-110" />
-                            Volunteer
-                        </Button>
+                        <Link to='/dashboard/add-pet'>
+                            <Button
+                                variant="outlined"
+                                size="lg"
+                                className="flex items-center gap-2 px-8 group hover:bg-white/10 dark:border-white dark:text-white"
+                                placeholder=""
+                            >
+                                <Users className="w-5 h-5 transition group-hover:scale-110" />
+                                Volunteer
+                            </Button>
+                        </Link>
+
                     </div>
 
                     {/* Trust Badges */}
@@ -67,7 +75,7 @@ export default function JoinMission() {
                         ].map((text, index) => (
                             <div key={index} className="flex items-center">
                                 <ShieldCheck className="w-5 h-5 mr-2 text-primary" />
-                                <Typography  placeholder="">{text}</Typography>
+                                <Typography placeholder="">{text}</Typography>
                             </div>
                         ))}
                     </div>

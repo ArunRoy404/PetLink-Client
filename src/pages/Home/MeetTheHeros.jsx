@@ -95,8 +95,8 @@ const MeetTheHeroes = () => {
                         ))}
                     </Swiper>
 
-                    <button className='absolute left-4 top-1/2 -translate-y-[70%] z-[10] bg-gray-200 flex items-center justify-center rounded-full button-next w-10 h-10 ' onClick={() => handleSlideChange('prev')}><ChevronLeft /></button>
-                    <button className='absolute right-4 top-1/2 -translate-y-[70%] z-[10] bg-gray-200 flex items-center justify-center rounded-full button-next w-10 h-10 ' onClick={() => handleSlideChange('next')}><ChevronRight/></button>
+                    <button className='absolute left-4 top-1/2 -translate-y-[200%] z-[10] bg-gray-200 flex items-center justify-center rounded-full button-next w-10 h-10 ' onClick={() => handleSlideChange('prev')}><ChevronLeft /></button>
+                    <button className='absolute right-4 top-1/2 -translate-y-[200%] z-[10] bg-gray-200 flex items-center justify-center rounded-full button-next w-10 h-10 ' onClick={() => handleSlideChange('next')}><ChevronRight/></button>
                 </div>
             </div>
         </section>
