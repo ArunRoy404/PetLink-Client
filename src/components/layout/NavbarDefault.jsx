@@ -94,7 +94,7 @@ export function NavbarDefault() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-text">
 
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-8">
           {/* menubar  */}
           <MenuBar openNav={openNav} setOpenNav={setOpenNav} />
           {/* logo  */}
