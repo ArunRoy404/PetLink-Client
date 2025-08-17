@@ -75,7 +75,7 @@ const Footer = () => {
       <div className="my-6 border-t border-gray-300 dark:border-gray-700"></div>
 
       {/* Bottom Bar */}
-      <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-800 dark:text-gray-400 gap-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-800 dark:text-gray-400 gap-4">
         <p>&copy; {new Date().getFullYear()} PetLink. All rights reserved.</p>
         <div className="flex gap-4">
           <a href="#" className="hover:text-primary">
