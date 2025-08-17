@@ -1,5 +1,5 @@
 import { Button, Card, CardBody, Typography, Chip, IconButton, Tooltip } from '@material-tailwind/react';
-import { PawPrint, Heart, MapPin, CalendarDays, Share2, Eye, ArrowRight } from 'lucide-react';
+import { PawPrint, Heart, MapPin, CalendarDays, Share2, Eye, ArrowRight, Text } from 'lucide-react';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
 
@@ -8,7 +8,7 @@ const PetCard = ({ pet }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   return (
-    <Card 
+    <Card
       className="dark:bg-[#1F1A33] dark:border-gray-700 relative overflow-hidden transition-all shadow-none hover:shadow-md duration-300 border-2 border-gray-300 group hover:"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -20,7 +20,7 @@ const PetCard = ({ pet }) => {
           alt={pet.petName}
           className={`w-full h-full object-cover transition-all duration-700 ${isHovered ? 'scale-105' : 'scale-100'}`}
         />
-        
+
         {/* Floating action buttons */}
         <div className={`absolute top-3 right-3 flex flex-col gap-2 transition-all duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
           <Tooltip content="Add to favorites">
@@ -34,14 +34,14 @@ const PetCard = ({ pet }) => {
                 setIsFavorite(!isFavorite);
               }}
             >
-              <Heart 
-                size={18} 
-                className={isFavorite ? 'text-white' : 'text-red-500'} 
-                fill={isFavorite ? 'currentColor' : 'none'} 
+              <Heart
+                size={18}
+                className={isFavorite ? 'text-white' : 'text-red-500'}
+                fill={isFavorite ? 'currentColor' : 'none'}
               />
             </IconButton>
           </Tooltip>
-          
+
           <Tooltip content="Quick view">
             <IconButton
               variant="gradient"
@@ -70,36 +70,47 @@ const PetCard = ({ pet }) => {
       {/* Card content */}
       <CardBody className="p-5 pt-3 ">
         {/* Pet name with subtle hover effect */}
-        <Typography 
-          variant="h5" 
+        <Typography
+          variant="h5"
           className="font-bold text-gray-900 mb-1.5 dark:text-white  transition-colors hover:text-primary cursor-pointer"
           onClick={() => navigate(`/pets/${pet._id}`)}
         >
           {pet.petName}
         </Typography>
-        
+
         {/* Pet details with animated icons */}
         <div className="flex flex-col gap-2 mb-6">
-          <div className="flex items-center gap-2 text-gray-600">
-            <CalendarDays 
-              size={16} 
-              className={`text-gray-400 transition-transform ${isHovered ? 'scale-110' : 'scale-100'}`} 
+          <div className=" flex gap-2 text-gray-600 h-8">
+            <Text
+              size={16}
+              className={`text-gray-400 transition-transform ${isHovered ? 'scale-110' : 'scale-100'}`}
+            />
+            <Typography variant="small" className="text-sm -mt-[2px]">
+              {pet.shortDescription.slice(0,100)+' ...'}
+            </Typography>
+          </div>
+
+          <div className="flex items-center gap-2 text-gray-600 mt-4">
+            <CalendarDays
+              size={16}
+              className={`text-gray-400 transition-transform ${isHovered ? 'scale-110' : 'scale-100'}`}
             />
             <Typography variant="small" className="text-sm">
-              {pet.petAge} old 
+              {pet.petAge} old
             </Typography>
           </div>
           <div className="flex items-center gap-2 text-gray-600">
-            <MapPin 
-              size={16} 
-              className={`text-gray-400 transition-transform ${isHovered ? 'scale-110' : 'scale-100'}`} 
+            <MapPin
+              size={16}
+              className={`text-gray-400 transition-transform ${isHovered ? 'scale-110' : 'scale-100'}`}
             />
             <Typography variant="small" className="text-sm">
               {pet.petLocation}
             </Typography>
           </div>
+
         </div>
-        
+
         {/* Animated action button */}
         <Button
           size="md"
@@ -109,10 +120,10 @@ const PetCard = ({ pet }) => {
         >
           <PawPrint size={16} className="transition-transform group-hover:rotate-12" />
           <span>View Details</span>
-          <ArrowRight
+          {/* <ArrowRight
             size={16} 
             className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity" 
-          />
+          /> */}
         </Button>
       </CardBody>
     </Card>

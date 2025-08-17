@@ -100,14 +100,14 @@ const PetListing = () => {
 
             {/* Loading State */}
             {isLoading && (
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     {[...Array(6)].map((_, i) => <CardSkeleton key={i} />)}
                 </div>
             )}
 
             {/* Pets Grid */}
             {!isLoading && (
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     {petsData?.length > 0 ? (
                         petsData.map((pet, index) => <PetCard key={index} pet={pet} />)
                     ) : (
