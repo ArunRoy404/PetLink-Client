@@ -29,6 +29,7 @@ import AdoptDialog from '../../components/ui/AdoptPage/AdoptDialog';
 import { useAuthContext } from '../../context/AuthContext';
 import { useThemeContext } from '../../context/ThemeContext';
 import Loader from '../../components/ui/Loader';
+import RichTextEditor from '../../components/ui/RichTextEditor/RichTextEditor';
 
 // Pet traits with icons and colors
 const PET_TRAITS = [
@@ -146,11 +147,7 @@ const PetDetails = () => {
                                         About {petData.petName}
                                     </Typography>
                                     <div className="max-h-60 overflow-y-auto pr-3 custom-scrollbar">
-                                        <Typography className="text-gray-700 leading-relaxed">
-                                            {petData.longDescription.split('\n').map((paragraph, i) => (
-                                                <span key={i} className="mb-4 last:mb-0">{paragraph}</span>
-                                            ))}
-                                        </Typography>
+                                        <RichTextEditor content={petData.longDescription} viewOnly={true} />
                                     </div>
                                 </div>
 

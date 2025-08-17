@@ -23,6 +23,7 @@ import PaymentDialog from '../../components/DonationDialog/PaymentDialog';
 import ActiveCampaigns from '../../components/pages/Donationdetails/ActiveCampaigns';
 import Loader from '../../components/ui/Loader';
 import { useThemeContext } from '../../context/ThemeContext';
+import RichTextEditor from '../../components/ui/RichTextEditor/RichTextEditor';
 
 // Dummy donation data for progress visualization
 // const donations = [
@@ -222,9 +223,9 @@ const DonationDetail = () => {
                             <Typography variant="h3" className="font-bold text-2xl mb-6 text-gray-900 border-b pb-2">
                                 About This Campaign
                             </Typography>
-                            <Typography className="text-gray-700 leading-relaxed whitespace-pre-line">
-                                {campaignData.longDescription}
-                            </Typography>
+                            <div className="max-h-60 overflow-y-auto pr-3 custom-scrollbar">
+                                <RichTextEditor content={campaignData.longDescription} viewOnly={true} />
+                            </div>
                         </Card>
                     </div>
                 </div>

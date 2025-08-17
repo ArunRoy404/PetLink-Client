@@ -7,8 +7,9 @@ import Highlight from '@tiptap/extension-highlight'
 import { useEffect } from 'react';
 
 
-const RichTextEditor = ({ content, onChange, className }) => {
+const RichTextEditor = ({ content, onChange, className, viewOnly }) => {
     const editor = useEditor({
+        editable: viewOnly !== true,
         extensions: [
             Highlight.configure({
                 multicolor: true // Optional, allows multiple highlight colors
@@ -55,9 +56,9 @@ const RichTextEditor = ({ content, onChange, className }) => {
 
     return (
         <div className={className}>
-            <EditorMenuBar editor={editor} />
+            {viewOnly === true ? <></> : <EditorMenuBar editor={editor} /> }
             <EditorContent
-                className="p-3 pb-0 [&_.ProseMirror]:min-h-36 text-sm [&_.ProseMirror:focus]:outline-none"
+                className="p-3 pb-0 [&_.ProseMirror]:min-h-36 text-sm text-black [&_.ProseMirror:focus]:outline-none"
                 editor={editor}
             />
         </div>
