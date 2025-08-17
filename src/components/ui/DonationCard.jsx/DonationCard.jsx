@@ -71,8 +71,8 @@ const DonationCard = ({ campaignData }) => {
                     />
                 </div>
 
-                <Typography className="text-gray-600 mb-6 line-clamp-2">
-                    {shortDescription}
+                <Typography className="text-gray-600 mb-6 h-8">
+                    {shortDescription.slice(0, 70) + '...'}
                 </Typography>
 
                 {/* Donation Progress */}
@@ -105,22 +105,22 @@ const DonationCard = ({ campaignData }) => {
             </CardBody>
 
             <CardFooter className="pt-0 pb-6 px-6">
-                <div className="flex justify-between items-center">
-                    <Button
+                <div className="flex items-center">
+                    {/* <Button
                         variant="outlined"
                         color="gray"
                         className="flex items-center gap-2 dark:text-white dark:border-white hover:bg-gray-100 px-4 py-2 rounded-lg"
                     >
                         <Heart size={18} className="text-red-500" />
                         <span>Save</span>
-                    </Button>
+                    </Button> */}
 
                     <Button
-                        className="flex items-center gap-2 bg-primary"
+                        className="flex w-full items-center justify-center gap-2 bg-primary"
                         onClick={() => navigate(`/campaign/${campaignData._id}`)}
                     >
                         <Eye size={18} />
-                        Details
+                        See More
                     </Button>
                 </div>
             </CardFooter>

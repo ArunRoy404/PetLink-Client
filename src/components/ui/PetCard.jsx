@@ -80,17 +80,8 @@ const PetCard = ({ pet }) => {
 
         {/* Pet details with animated icons */}
         <div className="flex flex-col gap-2 mb-6">
-          <div className=" flex gap-2 text-gray-600 h-8">
-            <Text
-              size={16}
-              className={`text-gray-400 transition-transform ${isHovered ? 'scale-110' : 'scale-100'}`}
-            />
-            <Typography variant="small" className="text-sm -mt-[2px]">
-              {pet.shortDescription.slice(0,100)+' ...'}
-            </Typography>
-          </div>
 
-          <div className="flex items-center gap-2 text-gray-600 mt-4">
+          <div className="flex items-center gap-2 text-gray-600">
             <CalendarDays
               size={16}
               className={`text-gray-400 transition-transform ${isHovered ? 'scale-110' : 'scale-100'}`}
@@ -106,6 +97,16 @@ const PetCard = ({ pet }) => {
             />
             <Typography variant="small" className="text-sm">
               {pet.petLocation}
+            </Typography>
+          </div>
+
+          <div className=" flex gap-2 text-gray-600 h-8 mt-2">
+            <Text
+              size={16}
+              className={`text-gray-400 transition-transform ${isHovered ? 'scale-110' : 'scale-100'}`}
+            />
+            <Typography variant="small" className="text-sm -mt-[2px]">
+              {pet.shortDescription.slice(0, 70) + ' ...'}
             </Typography>
           </div>
 
