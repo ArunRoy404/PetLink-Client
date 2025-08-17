@@ -45,9 +45,9 @@ const ErrorPage = () => {
           <div className="flex flex-col sm:flex-row justify-center gap-3 mt-8">
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
               <Button
-                color="blue"
+              variant='outlined'
                 size="lg"
-                className="flex items-center justify-center gap-2 w-full sm:w-auto"
+                className="flex items-center justify-center gap-2 w-full sm:w-auto text-primary border-primary"
                 onClick={() => navigate('/')}
               >
                 <Home className="w-5 h-5" />
