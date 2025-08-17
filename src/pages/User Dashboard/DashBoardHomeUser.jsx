@@ -1,11 +1,7 @@
-import { Link, NavLink } from 'react-router';
 import {
     Typography,
-    Button,
     Card,
     CardBody,
-    CardFooter,
-    Chip
 } from "@material-tailwind/react";
 import {
     BarChart,
@@ -27,10 +23,7 @@ import {
     Inbox,
     Gift,
     BarChart2,
-    ArrowRight,
     PawPrint,
-    Heart,
-    Clock
 } from 'lucide-react';
 import DashboardAreaChart from '../../components/ui/Dashboard/DashboardAreaChart';
 import { useAuthContext } from '../../context/AuthContext';
@@ -40,6 +33,7 @@ import { useGetAllAdoptionRequestsCountApi } from '../../axios/AdoptionApi';
 import { useGetCampaignsCountApi, useGetDonationAmountApi } from '../../axios/donationApi';
 import RecentActivities from '../../components/ui/Dashboard/RecentActivities';
 import AdoptionChart from '../../components/ui/Dashboard/AdoptionChart';
+import DonationChart from '../../components/ui/Dashboard/DonationChart';
 
 const DashBoardHomeUser = () => {
 
@@ -50,15 +44,11 @@ const DashBoardHomeUser = () => {
     const {getDonationAmountPromise} = useGetDonationAmountApi()
 
 
-    const campaignData = [
-        { name: 'Max Surgery', value: 75, color: '#3B82F6' },
-        { name: 'Shelter Reno', value: 45, color: '#10B981' },
-        { name: 'Food Drive', value: 90, color: '#F59E0B' },
-    ];
+
 
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 p-4">
             {/* Welcome Banner */}
             <Card className="bg-primary overflow-hidden">
                 <CardBody className="p-6 relative">
@@ -99,59 +89,9 @@ const DashBoardHomeUser = () => {
                 {/* Adoptions Chart */}
                 <AdoptionChart/>
 
-
                 {/* Donations Chart */}
-                <Card className="dark:bg-[#3b3162] overflow-hidden">
-                    <CardBody className="p-6">
-                        <div className="flex items-center justify-between mb-6">
-                            <Typography variant="h6" color="blue-gray" className="dark:text-white">
-                                <Gift className="inline-block h-5 w-5 mr-2 text-emerald-500" />
-                                Donation Progress
-                            </Typography>
-                            <Button variant="text" size="sm" className="flex items-center gap-1 text-blue-500">
-                                View All
-                                <ArrowRight className="h-3 w-3" />
-                            </Button>
-                        </div>
-                        <div className="h-[280px]">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <PieChart>
-                                    <Pie
-                                        data={campaignData}
-                                        cx="50%"
-                                        cy="50%"
-                                        innerRadius={70}
-                                        outerRadius={90}
-                                        paddingAngle={2}
-                                        dataKey="value"
-                                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                                        labelLine={false}
-                                    >
-                                        {campaignData.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={entry.color} />
-                                        ))}
-                                    </Pie>
-                                    <Tooltip
-                                        formatter={(value) => [`${value}%`, 'Progress']}
-                                        contentStyle={{
-                                            backgroundColor: '#FFFFFF',
-                                            borderColor: '#E5E7EB',
-                                            borderRadius: '0.5rem',
-                                            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-                                            fontSize: '12px'
-                                        }}
-                                    />
-                                    <Legend
-                                        layout="horizontal"
-                                        verticalAlign="bottom"
-                                        align="center"
-                                        wrapperStyle={{ paddingTop: '20px' }}
-                                    />
-                                </PieChart>
-                            </ResponsiveContainer>
-                        </div>
-                    </CardBody>
-                </Card>
+                <DonationChart/>
+
             </div>
 
             {/* Recent Activity */}
