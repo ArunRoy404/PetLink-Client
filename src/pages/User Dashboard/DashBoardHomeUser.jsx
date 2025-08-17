@@ -39,6 +39,7 @@ import StatCard from '../../components/ui/Dashboard/StatCard';
 import { useGetAllAdoptionRequestsCountApi } from '../../axios/AdoptionApi';
 import { useGetCampaignsCountApi, useGetDonationAmountApi } from '../../axios/donationApi';
 import RecentActivities from '../../components/ui/Dashboard/RecentActivities';
+import AdoptionChart from '../../components/ui/Dashboard/AdoptionChart';
 
 const DashBoardHomeUser = () => {
 
@@ -48,14 +49,6 @@ const DashBoardHomeUser = () => {
     const {getCampaignsCountPromise} = useGetCampaignsCountApi()
     const {getDonationAmountPromise} = useGetDonationAmountApi()
 
-    // Chart Data
-    const adoptionData = [
-        { name: 'Jan', adoptions: 11 },
-        { name: 'Feb', adoptions: 8 },
-        { name: 'Mar', adoptions: 15 },
-        { name: 'Apr', adoptions: 12 },
-        { name: 'May', adoptions: 18 },
-    ];
 
     const campaignData = [
         { name: 'Max Surgery', value: 75, color: '#3B82F6' },
@@ -104,25 +97,7 @@ const DashBoardHomeUser = () => {
             {/* Charts Section */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Adoptions Chart */}
-                <Card className="dark:bg-[#3b3162] overflow-hidden shadow-none border border-gray-300">
-                    <CardBody className="p-6">
-                        <div className="flex items-center justify-between mb-6">
-                            <Typography variant="h6" color="blue-gray" className="dark:text-white">
-                                <BarChart2 className="inline-block h-5 w-5 mr-2 text-primary" />
-                                Monthly Adoptions
-                            </Typography>
-                            <Link to={'/dashboard/adoption-requests'}>
-                                <Button variant="text" size="sm" className="flex items-center gap-1 text-primary">
-                                    View All
-                                    <ArrowRight className="h-3 w-3" />
-                                </Button>
-                            </Link>
-                        </div>
-                        <div className="h-[280px]">
-                            <DashboardAreaChart data={adoptionData} dataKey={"adoptions"} />
-                        </div>
-                    </CardBody>
-                </Card>
+                <AdoptionChart/>
 
 
                 {/* Donations Chart */}
