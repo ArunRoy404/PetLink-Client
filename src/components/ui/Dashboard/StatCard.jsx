@@ -19,7 +19,7 @@ const StatCard = ({ icon, title, link, promise, isMoney=false }) => {
     })
     return (
         <Card
-            className="hover:shadow-lg transition-shadow hover:border-primary dark:bg-[#3b3162] dark:hover:border-gray-600 border border-transparent"
+            className="shadow-none border border-gray-300 hover:border-primary dark:bg-[#3b3162] dark:hover:border-gray-600"
         >
             <CardBody className="p-5">
                 <div className="flex items-center justify-between mb-4">
@@ -43,7 +43,7 @@ const StatCard = ({ icon, title, link, promise, isMoney=false }) => {
             <CardFooter className="p-4 pt-0">
                 <NavLink
                     to={link}
-                    className="text-sm font-medium text-primary transition flex items-center gap-1"
+                    className=" dark:text-white text-sm font-medium text-primary transition flex items-center gap-1"
                 >
                     View details
                     <ArrowRight className="h-3 w-3" />

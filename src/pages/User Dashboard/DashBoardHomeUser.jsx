@@ -104,7 +104,7 @@ const DashBoardHomeUser = () => {
             {/* Charts Section */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Adoptions Chart */}
-                <Card className="dark:bg-[#3b3162] overflow-hidden">
+                <Card className="dark:bg-[#3b3162] overflow-hidden shadow-none border border-gray-300">
                     <CardBody className="p-6">
                         <div className="flex items-center justify-between mb-6">
                             <Typography variant="h6" color="blue-gray" className="dark:text-white">
