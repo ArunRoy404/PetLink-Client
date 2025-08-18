@@ -26,6 +26,7 @@ import Payment from '../pages/Payment/Payment';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 import AdminRoute from './PrivateRoute/AdminRoute';
 import MyProfile from '../pages/User Dashboard/MyProfile';
+import ContactUs from '../pages/ContactUs/ContactUs';
 
 
 const router = createBrowserRouter([
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
             {
                 path: '/campaign/:campaignId',
                 element: <PrivateRoute><DonationDetails /></PrivateRoute>
+            },
+            {
+                path: '/contact',
+                Component: ContactUs
             }
         ]
     },
