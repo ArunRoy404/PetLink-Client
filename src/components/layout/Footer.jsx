@@ -6,6 +6,8 @@ import {
   Phone,
   MapPin,
   PawPrint,
+  Github,
+  Linkedin,
 } from "lucide-react";
 import Logo from "../ui/Logo";
 import { notifySuccess } from "../../ReactHotToast/ReactHotToast";
@@ -85,9 +87,10 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-800 dark:text-gray-400 gap-4">
-        <p>&copy; {new Date().getFullYear()} PetLink. All rights reserved.</p>
+        {/* <p>&copy; {new Date().getFullYear()} PetLink. All rights reserved.</p> */}
+        <p>Made by - Orun Chondro Ray </p>
         <div className="flex gap-4">
-          <a href="http://facebook.com/" target="_blank" className="hover:text-primary">
+          {/* <a href="http://facebook.com/" target="_blank" className="hover:text-primary">
             <Facebook className="w-5 h-5" />
           </a>
           <a href="https://x.com/" target="_blank" className="hover:text-primary">
@@ -95,6 +98,12 @@ const Footer = () => {
           </a>
           <a href="https://www.instagram.com/" target="_blank" className="hover:text-primary">
             <Instagram className="w-5 h-5" />
+          </a> */}
+          <a href="https://github.com/ArunRoy404" target="_blank" className="hover:text-primary">
+            <Github className="w-5 h-5" />
+          </a>
+          <a href="https://www.linkedin.com/in/orun-chondro-ray/" target="_blank" className="hover:text-primary">
+            <Linkedin className="w-5 h-5" />
           </a>
         </div>
       </div>
