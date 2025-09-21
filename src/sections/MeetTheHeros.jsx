@@ -5,7 +5,7 @@ import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import StoryCard from "../../components/ui/StoryCard";
+import StoryCard from "../components/ui/StoryCard";
 import { useRef} from "react";
 
 const stories = [

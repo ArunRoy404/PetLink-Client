@@ -1,11 +1,11 @@
-import Banner from "./Banner";
-import PetsCategory from "./PetsCategory";
-import CallToAction from "./CallToAction";
-import AboutUs from "./AboutUs";
-import Impacts from "./Impacts";
-import FAQ from "./FAQ";
-import MeetTheHeroes from "./MeetTheHeros";
-import JoinMission from "./JoinMission";
+import Banner from "../../sections/Banner";
+import PetsCategory from "../../sections/PetsCategory";
+import CallToAction from "../../sections/CallToAction";
+import AboutUs from "../../sections/AboutUs";
+import Impacts from "../../sections/Impacts";
+import FAQ from "../../sections/FAQ";
+import JoinMission from "../../sections/JoinMission";
+import MeetTheHeroes from "../../sections/MeetTheHeros";
 
 
 const Home = () => {
