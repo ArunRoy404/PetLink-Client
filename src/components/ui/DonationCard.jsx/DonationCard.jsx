@@ -3,6 +3,7 @@ import { Progress, Button, Typography, Avatar, Card, CardBody, CardFooter } from
 import { Heart, Eye } from 'lucide-react';
 import { useNavigate } from 'react-router';
 import { useGetDonationsApi } from '../../../axios/donationApi';
+import { formatCurrency } from '../../../utilities/formatCurrency';
 
 const DonationCard = ({ campaignData }) => {
     const navigate = useNavigate()
@@ -32,14 +33,6 @@ const DonationCard = ({ campaignData }) => {
     // Calculate donation progress percentage
     const progress = Math.min(Math.round((donatedAmount / maxDonationAmount) * 100), 100);
 
-    // Format currency
-    const formatCurrency = (amount) => {
-        return new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-            maximumFractionDigits: 0
-        }).format(amount);
-    };
 
     return (
         <Card className="w-full dark:bg-[#1F1A33] dark:text-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
