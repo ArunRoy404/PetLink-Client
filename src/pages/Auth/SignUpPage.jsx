@@ -22,8 +22,6 @@ import {
 import axios from 'axios';
 import Avatar from "../../components/ui/Avatar";
 import { Link, useLocation, useNavigate } from "react-router";
-import GoogleSignIn from "../../components/ui/GoogleSignIn";
-import GithubSignIn from "../../components/ui/GithubSignIn";
 import { notifyError, notifySuccess } from "../../ReactHotToast/ReactHotToast";
 import { useAuthContext } from "../../context/AuthContext";
 import { bouncy } from 'ldrs'

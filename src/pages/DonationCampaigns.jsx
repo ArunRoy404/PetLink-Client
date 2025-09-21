@@ -12,7 +12,6 @@ import { useInView } from "react-intersection-observer";
 import NoDataFound from '../components/ui/NoDataFound';
 import Loader from '../components/ui/Loader';
 import CardSkeleton from '../components/ui/CardSkeleton/CardSkeleton';
-import PetCard from '../components/ui/PetCard';
 import { useGetAllCampaignsApi } from '../axios/donationApi';
 import DonationCard from '../components/ui/DonationCard.jsx/DonationCard';
 

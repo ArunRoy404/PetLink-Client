@@ -14,8 +14,9 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { useAuthContext } from "../../context/AuthContext";
 import { notifyError, notifySuccess } from "../../ReactHotToast/ReactHotToast";
 import { bouncy } from 'ldrs'
-import GoogleSignIn from "../../components/ui/GoogleSignIn";
-import GithubSignIn from "../../components/ui/GithubSignIn";
+import GithubSignIn from "../../components/ui/Authentication/GithubSignIn";
+import GoogleSignIn from "../../components/ui/Authentication/GoogleSignIn";
+
 bouncy.register()
 
 

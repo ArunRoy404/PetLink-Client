@@ -1,9 +1,9 @@
 import { Button } from '@material-tailwind/react';
 import { Github } from 'lucide-react';
-import { useAuthContext } from '../../context/AuthContext';
+import { useAuthContext } from '../../../context/AuthContext';
 import { useState } from 'react';
 import { bouncy } from 'ldrs'
-import { notifyError, notifySuccess } from '../../ReactHotToast/ReactHotToast';
+import { notifyError, notifySuccess } from '../../../ReactHotToast/ReactHotToast';
 import { useLocation, useNavigate } from 'react-router';
 bouncy.register()
 

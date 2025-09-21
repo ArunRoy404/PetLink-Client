@@ -1,8 +1,8 @@
-import React from 'react';
-import GoogleSignIn from './GoogleSignIn';
-import GithubSignIn from './GithubSignIn';
+
 import { Typography } from '@material-tailwind/react';
 import { Link, useLocation } from 'react-router';
+import GithubSignIn from './Authentication/GithubSignIn';
+import GoogleSignIn from './Authentication/GoogleSignIn';
 
 const SocialLogin = ({ setError }) => {
     const location = useLocation()
