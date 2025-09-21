@@ -7,6 +7,8 @@ export default function JoinMission() {
         <section className="relative py-16 md:py-20 dark:bg-[#1F1A33] dark:text-white">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8  relative z-10">
                 <div className="max-w-3xl mx-auto text-center">
+
+                    
                     {/* Icon & Heading */}
                     <PawPrint className="w-12 h-12 mx-auto mb-6 text-primary" strokeWidth={1.5} />
 
@@ -26,6 +28,8 @@ export default function JoinMission() {
                     >
                         Every action you take helps write a new story for animals in need.
                     </Typography>
+
+
 
                     {/* Action Buttons */}
                     <div className="flex flex-wrap justify-center gap-4">

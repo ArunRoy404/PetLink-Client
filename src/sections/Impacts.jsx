@@ -1,55 +1,18 @@
 import { Typography } from "@material-tailwind/react";
-import {
-  PawPrint,
-  Cat,
-  HeartPulse,
-  ShieldCheck,
-  Smile,
-  Users,
-} from "lucide-react";
-import React from "react";
-import CountUp from "react-countup";
+import { stats } from "../DummyData/Stats";
+import { Users } from "lucide-react";
+import StatsCard from "../components/ui/Cards/StatsCard";
 
-const stats = [
-  {
-    value: 2500,
-    label: "Dogs Rehomed",
-    icon: PawPrint,
-  },
-  {
-    value: 1800,
-    label: "Cats Adopted",
-    icon: Cat,
-  },
-  {
-    value: 300,
-    label: "Special Needs Pets Placed",
-    icon: HeartPulse,
-  },
-  {
-    value: 500,
-    label: "Senior Pets Adopted",
-    icon: ShieldCheck,
-  },
-  {
-    value: 92,
-    label: "Adopter Satisfaction",
-    icon: Smile,
-    percentage: true,
-  },
-  {
-    value: 100,
-    label: "Volunteers",
-    icon: Users,
-  },
-];
 
 const Impacts = () => {
   return (
     <section>
       <div className="bg-background dark:bg-gradient-to-b dark:from-[#121212] dark:to-[#1F1A33] py-16 md:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+          {/* section header  */}
           <Users className="w-12 h-12 mx-auto mb-6 text-primary" />
+          {/* title  */}
           <Typography
             variant="h3"
             color="blue-gray"
@@ -58,6 +21,7 @@ const Impacts = () => {
           >
             Our Impact in Numbers
           </Typography>
+          {/* subtitle  */}
           <Typography
             variant="paragraph"
             className="mb-8 text-gray-600 dark:text-gray-300"
@@ -66,30 +30,10 @@ const Impacts = () => {
             Since launching in 2025, PetLink has facilitated:
           </Typography>
 
+
+          {/* stats container  */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6 xl:gap-12">
-            {stats.map((stat, index) => (
-              <div
-                key={index}
-                className="bg-white dark:bg-[#121212] p-6 rounded-lg border border-gray-200 dark:border-gray-600 hover:shadow-lg transition duration-300"
-              >
-                <stat.icon className="w-8 h-8 text-primary mb-3 mx-auto" />
-                <Typography
-                  variant="h4"
-                  className="mb-1 text-primary"
-                  placeholder=""
-                >
-                  <CountUp end={stat.value} enableScrollSpy={true} />
-                  {stat.percentage ? "%" : "+"}
-                </Typography>
-                <Typography
-                  variant="small"
-                  className="text-gray-600 dark:text-gray-300"
-                  placeholder=""
-                >
-                  {stat.label}
-                </Typography>
-              </div>
-            ))}
+            {stats.map((stat, index) => <StatsCard stat={stat} key={index} />)}
           </div>
         </div>
       </div>

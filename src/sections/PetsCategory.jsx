@@ -1,5 +1,5 @@
 import { categories } from "../DummyData/PetCategories";
-import CategoryCard from "../components/ui/Category/CategoryCard";
+import CategoryCard from "../components/ui/Cards/CategoryCard";
 
 const PetsCategory = () => {
   return (
@@ -11,8 +11,9 @@ const PetsCategory = () => {
           Browse by Pet Category
         </h2>
 
+        {/* categories container  */}
         <div className="grid gap-2 md:gap-5 xl:gap-20 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-          {categories.map((category) => <CategoryCard category={category} />)}
+          {categories.map((category) => <CategoryCard key={category.name} category={category} />)}
         </div>
       </div>
     </section>
