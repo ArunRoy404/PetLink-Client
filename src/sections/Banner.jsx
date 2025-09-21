@@ -6,15 +6,21 @@ const Banner = () => {
   return (
     <section className="bg-gradient-to-b from-[#CCC2F2]  dark:from-[#342e4e] dark:to-[#121212] pt-40 pb-16 md:pb-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col-reverse lg:flex-row items-center justify-between  md:gap-10">
+
         {/* Left Text Section */}
         <div className="w-full lg:w-1/2 text-center lg:text-left">
+
+          {/* Banner Title   */}
           <p className="text-4xl text-primary font-bold">Don't Buy</p>
           <h1 className="text-[5rem] md:text-[8rem] xl:text-[12rem] font-bold text-gray-900 dark:text-white leading-tight">
             Adopt
           </h1>
+          {/* subtitle  */}
           <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
             Discover adorable pets waiting for a forever home. Join us in making a difference — one paw at a time.
           </p>
+
+
 
           {/* Stats */}
           <div className="flex gap-4 mt-6 mx-auto lg:mx-0 max-w-max">
@@ -44,6 +50,8 @@ const Banner = () => {
             </div>
           </div>
 
+
+
           {/* buttons */}
           <div className="mt-6 flex justify-center lg:justify-start gap-4">
             <Button className="bg-primary flex items-center" size="lg">
@@ -56,6 +64,7 @@ const Banner = () => {
             </Button>
           </div>
         </div>
+
 
 
         {/* Right Image Section */}
