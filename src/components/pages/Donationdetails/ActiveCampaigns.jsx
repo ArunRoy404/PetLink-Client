@@ -1,16 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import {
-    Typography,
-} from '@material-tailwind/react';
-
-
+import { Typography } from '@material-tailwind/react';
 import { useGetCampaignsApi } from '../../../axios/donationApi';
-import NoDataFound from '../../ui/NoDataFound';
-import DonationCard from '../../ui/DonationCard.jsx/DonationCard';
-import CardSkeleton from '../../ui/CardSkeleton/CardSkeleton';
-
-
-
+import SkeletonContainer from '../../ui/Skeleton/SkeletonContainer';
+import CampaignsContainer from '../../Campaigns/CampaignsContainer';
 
 
 const ActiveCampaigns = () => {
@@ -19,7 +11,7 @@ const ActiveCampaigns = () => {
     // Fetch pets data
     const { data: campaignsData, isLoading } = useQuery({
         queryKey: ['campaigns',],
-        queryFn: () => getCampaignsPromise(0,3,false).then(res => res.data)
+        queryFn: () => getCampaignsPromise(0, 3, false).then(res => res.data)
     });
 
     return (
@@ -34,24 +26,10 @@ const ActiveCampaigns = () => {
             </div>
 
             {/* Loading State */}
-            {isLoading && (
-                <div className="auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-                    {[...Array(3)].map((_, i) => <CardSkeleton key={i} />)}
-                </div>
-            )}
+            {isLoading && <SkeletonContainer number={3} />}
 
-            {/* Donation Grid */}
-            {!isLoading && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 pb-10">
-                    {campaignsData?.length > 0 ? (
-                        campaignsData.map((campaignData, index) => <DonationCard key={index} campaignData={campaignData} />)
-                    ) : (
-                        <div className='col-span-full'>
-                            <NoDataFound message={'Try adjusting the category and search text'} />
-                        </div>
-                    )}
-                </div>
-            )}
+            {/* Donation Campaigns Container */}
+            {!isLoading && <CampaignsContainer campaignsData={campaignsData} />}
         </div>
     );
 };

@@ -1,32 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import {
-    Typography,
-} from '@material-tailwind/react';
-import { Search } from 'lucide-react';
-import Select from 'react-select';
-
-
+import { Typography } from '@material-tailwind/react';
 import { useInView } from "react-intersection-observer";
-
-import NoDataFound from '../components/ui/NoDataFound';
-import Loader from '../components/ui/Loader';
-import CardSkeleton from '../components/ui/CardSkeleton/CardSkeleton';
 import { useGetAllCampaignsApi } from '../axios/donationApi';
-import DonationCard from '../components/ui/DonationCard.jsx/DonationCard';
-
+import SkeletonContainer from '../components/ui/Skeleton/SkeletonContainer';
+import CampaignsContainer from '../components/Campaigns/CampaignsContainer';
+import InfiniteLoader from '../components/ui/InfiniteLoader';
 
 
 const DonationCampaigns = () => {
-
     const [campaignsData, setPetsData] = useState([])
-
-
-
     const { getAllCampaignsPromise } = useGetAllCampaignsApi()
-
     const { ref, inView } = useInView({ threshold: 1 })
-
 
 
     // Fetch pets data
@@ -36,12 +21,13 @@ const DonationCampaigns = () => {
     });
 
 
-
     useEffect(() => {
         if (inView || data?.length) {
             setPetsData(prevData => [...prevData, ...data])
         }
     }, [inView, data])
+
+
 
     return (
         <div className="dark:bg-gradient-to-b  dark:from-[#342e4e] dark:to-[#121212] ">
@@ -57,41 +43,22 @@ const DonationCampaigns = () => {
                 </div>
             </div>
 
+
             <div className='container mx-auto px-4 sm:px-6 lg:px-8'>
                 {/* Loading State */}
-                {isLoading && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-                        {[...Array(6)].map((_, i) => <CardSkeleton key={i} />)}
-                    </div>
-                )}
-
+                {isLoading && <SkeletonContainer number={6} />}
 
 
                 {/* Donation Grid */}
-                {!isLoading && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                        {campaignsData?.length > 0 ? (
-                            campaignsData.map((campaignData, index) => <DonationCard key={index} campaignData={campaignData} />)
-                        ) : (
-                            <div className='col-span-full'>
-                                <NoDataFound message={'Try adjusting the category and search text'} />
-                            </div>
-                        )}
-                    </div>
-                )}
+                {!isLoading && <CampaignsContainer campaignsData={campaignsData} />}
 
-                <div ref={ref} className='py-10 w-full flex items-center justify-center'>
-                    {
-                        campaignsData?.length !== 0 && inView && !isLoading && (
-                            <div className='flex flex-col items-center justify-center gap-4 font-bold '>
-                                <Loader size={50} />
-                                Loading...
-                            </div>
-                        )
-                    }
-                </div>
+
+                {/* infinite data loader  */}
+                <InfiniteLoader
+                    ref={ref}
+                    condition={campaignsData?.length !== 0 && inView && !isLoading}
+                />
             </div>
-
         </div>
     );
 };

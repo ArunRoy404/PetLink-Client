@@ -6,11 +6,13 @@ import {
 import Select from 'react-select';
 import { useGetPetCategoriesApi, useGetPetsApi } from '../../axios/petsApi';
 import './PetListing.css'
-import CardSkeleton from '../../components/ui/CardSkeleton/CardSkeleton';
+import CardSkeleton from '../../components/ui/Skeleton/CardSkeleton';
 import { useInView } from "react-intersection-observer";
 import Loader from '../../components/ui/Loader';
 import SearchBox from '../../components/ui/SearchAndFilters/SearchBox';
 import PetListingContainer from '../../components/PetListing/PetListingContainer';
+import SkeletonContainer from '../../components/ui/Skeleton/SkeletonContainer';
+import InfiniteLoader from '../../components/ui/InfiniteLoader';
 
 
 
@@ -94,11 +96,7 @@ const PetListing = () => {
 
 
             {/* Loading State */}
-            {isLoading && (
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                    {[...Array(6)].map((_, i) => <CardSkeleton key={i} />)}
-                </div>
-            )}
+            {isLoading && <SkeletonContainer number={6} />}
 
 
             {/* Pets Grid */}
@@ -106,17 +104,10 @@ const PetListing = () => {
 
 
             {/* page end monitor for infinite data load   */}
-            <div ref={ref} className='container mx-auto px-4 sm:px-6 lg:px-8  py-10 w-full flex items-center justify-center'>
-                {
-                    petsData?.length !== 0 && inView && !searchTerm && !selectedCategory && !isLoading && (
-                        <div className='flex flex-col items-center justify-center gap-4 font-bold '>
-                            <Loader size={50} />
-                            Loading...
-                        </div>
-                    )
-                }
-            </div>
-
+            <InfiniteLoader
+                ref={ref}
+                condition={petsData?.length !== 0 && inView && !searchTerm && !selectedCategory && !isLoading}
+            />
         </div>
     );
 };
